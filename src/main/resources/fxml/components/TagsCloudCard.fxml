@@ -4,9 +4,16 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.SVGPath?>
 
 <VBox spacing="15" styleClass="card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-    <Label styleClass="card-title" text="🏷 Tags Cloud" />
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <StackPane maxWidth="-Infinity" maxHeight="-Infinity" style="-fx-background-color: #F3E8FF; -fx-padding: 8; -fx-background-radius: 8;">
+            <SVGPath content="M12.586 2.586A2 2 0 0011.172 2H4a2 2 0 00-2 2v7.172a2 2 0 00.586 1.414l8 8a2 2 0 002.828 0l7.172-7.172a2 2 0 000-2.828l-8-8zM7 9a2 2 0 110-4 2 2 0 010 4z" style="-fx-fill: #8B5CF6;" scaleX="0.9" scaleY="0.9" />
+        </StackPane>
+        <Label styleClass="card-title" text="Tags Cloud" />
+    </HBox>
     
     <FlowPane hgap="10" vgap="10">
         <!-- Tag 1 -->

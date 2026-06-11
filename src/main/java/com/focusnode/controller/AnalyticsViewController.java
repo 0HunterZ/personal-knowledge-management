@@ -2,7 +2,6 @@ package com.focusnode.controller;
 
 import com.focusnode.model.CategoryBreakdown;
 import com.focusnode.model.FocusPoint;
-import com.focusnode.service.AppDataService;
 import com.focusnode.service.ServiceLocator;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -13,7 +12,6 @@ import javafx.scene.chart.XYChart;
 import java.util.stream.Collectors;
 
 public class AnalyticsViewController {
-
     @FXML
     private LineChart<String, Number> focusLineChart;
 

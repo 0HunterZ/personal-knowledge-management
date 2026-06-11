@@ -39,4 +39,9 @@ public class SidebarController {
     private void showAnalytics() {
         AppNavigator.navigateTo(AppView.ANALYTICS);
     }
+
+    @FXML
+    private void showReview() {
+        AppNavigator.navigateTo(AppView.REVIEW);
+    }
 }

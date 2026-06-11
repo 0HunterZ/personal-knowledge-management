@@ -3,13 +3,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.shape.SVGPath?>
 
 <VBox spacing="15" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focusnode.controller.RecentNotesController">
     
     <HBox alignment="CENTER_LEFT" spacing="10">
-        <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true">
-            <image><Image url="@/images/note_new.png" /></image>
-        </ImageView>
+        <SVGPath content="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z" style="-fx-fill: #1E293B;" scaleX="1.0" scaleY="1.0" />
         <Label text="Recent Notes" styleClass="card-title" />
         <Region HBox.hgrow="ALWAYS" />
         <Button text="View all →" styleClass="btn-text" onAction="#viewAllNotes" />

@@ -10,113 +10,113 @@
     <!-- 1. Header (Active Room Info) -->
     <VBox spacing="20">
         <HBox alignment="CENTER_LEFT" spacing="15">
-            <Label style="-fx-font-size: 24px;" text="👥" />
+            <Label styleClass="lan-room-icon" text="👥" />
             <VBox spacing="2">
                 <HBox spacing="10" alignment="CENTER_LEFT">
-                    <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Focus Room A" />
-                    <Label style="-fx-background-color: #DCFCE7; -fx-text-fill: #22C55E; -fx-padding: 2 6; -fx-background-radius: 4; -fx-font-size: 10px; -fx-font-weight: bold;" text="Host" />
+                    <Label styleClass="lan-room-title" text="Focus Room A" />
+                    <Label styleClass="lan-room-host-badge" text="Host" />
                 </HBox>
-                <Label style="-fx-text-fill: #6B7280; -fx-font-size: 12px;" text="IP: 192.168.1.105  •  Port: 5050" />
+                <Label styleClass="lan-room-ip" text="IP: 192.168.1.105  •  Port: 5050" />
             </VBox>
             <Region HBox.hgrow="ALWAYS" />
-            <Label styleClass="btn-outline" style="-fx-text-fill: #EF4444; -fx-border-color: #FCA5A5;" text="🚪 Leave Room" />
+            <Label styleClass="btn-outline, lan-room-leave-btn" text="🚪 Leave Room" />
         </HBox>
         
         <HBox spacing="15">
-            <VBox alignment="CENTER" HBox.hgrow="ALWAYS" style="-fx-background-color: #F8FAFC; -fx-background-radius: 8; -fx-padding: 10;">
-                <Label style="-fx-font-weight: bold; -fx-font-size: 16px;" text="4" />
-                <Label style="-fx-font-size: 11px; -fx-text-fill: #6B7280;" text="Members" />
+            <VBox alignment="CENTER" HBox.hgrow="ALWAYS" styleClass="lan-stat-box">
+                <Label styleClass="lan-stat-value" text="4" />
+                <Label styleClass="lan-stat-label" text="Members" />
             </VBox>
-            <VBox alignment="CENTER" HBox.hgrow="ALWAYS" style="-fx-background-color: #F8FAFC; -fx-background-radius: 8; -fx-padding: 10;">
-                <Label style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: #2563EB;" text="25:00" />
-                <Label style="-fx-font-size: 11px; -fx-text-fill: #6B7280;" text="Synced Time" />
+            <VBox alignment="CENTER" HBox.hgrow="ALWAYS" styleClass="lan-stat-box">
+                <Label styleClass="lan-stat-value-blue" text="25:00" />
+                <Label styleClass="lan-stat-label" text="Synced Time" />
             </VBox>
-            <VBox alignment="CENTER" HBox.hgrow="ALWAYS" style="-fx-background-color: #F8FAFC; -fx-background-radius: 8; -fx-padding: 10;">
-                <Label style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: #22C55E;" text="Focus" />
-                <Label style="-fx-font-size: 11px; -fx-text-fill: #6B7280;" text="Mode" />
+            <VBox alignment="CENTER" HBox.hgrow="ALWAYS" styleClass="lan-stat-box">
+                <Label styleClass="lan-stat-value-green" text="Focus" />
+                <Label styleClass="lan-stat-label" text="Mode" />
             </VBox>
-            <VBox alignment="CENTER" HBox.hgrow="ALWAYS" style="-fx-background-color: #F8FAFC; -fx-background-radius: 8; -fx-padding: 10;">
-                <Label style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: #22C55E;" text="Good" />
-                <Label style="-fx-font-size: 11px; -fx-text-fill: #6B7280;" text="Connection" />
+            <VBox alignment="CENTER" HBox.hgrow="ALWAYS" styleClass="lan-stat-box">
+                <Label styleClass="lan-stat-value-green" text="Good" />
+                <Label styleClass="lan-stat-label" text="Connection" />
             </VBox>
         </HBox>
     </VBox>
     
     <!-- 2. Members List -->
     <VBox spacing="10">
-        <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Members" />
+        <Label styleClass="lan-section-title" text="Members" />
         
         <!-- You -->
-        <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-padding: 8 0; -fx-border-color: #F1F5F9; -fx-border-width: 0 0 1 0;">
-            <Label styleClass="member-avatar" style="-fx-background-color: #22C55E;" text="U" />
+        <HBox alignment="CENTER_LEFT" spacing="15" styleClass="lan-member-row">
+            <Label styleClass="member-avatar, lan-avatar-green" text="U" />
             <VBox>
-                <Label style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: #22C55E;" text="You (Host) 👑" />
-                <Label style="-fx-font-size: 11px; -fx-text-fill: #94A3B8;" text="192.168.1.105" />
+                <Label styleClass="lan-member-name-host" text="You (Host) 👑" />
+                <Label styleClass="lan-member-ip" text="192.168.1.105" />
             </VBox>
             <Region HBox.hgrow="ALWAYS" />
             <Label styleClass="status-focusing" text="Focusing" />
-            <Label style="-fx-font-size: 12px; -fx-text-fill: #6B7280; -fx-pref-width: 40;" text="25:00" />
-            <Label style="-fx-text-fill: #22C55E;" text="🔊" />
+            <Label styleClass="lan-member-time" text="25:00" />
+            <Label styleClass="lan-audio-on" text="🔊" />
         </HBox>
         
         <!-- Alice -->
-        <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-padding: 8 0; -fx-border-color: #F1F5F9; -fx-border-width: 0 0 1 0;">
-            <Label styleClass="member-avatar" style="-fx-background-color: #A78BFA;" text="A" />
+        <HBox alignment="CENTER_LEFT" spacing="15" styleClass="lan-member-row">
+            <Label styleClass="member-avatar, lan-avatar-purple" text="A" />
             <VBox>
-                <Label style="-fx-font-weight: bold; -fx-font-size: 13px;" text="Alice" />
-                <Label style="-fx-font-size: 11px; -fx-text-fill: #94A3B8;" text="192.168.1.102" />
+                <Label styleClass="lan-member-name" text="Alice" />
+                <Label styleClass="lan-member-ip" text="192.168.1.102" />
             </VBox>
             <Region HBox.hgrow="ALWAYS" />
             <Label styleClass="status-focusing" text="Focusing" />
-            <Label style="-fx-font-size: 12px; -fx-text-fill: #6B7280; -fx-pref-width: 40;" text="25:00" />
-            <Label style="-fx-text-fill: #6B7280;" text="🔊" />
+            <Label styleClass="lan-member-time" text="25:00" />
+            <Label styleClass="lan-audio-muted" text="🔊" />
         </HBox>
         
         <!-- Bob -->
-        <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-padding: 8 0; -fx-border-color: #F1F5F9; -fx-border-width: 0 0 1 0;">
-            <Label styleClass="member-avatar" style="-fx-background-color: #FBBF24;" text="B" />
+        <HBox alignment="CENTER_LEFT" spacing="15" styleClass="lan-member-row">
+            <Label styleClass="member-avatar, lan-avatar-yellow" text="B" />
             <VBox>
-                <Label style="-fx-font-weight: bold; -fx-font-size: 13px;" text="Bob" />
-                <Label style="-fx-font-size: 11px; -fx-text-fill: #94A3B8;" text="192.168.1.103" />
+                <Label styleClass="lan-member-name" text="Bob" />
+                <Label styleClass="lan-member-ip" text="192.168.1.103" />
             </VBox>
             <Region HBox.hgrow="ALWAYS" />
             <Label styleClass="status-break" text="Break" />
-            <Label style="-fx-font-size: 12px; -fx-text-fill: #6B7280; -fx-pref-width: 40;" text="05:00" />
-            <Label style="-fx-text-fill: #EF4444;" text="🔇" />
+            <Label styleClass="lan-member-time" text="05:00" />
+            <Label styleClass="lan-audio-off" text="🔇" />
         </HBox>
         
         <!-- Charlie -->
-        <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-padding: 8 0;">
-            <Label styleClass="member-avatar" style="-fx-background-color: #93C5FD;" text="C" />
+        <HBox alignment="CENTER_LEFT" spacing="15" styleClass="lan-member-row-last">
+            <Label styleClass="member-avatar, lan-avatar-blue" text="C" />
             <VBox>
-                <Label style="-fx-font-weight: bold; -fx-font-size: 13px;" text="Charlie" />
-                <Label style="-fx-font-size: 11px; -fx-text-fill: #94A3B8;" text="192.168.1.104" />
+                <Label styleClass="lan-member-name" text="Charlie" />
+                <Label styleClass="lan-member-ip" text="192.168.1.104" />
             </VBox>
             <Region HBox.hgrow="ALWAYS" />
             <Label styleClass="status-focusing" text="Focusing" />
-            <Label style="-fx-font-size: 12px; -fx-text-fill: #6B7280; -fx-pref-width: 40;" text="25:00" />
-            <Label style="-fx-text-fill: #6B7280;" text="🔊" />
+            <Label styleClass="lan-member-time" text="25:00" />
+            <Label styleClass="lan-audio-muted" text="🔊" />
         </HBox>
     </VBox>
     
     <!-- 3. Room Activity (Tích hợp luôn vào bên dưới) -->
-    <VBox spacing="10" style="-fx-background-color: #F8FAFC; -fx-background-radius: 12; -fx-padding: 15;">
-        <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Room Activity" />
+    <VBox spacing="10" styleClass="lan-activity-box">
+        <Label styleClass="lan-section-title" text="Room Activity" />
         <VBox spacing="8">
             <HBox spacing="10" alignment="CENTER_LEFT">
-                <Label style="-fx-font-size: 11px; -fx-text-fill: #94A3B8;" text="10:00" />
+                <Label styleClass="lan-activity-time" text="10:00" />
                 <Circle radius="3" fill="#22C55E" />
-                <Label style="-fx-font-size: 12px; -fx-text-fill: #1F2937;" text="You created the room" />
+                <Label styleClass="lan-activity-text" text="You created the room" />
             </HBox>
             <HBox spacing="10" alignment="CENTER_LEFT">
-                <Label style="-fx-font-size: 11px; -fx-text-fill: #94A3B8;" text="10:01" />
+                <Label styleClass="lan-activity-time" text="10:01" />
                 <Circle radius="3" fill="#3B82F6" />
-                <Label style="-fx-font-size: 12px; -fx-text-fill: #1F2937;" text="Alice joined the room" />
+                <Label styleClass="lan-activity-text" text="Alice joined the room" />
             </HBox>
             <HBox spacing="10" alignment="CENTER_LEFT">
-                <Label style="-fx-font-size: 11px; -fx-text-fill: #94A3B8;" text="10:02" />
+                <Label styleClass="lan-activity-time" text="10:02" />
                 <Circle radius="3" fill="#3B82F6" />
-                <Label style="-fx-font-size: 12px; -fx-text-fill: #1F2937;" text="Bob joined the room" />
+                <Label styleClass="lan-activity-text" text="Bob joined the room" />
             </HBox>
         </VBox>
     </VBox>

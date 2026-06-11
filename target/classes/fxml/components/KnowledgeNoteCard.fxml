@@ -6,20 +6,20 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox minWidth="240" prefWidth="260" style="-fx-cursor: hand;" styleClass="knowledge-card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<VBox minWidth="240" prefWidth="260" styleClass="knowledge-card, knowledge-card-wrapper" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     
     <!-- Vùng Preview (Phía trên) -->
-    <VBox styleClass="note-preview-area" style="-fx-background-color: #F3E8FF; -fx-min-height: 120;">
-        <Label style="-fx-font-weight: bold; -fx-font-size: 12px; -fx-text-fill: #9333EA;" text="## Java NIO Basics" />
+    <VBox styleClass="note-preview-area, note-preview-purple">
+        <Label styleClass="note-preview-title" text="## Java NIO Basics" />
         <Region prefHeight="8" />
         <Label styleClass="note-preview-text" text="- Channel&#10;- Buffer&#10;- Selector&#10;- Non-blocking I/O" />
     </VBox>
 
     <!-- Vùng Thông tin (Phía dưới) -->
     <VBox spacing="10" styleClass="note-content-area">
-        <Label style="-fx-font-weight: bold; -fx-font-size: 15px; -fx-text-fill: #1F2937;" text="Java NIO Basics" wrapText="true" />
+        <Label styleClass="note-card-title" text="Java NIO Basics" wrapText="true" />
         
-        <Label maxHeight="40" style="-fx-font-size: 12px; -fx-text-fill: #6B7280; -fx-line-spacing: 3px;" text="Understanding Non-blocking I/O in Java with examples." wrapText="true" />
+        <Label maxHeight="40" styleClass="note-card-desc" text="Understanding Non-blocking I/O in Java with examples." wrapText="true" />
         
         <HBox spacing="8">
             <Label styleClass="tag-badge, tag-project" text="#java" />
@@ -30,7 +30,7 @@
         
         <!-- Footer: Thời gian & Icon actions -->
         <HBox alignment="CENTER_LEFT">
-            <Label style="-fx-font-size: 11px; -fx-text-fill: #94A3B8;" text="Updated 3d ago" />
+            <Label styleClass="note-card-date" text="Updated 3d ago" />
             <Region HBox.hgrow="ALWAYS" />
             <Label styleClass="btn-icon-transparent" text="☆" />
             <Label styleClass="btn-icon-transparent" text="⋮" />

@@ -7,14 +7,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.SVGPath?>
 
 <VBox spacing="15" styleClass="card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focusnode.controller.TodaysFocusController">
 
     <HBox alignment="CENTER_LEFT" spacing="10">
-        <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true">
-            <image><Image url="@/images/Tasks_new.png" /></image>
-        </ImageView>
+        <StackPane maxWidth="-Infinity" maxHeight="-Infinity" style="-fx-background-color: #E0F2FE; -fx-padding: 6; -fx-background-radius: 8;">
+            <SVGPath content="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" style="-fx-fill: #0284C7;" scaleX="0.8" scaleY="0.8" />
+        </StackPane>
         <Label styleClass="card-title" text="Today's Focus" />
         <Region HBox.hgrow="ALWAYS" />
         <Button styleClass="btn-add-task" text="+ Add Task" onAction="#addTask" />

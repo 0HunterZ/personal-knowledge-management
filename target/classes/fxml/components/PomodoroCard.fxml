@@ -9,9 +9,11 @@
 
 <VBox alignment="CENTER" spacing="10" styleClass="card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focusnode.controller.PomodoroCardController">
     <HBox alignment="CENTER_LEFT" spacing="8">
-        <ImageView fitHeight="18" fitWidth="18" pickOnBounds="true" preserveRatio="true">
-            <image><Image url="@/images/timer_new.png" /></image>
-        </ImageView>
+        <StackPane maxWidth="-Infinity" maxHeight="-Infinity" style="-fx-background-color: #FEE2E2; -fx-padding: 6; -fx-background-radius: 8;">
+            <ImageView fitHeight="18" fitWidth="18" pickOnBounds="true" preserveRatio="true">
+                <image><Image url="@/images/timer_new.png" /></image>
+            </ImageView>
+        </StackPane>
         <Label text="Pomodoro" styleClass="card-title" />
     </HBox>
 

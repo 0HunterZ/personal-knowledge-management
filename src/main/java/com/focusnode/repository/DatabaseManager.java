@@ -14,9 +14,19 @@ public class DatabaseManager {
     }
 
     public static void initialize() {
-        // Cấu trúc Database (Schema) và Dữ liệu mẫu (Data) 
-        // hiện được quản lý hoàn toàn bằng SQL Scripts qua SQL Server Management Studio.
-        // Java chỉ thực hiện kết nối, không còn tự tạo bảng để tránh lỗi cấu trúc.
+        // Run Flyway Migrations
+        try {
+            org.flywaydb.core.Flyway flyway = org.flywaydb.core.Flyway.configure()
+                .dataSource(URL, "sa", "12345")
+                .baselineOnMigrate(true)
+                .baselineVersion("2")
+                .load();
+            flyway.repair();
+            flyway.migrate();
+            System.out.println("Flyway migrations executed successfully!");
+        } catch (Exception e) {
+            System.err.println("Flyway migration failed: " + e.getMessage());
+        }
         
         try (Connection conn = getConnection()) {
             System.out.println("Kết nối SQL Server FocusNodeDB thành công!");

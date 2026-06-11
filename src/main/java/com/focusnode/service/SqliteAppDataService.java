@@ -12,13 +12,13 @@ import java.util.List;
 
 public class SqliteAppDataService implements AppDataService {
 
-    private final TaskRepository taskRepo = new TaskRepository();
-    private final NoteRepository noteRepo = new NoteRepository();
-    private final TagUsageRepository tagRepo = new TagUsageRepository();
-    private final FocusPointRepository focusRepo = new FocusPointRepository();
-    private final CategoryBreakdownRepository categoryRepo = new CategoryBreakdownRepository();
-    private final FocusSessionRepository focusSessionRepo = new FocusSessionRepository();
-    private final ReviewItemRepository reviewItemRepo = new ReviewItemRepository();
+    private TaskRepository taskRepo = new TaskRepository();
+    private NoteRepository noteRepo = new NoteRepository();
+    private TagUsageRepository tagRepo = new TagUsageRepository();
+    private FocusPointRepository focusRepo = new FocusPointRepository();
+    private CategoryBreakdownRepository categoryRepo = new CategoryBreakdownRepository();
+    private FocusSessionRepository focusSessionRepo = new FocusSessionRepository();
+    private ReviewItemRepository reviewItemRepo = new ReviewItemRepository();
 
     @Override
     public String getUserName() {

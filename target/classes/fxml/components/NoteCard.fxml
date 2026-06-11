@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.shape.SVGPath?>
 
 <!-- Một Note Card độc lập -->
 
@@ -15,9 +16,7 @@
     <HBox>
         <StackPane alignment="CENTER">
             <Region fx:id="iconBackground" style="-fx-background-color: #E0F2FE; -fx-background-radius: 12; -fx-pref-width: 44; -fx-pref-height: 44;" />
-            <ImageView fx:id="iconImageView" fitHeight="28" fitWidth="28" pickOnBounds="true" preserveRatio="true">
-                <image><Image url="@/images/note_new.png" /></image>
-            </ImageView>
+            <SVGPath fx:id="iconSvg" content="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z" style="-fx-fill: #9333EA;" scaleX="0.9" scaleY="0.9" />
         </StackPane>
     </HBox>
 

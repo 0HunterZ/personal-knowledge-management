@@ -5,9 +5,16 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.SVGPath?>
 
 <VBox spacing="15" styleClass="card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-    <Label styleClass="card-title" text="💾 Storage" />
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <StackPane maxWidth="-Infinity" maxHeight="-Infinity" style="-fx-background-color: #CCFBF1; -fx-padding: 8; -fx-background-radius: 8;">
+            <SVGPath content="M12 3C6.48 3 2 4.79 2 7c0 2.21 4.48 4 10 4s10-1.79 10-4c0-2.21-4.48-4-10-4zM2 11.5c0 2.21 4.48 4 10 4s10-1.79 10-4V9c-1.55 1.39-5.18 2-10 2S3.55 10.39 2 9v2.5zm0 5c0 2.21 4.48 4 10 4s10-1.79 10-4V14c-1.55 1.39-5.18 2-10 2S3.55 15.39 2 14v2.5z" style="-fx-fill: #0F766E;" scaleX="0.8" scaleY="0.8" />
+        </StackPane>
+        <Label styleClass="card-title" text="Storage" />
+    </HBox>
     
     <HBox alignment="CENTER_LEFT">
         <Label style="-fx-font-size: 13px; -fx-text-fill: #6B7280;" text="1.2 GB / 5 GB used" />

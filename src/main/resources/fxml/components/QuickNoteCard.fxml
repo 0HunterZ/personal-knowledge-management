@@ -3,12 +3,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.shape.SVGPath?>
 
 <VBox spacing="8" styleClass="card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focusnode.controller.QuickNoteController">
     <HBox alignment="CENTER_LEFT" spacing="10">
-        <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true">
-            <image><Image url="@/images/work-order_new.png" /></image>
-        </ImageView>
+        <StackPane maxWidth="-Infinity" maxHeight="-Infinity" style="-fx-background-color: #FEF3C7; -fx-padding: 6; -fx-background-radius: 8;">
+            <SVGPath content="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" style="-fx-fill: #F59E0B;" scaleX="0.8" scaleY="0.8" />
+        </StackPane>
         <Label text="Quick Note" styleClass="card-title" />
         <Region HBox.hgrow="ALWAYS" />
         <Button text="⋮" style="-fx-background-color: transparent; -fx-font-size: 16px; -fx-cursor: hand; -fx-text-fill: #6B7280;" />

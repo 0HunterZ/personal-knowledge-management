@@ -548,8 +548,18 @@ public class KnowledgeViewController {
         card.setPrefWidth(200);
         card.setPrefHeight(120);
         
-        Label icon = new Label("📁");
-        icon.setStyle("-fx-font-size: 28px;");
+        javafx.scene.layout.StackPane iconWrapper = new javafx.scene.layout.StackPane();
+        iconWrapper.setPrefSize(40, 40);
+        iconWrapper.setMaxSize(40, 40);
+        iconWrapper.setStyle("-fx-background-color: #FEF3C7; -fx-background-radius: 8;");
+        
+        javafx.scene.shape.SVGPath icon = new javafx.scene.shape.SVGPath();
+        icon.setContent("M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z");
+        icon.setFill(javafx.scene.paint.Color.web("#D97706"));
+        icon.setScaleX(1.2);
+        icon.setScaleY(1.2);
+        
+        iconWrapper.getChildren().add(icon);
         
         Region spacer = new Region();
         VBox.setVgrow(spacer, Priority.ALWAYS);
@@ -561,7 +571,7 @@ public class KnowledgeViewController {
         Label subtitle = new Label("Folder");
         subtitle.setStyle("-fx-font-size: 12px; -fx-text-fill: #6B7280;");
         
-        card.getChildren().addAll(icon, spacer, title, subtitle);
+        card.getChildren().addAll(iconWrapper, spacer, title, subtitle);
         card.setOnMouseClicked(e -> {
             if (e.getButton() == MouseButton.PRIMARY) {
                 currentFolder = folder;
@@ -583,8 +593,18 @@ public class KnowledgeViewController {
         card.setPrefWidth(200);
         card.setPrefHeight(120);
         
-        Label icon = new Label("📄");
-        icon.setStyle("-fx-font-size: 28px; -fx-text-fill: #6B7280;");
+        javafx.scene.layout.StackPane iconWrapper = new javafx.scene.layout.StackPane();
+        iconWrapper.setPrefSize(40, 40);
+        iconWrapper.setMaxSize(40, 40);
+        iconWrapper.setStyle("-fx-background-color: #E0E7FF; -fx-background-radius: 8;");
+        
+        javafx.scene.shape.SVGPath icon = new javafx.scene.shape.SVGPath();
+        icon.setContent("M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z");
+        icon.setFill(javafx.scene.paint.Color.web("#4338CA"));
+        icon.setScaleX(1.2);
+        icon.setScaleY(1.2);
+        
+        iconWrapper.getChildren().add(icon);
         
         Region spacer = new Region();
         VBox.setVgrow(spacer, Priority.ALWAYS);
@@ -598,7 +618,7 @@ public class KnowledgeViewController {
         Label sizeLbl = new Label("File • " + sizeStr);
         sizeLbl.setStyle("-fx-text-fill: #9CA3AF; -fx-font-size: 12px;");
         
-        card.getChildren().addAll(icon, spacer, title, sizeLbl);
+        card.getChildren().addAll(iconWrapper, spacer, title, sizeLbl);
         card.setOnMouseClicked(e -> {
             if (e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2) {
                 openFile(file);
@@ -623,8 +643,29 @@ public class KnowledgeViewController {
             });
         }
         
-        Label nameLbl = new Label(type.equals("Folder") ? "📁 " + name : (type.equals("Note") ? "📝 " + name : "📄 " + name));
-        nameLbl.setStyle("-fx-font-weight: bold; -fx-text-fill: #1F2937; -fx-pref-width: 400;");
+        HBox nameBox = new HBox(8);
+        nameBox.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+        nameBox.setPrefWidth(400);
+
+        javafx.scene.shape.SVGPath iconView = new javafx.scene.shape.SVGPath();
+        String pathData = type.equals("Folder") ? "M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" : 
+                         (type.equals("Note") ? "M9 2H4a2 2 0 00-2 2v16a2 2 0 002 2h14a2 2 0 002-2V8l-6-6H9zm6 1.5L19.5 8H15V3.5z" : "M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z");
+        iconView.setContent(pathData);
+        String iconColor = type.equals("Folder") ? "#D97706" : (type.equals("Note") ? "#7E22CE" : "#4338CA");
+        iconView.setFill(javafx.scene.paint.Color.web(iconColor));
+        iconView.setScaleX(0.9);
+        iconView.setScaleY(0.9);
+        
+        javafx.scene.layout.StackPane iconWrapper = new javafx.scene.layout.StackPane();
+        iconWrapper.setPrefSize(32, 32);
+        iconWrapper.setMaxSize(32, 32);
+        String bgColor = type.equals("Folder") ? "#FEF3C7" : (type.equals("Note") ? "#F3E8FF" : "#E0E7FF");
+        iconWrapper.setStyle("-fx-background-color: " + bgColor + "; -fx-background-radius: 6;");
+        iconWrapper.getChildren().add(iconView);
+        
+        Label nameLbl = new Label(name);
+        nameLbl.setStyle("-fx-font-weight: bold; -fx-text-fill: #1F2937;");
+        nameBox.getChildren().addAll(iconWrapper, nameLbl);
         
         Label typeLbl = new Label(type);
         typeLbl.setStyle("-fx-text-fill: #6B7280; -fx-pref-width: 150;");
@@ -632,7 +673,7 @@ public class KnowledgeViewController {
         Label dateLbl = new Label(date);
         dateLbl.setStyle("-fx-text-fill: #6B7280; -fx-pref-width: 150;");
         
-        row.getChildren().addAll(nameLbl, typeLbl, dateLbl);
+        row.getChildren().addAll(nameBox, typeLbl, dateLbl);
         return row;
     }
 
@@ -642,8 +683,18 @@ public class KnowledgeViewController {
         card.setPrefWidth(200);
         card.setPrefHeight(120);
 
-        Label icon = new Label("📝");
-        icon.setStyle("-fx-font-size: 28px; -fx-text-fill: #4F46E5;");
+        javafx.scene.layout.StackPane iconWrapper = new javafx.scene.layout.StackPane();
+        iconWrapper.setPrefSize(40, 40);
+        iconWrapper.setMaxSize(40, 40);
+        iconWrapper.setStyle("-fx-background-color: #F3E8FF; -fx-background-radius: 8;");
+
+        javafx.scene.shape.SVGPath icon = new javafx.scene.shape.SVGPath();
+        icon.setContent("M9 2H4a2 2 0 00-2 2v16a2 2 0 002 2h14a2 2 0 002-2V8l-6-6H9zm6 1.5L19.5 8H15V3.5z");
+        icon.setFill(javafx.scene.paint.Color.web("#7E22CE"));
+        icon.setScaleX(1.2);
+        icon.setScaleY(1.2);
+        
+        iconWrapper.getChildren().add(icon);
         
         Region spacer = new Region();
         VBox.setVgrow(spacer, Priority.ALWAYS);
@@ -656,7 +707,7 @@ public class KnowledgeViewController {
         Label category = new Label("Note • " + note.getSubjectName());
         category.setStyle("-fx-text-fill: #6B7280; -fx-font-size: 12px;");
 
-        card.getChildren().addAll(icon, spacer, title, category);
+        card.getChildren().addAll(iconWrapper, spacer, title, category);
         
         card.setOnMouseClicked(e -> openEditor(note));
         

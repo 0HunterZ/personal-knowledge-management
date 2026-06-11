@@ -6,21 +6,21 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.geometry.Insets?>
 
-<VBox prefWidth="250" spacing="12" style="-fx-background-color: transparent; -fx-border-color: #E2E8F0; -fx-border-width: 0 1 0 0;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focusnode.controller.SidebarController">
+<VBox prefWidth="250" spacing="12" styleClass="sidebar-root" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focusnode.controller.SidebarController">
     <padding>
         <Insets top="20" right="14" bottom="20" left="14"/>
     </padding>
 
     <!-- Logo Area -->
-    <HBox alignment="CENTER_LEFT" spacing="12" style="-fx-padding: 0 0 45 0;">
+    <HBox alignment="CENTER_LEFT" spacing="12" styleClass="sidebar-logo-area">
         <ImageView fitWidth="70" fitHeight="70" preserveRatio="true" smooth="true" pickOnBounds="true">
             <image>
                 <Image url="@/images/logo.png" />
             </image>
         </ImageView>
         <VBox alignment="CENTER_LEFT" spacing="2">
-            <Label text="Focus-Node" style="-fx-font-weight: 800; -fx-font-size: 22px; -fx-text-fill: #1F2937;" />
-            <Label text="Focus. Learn. Grow." style="-fx-font-size: 12px; -fx-text-fill: #6B7280;" />
+            <Label text="Focus-Node" styleClass="sidebar-logo-title" />
+            <Label text="Focus. Learn. Grow." styleClass="sidebar-logo-subtitle" />
         </VBox>
     </HBox>
 
@@ -47,7 +47,7 @@
                 <ImageView fitHeight="22" fitWidth="22" pickOnBounds="true" preserveRatio="true"><image><Image url="@/images/LAN-Hub_new.png" /></image></ImageView>
             </graphic>
         </ToggleButton>
-        <Separator style="-fx-padding: 10 0;" />
+        <Separator styleClass="sidebar-separator" />
         <!-- Tasks -->
         <ToggleButton text="Tasks" toggleGroup="$menuGroup" styleClass="nav-btn" maxWidth="Infinity" alignment="BASELINE_LEFT" onAction="#showTasks">
             <graphic>
@@ -66,7 +66,14 @@
                 <ImageView fitHeight="22" fitWidth="22" pickOnBounds="true" preserveRatio="true"><image><Image url="@/images/Tags_new.png" /></image></ImageView>
             </graphic>
         </ToggleButton>
-        <Separator style="-fx-padding: 10 0;" />
+        <!-- Review -->
+        <ToggleButton text="Review" toggleGroup="$menuGroup" styleClass="nav-btn" maxWidth="Infinity" alignment="BASELINE_LEFT" onAction="#showReview">
+            <graphic>
+                <!-- We can reuse an icon for now, e.g., icon_achievement_new.png -->
+                <ImageView fitHeight="22" fitWidth="22" pickOnBounds="true" preserveRatio="true"><image><Image url="@/images/icon_achievement_new.png" /></image></ImageView>
+            </graphic>
+        </ToggleButton>
+        <Separator styleClass="sidebar-separator" />
         <!-- Achievements -->
         <ToggleButton text="Achievements" toggleGroup="$menuGroup" styleClass="nav-btn" maxWidth="Infinity" alignment="BASELINE_LEFT">
             <graphic>
@@ -92,15 +99,15 @@
 
     <!-- User Profile at Bottom -->
     <HBox alignment="CENTER_LEFT" spacing="10" styleClass="user-profile-btn">
-        <StackPane style="-fx-effect: dropshadow(three-pass-box, rgba(139, 92, 246, 0.2), 6, 0, 0, 2);">
+        <StackPane styleClass="sidebar-user-avatar">
             <Circle radius="16" fill="#8B5CF6" />
-            <Label text="U" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 13px;" />
+            <Label text="U" styleClass="sidebar-user-avatar-text" />
         </StackPane>
         <VBox spacing="1">
-            <Label text="User" style="-fx-font-weight: bold; -fx-font-size: 12px; -fx-text-fill: #1F2937;" />
-            <Label text="Focus every day" style="-fx-font-size: 10px; -fx-text-fill: #6B7280;" />
+            <Label text="User" styleClass="sidebar-user-name" />
+            <Label text="Focus every day" styleClass="sidebar-user-subtitle" />
         </VBox>
         <Region HBox.hgrow="ALWAYS" />
-        <Label text="›" style="-fx-text-fill: #94A3B8; -fx-font-weight: bold; -fx-font-size: 16px;" />
+        <Label text="›" styleClass="sidebar-user-arrow" />
     </HBox>
 </VBox>

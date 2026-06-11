@@ -1,7 +1,6 @@
 package com.focusnode.controller;
 
 import com.focusnode.model.TagUsageItem;
-import com.focusnode.service.AppDataService;
 import com.focusnode.service.ServiceLocator;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;

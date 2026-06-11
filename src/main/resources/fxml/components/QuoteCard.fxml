@@ -3,19 +3,18 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.shape.SVGPath?>
 
 <!-- Card dùng ảnh nền quote.png -->
-<VBox spacing="10" styleClass="card" alignment="CENTER_LEFT" style="-fx-background-image: url('/images/quote.png'); -fx-background-size: cover; -fx-background-position: center; -fx-background-repeat: no-repeat; -fx-background-radius: 16px; -fx-padding: 24 24 24 24;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focusnode.controller.QuoteController">
+<VBox spacing="10" styleClass="card" alignment="CENTER_LEFT" style="-fx-background-image: url('/images/quote.png'); -fx-background-size: cover; -fx-background-position: center; -fx-background-repeat: no-repeat; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 4); -fx-background-radius: 12px; -fx-padding: 25 25 30 25;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focusnode.controller.QuoteController">
     <HBox alignment="CENTER_LEFT" spacing="10">
-        <ImageView fitWidth="20" fitHeight="20" preserveRatio="true">
-            <image><Image url="@/images/quoteicon_new.png" /></image>
-        </ImageView>
-        <Label text="Quote of the day" styleClass="card-title" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1F2937;" />
+        <SVGPath content="M14.017 18L14.017 10.609C14.017 4.905 17.748 1.039 23 0L23.995 2.151C21.563 3.068 20 5.789 20 8H24V18H14.017ZM0 18V10.609C0 4.905 3.748 1.038 9 0L9.996 2.151C7.563 3.068 6 5.789 6 8H9.983L9.983 18L0 18Z" style="-fx-fill: #1E293B;" scaleX="0.6" scaleY="0.6" />
+        <Label text="Quote of the day" styleClass="card-title" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1E293B;" />
         <Region HBox.hgrow="ALWAYS" />
-        <Button text="⋮" style="-fx-background-color: transparent; -fx-font-size: 16px; -fx-cursor: hand; -fx-text-fill: #6B7280;" />
+        <Button text="⋮" style="-fx-background-color: transparent; -fx-font-size: 16px; -fx-cursor: hand; -fx-text-fill: #64748B;" />
     </HBox>
 
-    <Label fx:id="quoteText" text="&#34;Loading quote...&#34;" wrapText="true" style="-fx-font-size: 16px; -fx-text-fill: #1F2937; -fx-line-spacing: 5px; -fx-font-weight: 600;" />
+    <Label fx:id="quoteText" text="&#34;Loading quote...&#34;" wrapText="true" style="-fx-font-size: 14px; -fx-text-fill: #1E293B; -fx-line-spacing: 5px; -fx-font-weight: 500;" />
     
-    <Label fx:id="quoteAuthor" text="— Please wait" style="-fx-font-size: 14px; -fx-text-fill: #6B7280; -fx-font-style: italic;" />
+    <Label fx:id="quoteAuthor" text="— Please wait" style="-fx-font-size: 12px; -fx-text-fill: #64748B; -fx-font-style: italic;" />
 </VBox>

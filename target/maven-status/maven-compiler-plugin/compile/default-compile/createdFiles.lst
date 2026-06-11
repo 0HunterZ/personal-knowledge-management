@@ -1,4 +1,5 @@
 com\focusnode\service\SqliteAppDataService.class
+com\focusnode\util\ScreenshotTool.class
 com\focusnode\repository\FocusSessionRepository.class
 com\focusnode\controller\HeaderController.class
 com\focusnode\service\AppDataService.class
@@ -14,6 +15,7 @@ com\focusnode\repository\FocusPointRepository.class
 com\focusnode\Launcher.class
 com\focusnode\repository\DatabaseManager.class
 com\focusnode\controller\NoteCardController.class
+com\focusnode\repository\QuickNoteRepository.class
 com\focusnode\service\InMemoryAppDataService.class
 com\focusnode\util\AsyncExecutor.class
 com\focusnode\controller\SurveyDialogController$SurveyResult.class
@@ -24,9 +26,12 @@ com\focusnode\model\Tag.class
 com\focusnode\controller\ReviewViewController.class
 com\focusnode\controller\TaskRowController.class
 com\focusnode\controller\TaskEditorController$1.class
+com\focusnode\repository\UserSettingsRepository.class
 com\focusnode\repository\TaskRepository.class
 com\focusnode\repository\TagUsageRepository.class
+com\focusnode\repository\PomodoroPresetRepository.class
 com\focusnode\controller\ZenModeController$1.class
+com\focusnode\model\PomodoroPreset.class
 com\focusnode\controller\SurveyDialogController.class
 com\focusnode\controller\TopBarController.class
 com\focusnode\navigation\AppView.class
@@ -37,7 +42,9 @@ com\focusnode\model\CategoryBreakdown.class
 com\focusnode\controller\SidebarController.class
 com\focusnode\controller\PomodoroCardController.class
 com\focusnode\controller\DailyStreakController.class
+com\focusnode\service\AuthService.class
 com\focusnode\model\Folder.class
+com\focusnode\model\UserSettings.class
 com\focusnode\ConnectSQL.class
 com\focusnode\repository\NoteRepository.class
 com\focusnode\controller\PopularTagsController.class
@@ -50,6 +57,7 @@ com\focusnode\Main.class
 com\focusnode\navigation\AppNavigator.class
 com\focusnode\repository\FileResourceRepository.class
 com\focusnode\controller\AnalyticsViewController.class
+com\focusnode\model\QuickNote.class
 com\focusnode\FxmlLoadTest.class
 com\focusnode\repository\ReviewItemRepository.class
 com\focusnode\controller\TaskEditorController.class
@@ -67,6 +75,7 @@ com\focusnode\controller\TaskRowController$1.class
 com\focusnode\model\Task$Priority.class
 com\focusnode\model\Subject.class
 com\focusnode\TestFXML.class
+com\focusnode\repository\UserRepository.class
 com\focusnode\controller\TagUsageController.class
 com\focusnode\repository\MetricsRepository.class
 com\focusnode\util\CrashHandler.class
