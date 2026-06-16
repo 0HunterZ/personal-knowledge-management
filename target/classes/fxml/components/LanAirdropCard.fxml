@@ -2,10 +2,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox spacing="15" styleClass="card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<VBox spacing="15" styleClass="card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focusnode.controller.LanAirdropController">
     <Label styleClass="card-title" text="🛫 LAN Airdrop" />
     
-    <VBox spacing="10" styleClass="airdrop-zone">
+    <VBox fx:id="airdropZone" spacing="10" styleClass="airdrop-zone">
         <Label style="-fx-font-size: 32px; -fx-text-fill: #93C5FD;" text="☁" />
         <Label style="-fx-font-weight: bold; -fx-text-fill: #1F2937; -fx-font-size: 13px;" text="Drag &amp; drop files here" />
         <Label style="-fx-font-size: 11px; -fx-text-fill: #94A3B8;" text="or" />

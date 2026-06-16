@@ -39,7 +39,7 @@
     -fx-background-radius: 20px;
     -fx-border-color: #E2E8F0;
     -fx-border-radius: 20px;
-    -fx-effect: dropshadow(three-pass-box, rgba(15,23,42,0.08), 12, 0, 0, 3);
+    -fx-effect: dropshadow(three-pass-box, rgba(15,23,42,0.06), 24, 0, 0, 8);
     -fx-min-width: 96px;
     -fx-min-height: 96px;
     -fx-pref-width: 96px;
@@ -57,12 +57,12 @@
     -fx-alignment: center-left;
 }
 .nav-btn:hover {
-    -fx-background-color: #F1F5F9;
-    -fx-text-fill: #1F2937;
+    -fx-background-color: #F8FAFC;
+    -fx-text-fill: #1E293B;
 }
 .nav-btn:selected {
-    -fx-background-color: #DCFCE7; 
-    -fx-text-fill: #22C55E; 
+    -fx-background-color: #D1FAE5; 
+    -fx-text-fill: #059669; 
 }
 
 .user-profile-btn {
@@ -109,10 +109,10 @@
     -fx-background-color: #FFFFFF;
     -fx-background-radius: 16px;
     -fx-padding: 24px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 4);
+    -fx-effect: dropshadow(three-pass-box, rgba(15,23,42,0.04), 16, 0, 0, 4);
 }
 .card:hover {
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 20, 0, 0, 6);
+    -fx-effect: dropshadow(three-pass-box, rgba(15,23,42,0.08), 24, 0, 0, 8);
 }
 .card-title {
     -fx-font-weight: bold;
@@ -130,28 +130,32 @@
    ===================================================================== */
 /* Nút Add Task xanh nhạt */
 .btn-add-task {
-    -fx-background-color: #DCFCE7; 
-    -fx-text-fill: #22C55E; 
+    -fx-background-color: #D1FAE5; 
+    -fx-text-fill: #059669; 
     -fx-font-weight: bold;
-    -fx-background-radius: 6px;
-    -fx-padding: 6px 12px;
+    -fx-background-radius: 8px;
+    -fx-padding: 8px 16px;
     -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(16,185,129,0.1), 8, 0, 0, 2);
 }
 .btn-add-task:hover {
-    -fx-background-color: #D1FAE5; 
+    -fx-background-color: #A7F3D0; 
+    -fx-effect: dropshadow(three-pass-box, rgba(16,185,129,0.2), 12, 0, 0, 4);
 }
 
 /* Nút Primary (Bắt đầu Pomodoro) */
 .btn-primary {
-    -fx-background-color: #22C55E;
+    -fx-background-color: #10B981;
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-background-radius: 9999px;
-    -fx-padding: 10px 15px;
+    -fx-padding: 10px 18px;
     -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(16,185,129,0.3), 10, 0, 0, 4);
 }
 .btn-primary:hover {
-    -fx-background-color: #16A34A; /* Xanh đậm hơn */
+    -fx-background-color: #059669; /* Emerald 600 */
+    -fx-effect: dropshadow(three-pass-box, rgba(16,185,129,0.4), 14, 0, 0, 6);
 }
 
 /* Nút Text (Short Break, View All) */
@@ -378,11 +382,11 @@
 .knowledge-card {
     -fx-background-color: #FFFFFF;
     -fx-background-radius: 12px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.04), 15, 0, 0, 4);
+    -fx-effect: dropshadow(three-pass-box, rgba(15,23,42,0.03), 16, 0, 0, 4);
     -fx-padding: 0; /* Padding bằng 0 để chứa vùng preview chạm viền */
 }
 .knowledge-card:hover {
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 20, 0, 0, 6);
+    -fx-effect: dropshadow(three-pass-box, rgba(15,23,42,0.08), 24, 0, 0, 8);
 }
 
 .note-preview-area {

@@ -5,58 +5,10 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 
-<VBox spacing="15" styleClass="card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<VBox spacing="15" styleClass="card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focusnode.controller.LanFileTransfersController">
     <Label styleClass="card-title" text="File Transfers" />
     
-    <VBox spacing="15">
-        <!-- Transfer 1 -->
-        <VBox spacing="8" style="-fx-border-color: #E2E8F0; -fx-border-radius: 8; -fx-padding: 10;">
-            <HBox alignment="CENTER_LEFT">
-                <VBox>
-                    <Label style="-fx-font-weight: bold; -fx-font-size: 13px;" text="project-plan.pdf" />
-                    <Label style="-fx-font-size: 11px; -fx-text-fill: #6B7280;" text="2.4 MB • To Alice" />
-                </VBox>
-                <Region HBox.hgrow="ALWAYS" />
-                <Label style="-fx-text-fill: #22C55E; -fx-font-size: 16px;" text="✓" />
-            </HBox>
-            <HBox spacing="10" alignment="CENTER_LEFT">
-                <ProgressBar progress="1.0" prefWidth="180" styleClass="transfer-progress-bar" />
-                <Label style="-fx-font-size: 11px; -fx-text-fill: #6B7280;" text="100%" />
-            </HBox>
-        </VBox>
-        
-        <!-- Transfer 2 -->
-        <VBox spacing="8" style="-fx-border-color: #E2E8F0; -fx-border-radius: 8; -fx-padding: 10;">
-            <HBox alignment="CENTER_LEFT">
-                <VBox>
-                    <Label style="-fx-font-weight: bold; -fx-font-size: 13px;" text="diagram.png" />
-                    <Label style="-fx-font-size: 11px; -fx-text-fill: #6B7280;" text="1.8 MB • To Bob" />
-                </VBox>
-                <Region HBox.hgrow="ALWAYS" />
-                <Label styleClass="btn-icon-transparent" style="-fx-background-color: #F1F5F9; -fx-background-radius: 4;" text="⏸" />
-            </HBox>
-            <HBox spacing="10" alignment="CENTER_LEFT">
-                <ProgressBar progress="0.72" prefWidth="180" styleClass="transfer-progress-bar" style="-fx-accent: #3B82F6;" />
-                <Label style="-fx-font-size: 11px; -fx-text-fill: #6B7280;" text="72%" />
-            </HBox>
-        </VBox>
-        
-        <!-- Transfer 3 -->
-        <VBox spacing="8" style="-fx-border-color: #E2E8F0; -fx-border-radius: 8; -fx-padding: 10;">
-            <HBox alignment="CENTER_LEFT">
-                <VBox>
-                    <Label style="-fx-font-weight: bold; -fx-font-size: 13px;" text="notes.zip" />
-                    <Label style="-fx-font-size: 11px; -fx-text-fill: #6B7280;" text="5.6 MB • To Charlie" />
-                </VBox>
-                <Region HBox.hgrow="ALWAYS" />
-                <Label styleClass="btn-icon-transparent" style="-fx-background-color: #F1F5F9; -fx-background-radius: 4;" text="✕" />
-            </HBox>
-            <HBox spacing="10" alignment="CENTER_LEFT">
-                <ProgressBar progress="0.0" prefWidth="180" styleClass="transfer-progress-bar" style="-fx-accent: #E2E8F0;" />
-                <Label style="-fx-font-size: 11px; -fx-text-fill: #6B7280;" text="0%" />
-            </HBox>
-        </VBox>
-    </VBox>
+    <VBox fx:id="transfersContainer" spacing="15" />
     
     <Label styleClass="btn-text" text="View Transfer History →" style="-fx-alignment: center;" prefWidth="250" />
 </VBox>

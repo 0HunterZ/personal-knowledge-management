@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.shape.Circle?>
 
-<VBox spacing="25" styleClass="card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<VBox spacing="25" styleClass="card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focusnode.controller.LanActiveRoomController">
     
     <!-- 1. Header (Active Room Info) -->
     <VBox spacing="20">
@@ -13,10 +13,10 @@
             <Label styleClass="lan-room-icon" text="👥" />
             <VBox spacing="2">
                 <HBox spacing="10" alignment="CENTER_LEFT">
-                    <Label styleClass="lan-room-title" text="Focus Room A" />
+                    <Label fx:id="roomTitleLabel" styleClass="lan-room-title" text="Focus Room A" />
                     <Label styleClass="lan-room-host-badge" text="Host" />
                 </HBox>
-                <Label styleClass="lan-room-ip" text="IP: 192.168.1.105  •  Port: 5050" />
+                <Label fx:id="roomIpLabel" styleClass="lan-room-ip" text="IP: 192.168.1.105  •  Port: 5050" />
             </VBox>
             <Region HBox.hgrow="ALWAYS" />
             <Label styleClass="btn-outline, lan-room-leave-btn" text="🚪 Leave Room" />
@@ -24,7 +24,7 @@
         
         <HBox spacing="15">
             <VBox alignment="CENTER" HBox.hgrow="ALWAYS" styleClass="lan-stat-box">
-                <Label styleClass="lan-stat-value" text="4" />
+                <Label fx:id="memberCountLabel" styleClass="lan-stat-value" text="4" />
                 <Label styleClass="lan-stat-label" text="Members" />
             </VBox>
             <VBox alignment="CENTER" HBox.hgrow="ALWAYS" styleClass="lan-stat-box">
@@ -45,58 +45,7 @@
     <!-- 2. Members List -->
     <VBox spacing="10">
         <Label styleClass="lan-section-title" text="Members" />
-        
-        <!-- You -->
-        <HBox alignment="CENTER_LEFT" spacing="15" styleClass="lan-member-row">
-            <Label styleClass="member-avatar, lan-avatar-green" text="U" />
-            <VBox>
-                <Label styleClass="lan-member-name-host" text="You (Host) 👑" />
-                <Label styleClass="lan-member-ip" text="192.168.1.105" />
-            </VBox>
-            <Region HBox.hgrow="ALWAYS" />
-            <Label styleClass="status-focusing" text="Focusing" />
-            <Label styleClass="lan-member-time" text="25:00" />
-            <Label styleClass="lan-audio-on" text="🔊" />
-        </HBox>
-        
-        <!-- Alice -->
-        <HBox alignment="CENTER_LEFT" spacing="15" styleClass="lan-member-row">
-            <Label styleClass="member-avatar, lan-avatar-purple" text="A" />
-            <VBox>
-                <Label styleClass="lan-member-name" text="Alice" />
-                <Label styleClass="lan-member-ip" text="192.168.1.102" />
-            </VBox>
-            <Region HBox.hgrow="ALWAYS" />
-            <Label styleClass="status-focusing" text="Focusing" />
-            <Label styleClass="lan-member-time" text="25:00" />
-            <Label styleClass="lan-audio-muted" text="🔊" />
-        </HBox>
-        
-        <!-- Bob -->
-        <HBox alignment="CENTER_LEFT" spacing="15" styleClass="lan-member-row">
-            <Label styleClass="member-avatar, lan-avatar-yellow" text="B" />
-            <VBox>
-                <Label styleClass="lan-member-name" text="Bob" />
-                <Label styleClass="lan-member-ip" text="192.168.1.103" />
-            </VBox>
-            <Region HBox.hgrow="ALWAYS" />
-            <Label styleClass="status-break" text="Break" />
-            <Label styleClass="lan-member-time" text="05:00" />
-            <Label styleClass="lan-audio-off" text="🔇" />
-        </HBox>
-        
-        <!-- Charlie -->
-        <HBox alignment="CENTER_LEFT" spacing="15" styleClass="lan-member-row-last">
-            <Label styleClass="member-avatar, lan-avatar-blue" text="C" />
-            <VBox>
-                <Label styleClass="lan-member-name" text="Charlie" />
-                <Label styleClass="lan-member-ip" text="192.168.1.104" />
-            </VBox>
-            <Region HBox.hgrow="ALWAYS" />
-            <Label styleClass="status-focusing" text="Focusing" />
-            <Label styleClass="lan-member-time" text="25:00" />
-            <Label styleClass="lan-audio-muted" text="🔊" />
-        </HBox>
+        <VBox fx:id="membersContainer" spacing="0" />
     </VBox>
     
     <!-- 3. Room Activity (Tích hợp luôn vào bên dưới) -->

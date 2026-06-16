@@ -5,63 +5,14 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.shape.Rectangle?>
 
-<VBox spacing="15" styleClass="card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<VBox spacing="15" styleClass="card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focusnode.controller.LanDiscoverRoomsController">
     <HBox alignment="CENTER_LEFT">
         <Label styleClass="card-title" text="Discover Rooms" />
         <Region HBox.hgrow="ALWAYS" />
         <Label style="-fx-text-fill: #6B7280; -fx-cursor: hand;" text="🔄" />
     </HBox>
     
-    <VBox spacing="10">
-        <!-- Room 1 -->
-        <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-background-color: #F8FAFC; -fx-padding: 10; -fx-background-radius: 8;">
-            <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="2" />
-            <VBox spacing="2">
-                <Label style="-fx-font-weight: bold; -fx-font-size: 13px;" text="Focus Room A" />
-                <Label style="-fx-font-size: 11px; -fx-text-fill: #6B7280;" text="3/6 members" />
-            </VBox>
-            <Region HBox.hgrow="ALWAYS" />
-            <!-- Signal Bars -->
-            <HBox alignment="BOTTOM_CENTER" spacing="2">
-                <Rectangle width="3" height="4" fill="#22C55E" />
-                <Rectangle width="3" height="8" fill="#22C55E" />
-                <Rectangle width="3" height="12" fill="#22C55E" />
-                <Rectangle width="3" height="16" fill="#22C55E" />
-            </HBox>
-        </HBox>
-
-        <!-- Room 2 -->
-        <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-background-color: #F8FAFC; -fx-padding: 10; -fx-background-radius: 8;">
-            <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="3" />
-            <VBox spacing="2">
-                <Label style="-fx-font-weight: bold; -fx-font-size: 13px;" text="Study Lounge" />
-                <Label style="-fx-font-size: 11px; -fx-text-fill: #6B7280;" text="2/6 members" />
-            </VBox>
-            <Region HBox.hgrow="ALWAYS" />
-            <HBox alignment="BOTTOM_CENTER" spacing="2">
-                <Rectangle width="3" height="4" fill="#22C55E" />
-                <Rectangle width="3" height="8" fill="#22C55E" />
-                <Rectangle width="3" height="12" fill="#22C55E" />
-                <Rectangle width="3" height="16" fill="#E2E8F0" />
-            </HBox>
-        </HBox>
-
-        <!-- Room 3 -->
-        <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-background-color: #F8FAFC; -fx-padding: 10; -fx-background-radius: 8;">
-            <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="3" />
-            <VBox spacing="2">
-                <Label style="-fx-font-weight: bold; -fx-font-size: 13px;" text="Code Together" />
-                <Label style="-fx-font-size: 11px; -fx-text-fill: #6B7280;" text="4/6 members" />
-            </VBox>
-            <Region HBox.hgrow="ALWAYS" />
-            <HBox alignment="BOTTOM_CENTER" spacing="2">
-                <Rectangle width="3" height="4" fill="#F59E0B" />
-                <Rectangle width="3" height="8" fill="#F59E0B" />
-                <Rectangle width="3" height="12" fill="#E2E8F0" />
-                <Rectangle width="3" height="16" fill="#E2E8F0" />
-            </HBox>
-        </HBox>
-    </VBox>
+    <VBox fx:id="discoverRoomsContainer" spacing="10" />
 
     <Label style="-fx-text-fill: #3B82F6; -fx-font-size: 12px; -fx-padding: 10 0 0 0;" text="📶 Broadcasting for rooms..." />
 </VBox>

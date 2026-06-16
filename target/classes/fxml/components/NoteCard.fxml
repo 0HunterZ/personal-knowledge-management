@@ -11,7 +11,7 @@
 
 <!-- Một Note Card độc lập -->
 
-<VBox minWidth="200" prefWidth="220" spacing="10" style="-fx-padding: 15; -fx-cursor: hand;" styleClass="card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focusnode.controller.NoteCardController">
+<VBox minWidth="200" prefWidth="220" spacing="12" style="-fx-padding: 20; -fx-cursor: hand;" styleClass="card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focusnode.controller.NoteCardController">
     <!-- Icon mảng -->
     <HBox>
         <StackPane alignment="CENTER">
@@ -21,10 +21,10 @@
     </HBox>
 
     <!-- Tiêu đề -->
-    <Label fx:id="titleLabel" style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #1F2937;" text="Project Plan" />
+    <Label fx:id="titleLabel" style="-fx-font-weight: bold; -fx-font-size: 15px; -fx-text-fill: #1F2937;" text="Project Plan" />
 
     <!-- Nội dung mô tả ngắn -->
-    <Label fx:id="previewLabel" maxHeight="70" prefHeight="65" style="-fx-font-size: 12px; -fx-text-fill: #6B7280; -fx-line-spacing: 3px;" text="## Overview&#10;This project aims to build a LAN focus room application..." wrapText="true" textOverrun="ELLIPSIS" alignment="TOP_LEFT" />
+    <Label fx:id="previewLabel" maxHeight="70" prefHeight="65" style="-fx-font-size: 12px; -fx-text-fill: #475569; -fx-line-spacing: 4px;" text="## Overview&#10;This project aims to build a LAN focus room application..." wrapText="true" textOverrun="ELLIPSIS" alignment="TOP_LEFT" />
 
     <Region VBox.vgrow="ALWAYS" />
 

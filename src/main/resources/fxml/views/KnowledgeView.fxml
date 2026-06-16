@@ -28,7 +28,7 @@
                 <!-- Header & Quick Capture -->
                 <HBox alignment="CENTER_LEFT" spacing="15">
                     <Label style="-fx-font-family: 'Georgia', serif; -fx-font-weight: bold; -fx-font-size: 28px; -fx-text-fill: #1F2937;" text="Learning Companion" />
-                    <Label style="-fx-font-size: 11px; -fx-text-fill: #047857; -fx-font-weight: bold; -fx-background-color: #D1FAE5; -fx-padding: 4 8; -fx-background-radius: 12;" text="✨ Knowledge Hub" />
+                    <Label style="-fx-font-size: 11px; -fx-text-fill: #059669; -fx-font-weight: bold; -fx-background-color: #D1FAE5; -fx-padding: 4 10; -fx-background-radius: 12; -fx-translate-y: 2;" text="✨ Knowledge Hub" />
                     <Region HBox.hgrow="ALWAYS" />
                     <TextField prefWidth="350" promptText="🔍 Search knowledge, notes, or tags..." style="-fx-background-color: #FFFFFF; -fx-border-color: #E2E8F0; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 8 12; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 4);" />
                     <Label style="-fx-font-weight: bold; -fx-text-fill: #10B981; -fx-background-color: #D1FAE5; -fx-padding: 10 16; -fx-background-radius: 8; -fx-cursor: hand;" text="+ New note" />
@@ -42,7 +42,7 @@
                         <Label style="-fx-font-size: 12px; -fx-text-fill: #10B981; -fx-cursor: hand;" text="View all →" />
                     </HBox>
                     <HBox spacing="15">
-                        <VBox onMouseClicked="#openPersonalRepository" prefHeight="160" prefWidth="200" spacing="10" style="-fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-padding: 15; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.06), 15, 0, 0, 6);" styleClass="hub-portal-card">
+                        <VBox onMouseClicked="#openPersonalRepository" prefHeight="160" prefWidth="200" spacing="10" style="-fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-padding: 15; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(15,23,42,0.04), 16, 0, 0, 4);" styleClass="hub-portal-card">
                             <Label style="-fx-font-size: 11px; -fx-text-fill: #4F46E5; -fx-font-weight: bold; -fx-background-color: #E0E7FF; -fx-padding: 4 8; -fx-background-radius: 12;" text="Algorithms" />
                             <Label style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #1F2937;" text="Dynamic Programming Basics" wrapText="true" />
                             <Region VBox.vgrow="ALWAYS" />
@@ -57,7 +57,7 @@
                             </VBox>
                         </VBox>
 
-                        <VBox onMouseClicked="#openPersonalRepository" prefHeight="160" prefWidth="200" spacing="10" style="-fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-padding: 15; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.06), 15, 0, 0, 6);" styleClass="hub-portal-card">
+                        <VBox onMouseClicked="#openPersonalRepository" prefHeight="160" prefWidth="200" spacing="10" style="-fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-padding: 15; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(15,23,42,0.04), 16, 0, 0, 4);" styleClass="hub-portal-card">
                             <Label style="-fx-font-size: 11px; -fx-text-fill: #8B5CF6; -fx-font-weight: bold; -fx-background-color: #F3E8FF; -fx-padding: 4 8; -fx-background-radius: 12;" text="Product Design" />
                             <Label style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #1F2937;" text="Mental Models for UX" wrapText="true" />
                             <Region VBox.vgrow="ALWAYS" />

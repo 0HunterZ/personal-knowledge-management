@@ -3,12 +3,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
 
-<VBox spacing="15" styleClass="card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<VBox spacing="15" styleClass="card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focusnode.controller.LanRoomActionsController">
     <Label styleClass="card-title" text="Room Actions" />
     
     <VBox spacing="10">
         <!-- Create Room -->
-        <HBox styleClass="room-action-btn, room-create-btn">
+        <HBox fx:id="createRoomBtn" styleClass="room-action-btn, room-create-btn">
             <Label style="-fx-font-size: 20px; -fx-text-fill: #22C55E;" text="+" />
             <VBox>
                 <Label style="-fx-font-weight: bold; -fx-text-fill: #16A34A;" text="Create Room" />
@@ -17,7 +17,7 @@
         </HBox>
 
         <!-- Join Room -->
-        <HBox styleClass="room-action-btn, room-join-btn">
+        <HBox fx:id="joinRoomBtn" styleClass="room-action-btn, room-join-btn">
             <Label style="-fx-font-size: 18px; -fx-text-fill: #3B82F6;" text="🔗" />
             <VBox>
                 <Label style="-fx-font-weight: bold; -fx-text-fill: #2563EB;" text="Join Room" />
