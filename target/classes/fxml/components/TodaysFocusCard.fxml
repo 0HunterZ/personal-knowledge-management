@@ -13,8 +13,8 @@
 <VBox spacing="15" styleClass="card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focusnode.controller.TodaysFocusController">
 
     <HBox alignment="CENTER_LEFT" spacing="10">
-        <StackPane maxWidth="-Infinity" maxHeight="-Infinity" style="-fx-background-color: #E0F2FE; -fx-padding: 6; -fx-background-radius: 8;">
-            <SVGPath content="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" style="-fx-fill: #0284C7;" scaleX="0.8" scaleY="0.8" />
+        <StackPane maxWidth="-Infinity" maxHeight="-Infinity" style="-fx-background-color: transparent; -fx-padding: 0;">
+            <SVGPath content="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8zm0-14a6 6 0 1 0 6 6 6 6 0 0 0-6-6zm0 10a4 4 0 1 1 4-4 4 4 0 0 1-4 4zm0-6a2 2 0 1 0 2 2 2 2 0 0 0-2-2z" style="-fx-fill: #EF4444;" scaleX="1.1" scaleY="1.1" />
         </StackPane>
         <Label styleClass="card-title" text="Today's Focus" />
         <Region HBox.hgrow="ALWAYS" />

@@ -8,6 +8,7 @@ public enum AppView {
     ZEN_MODE("/fxml/views/ZenMode.fxml"),
     TAGS("/fxml/views/TagsView.fxml"),
     ANALYTICS("/fxml/views/AnalyticsView.fxml"),
+    SETTINGS("/fxml/views/SettingsView.fxml"),
     REVIEW("/fxml/views/ReviewView.fxml");
 
     private final String fxmlPath;

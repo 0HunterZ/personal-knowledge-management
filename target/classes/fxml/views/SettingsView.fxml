@@ -5,7 +5,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.shape.Circle?>
 
-<ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: #F8FAFC;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: #F8FAFC;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focusnode.controller.SettingsViewController">
     <VBox spacing="12" style="-fx-padding: 12 18;">
         
         <!-- Header -->

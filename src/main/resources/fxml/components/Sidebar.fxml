@@ -19,8 +19,8 @@
             </image>
         </ImageView>
         <VBox alignment="CENTER_LEFT" spacing="2">
-            <Label text="Focus-Node" styleClass="sidebar-logo-title" />
-            <Label text="Focus. Learn. Grow." styleClass="sidebar-logo-subtitle" />
+            <Label text="Focus-Node" styleClass="sidebar-logo-title" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #0F172A;" />
+            <Label text="Focus. Learn. Grow." styleClass="sidebar-logo-subtitle" style="-fx-font-size: 13px; -fx-text-fill: #64748B;" />
         </VBox>
     </HBox>
 
@@ -81,13 +81,13 @@
             </graphic>
         </ToggleButton>
         <!-- Analytics -->
-        <ToggleButton text="Analytics" toggleGroup="$menuGroup" styleClass="nav-btn" maxWidth="Infinity" alignment="BASELINE_LEFT">
+        <ToggleButton text="Analytics" toggleGroup="$menuGroup" styleClass="nav-btn" maxWidth="Infinity" alignment="BASELINE_LEFT" onAction="#showAnalytics">
             <graphic>
                 <ImageView fitHeight="22" fitWidth="22" pickOnBounds="true" preserveRatio="true"><image><Image url="@/images/icon_analytics_new.png" /></image></ImageView>
             </graphic>
         </ToggleButton>
         <!-- Settings -->
-        <ToggleButton text="Settings" toggleGroup="$menuGroup" styleClass="nav-btn" maxWidth="Infinity" alignment="BASELINE_LEFT">
+        <ToggleButton text="Settings" toggleGroup="$menuGroup" styleClass="nav-btn" maxWidth="Infinity" alignment="BASELINE_LEFT" onAction="#showSettings">
             <graphic>
                 <ImageView fitHeight="22" fitWidth="22" pickOnBounds="true" preserveRatio="true"><image><Image url="@/images/Settings_new.png" /></image></ImageView>
             </graphic>

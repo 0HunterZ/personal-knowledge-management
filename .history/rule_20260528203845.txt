@@ -1,3 +1,4 @@
+Dựa trên UI bạn đưa, mình nghĩ ứng dụng của bạn **không nên chỉ được định nghĩa là “app ghi chú + todo + Pomodoro”**. Nếu định nghĩa như vậy thì nó sẽ bị giống Notion, Todoist, Forest, Google Keep, Anki, v.v.
 
 Một định hướng mạnh hơn là:
 

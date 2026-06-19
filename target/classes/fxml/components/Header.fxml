@@ -7,9 +7,9 @@
 <?import javafx.scene.control.Button?>
 
 <HBox alignment="CENTER_LEFT" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focusnode.controller.HeaderController">
-    <VBox spacing="5">
-        <Label fx:id="greetingLabel" styleClass="header-greeting" text="Good morning, User! 👋" />
-        <Label fx:id="subtitleLabel" styleClass="header-subtitle" text="Small steps every day lead to big changes." />
+    <VBox spacing="5" style="-fx-padding: 8 0 0 0;">
+        <Label fx:id="greetingLabel" styleClass="header-greeting" text="Good morning, User! 👋" style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #0F172A;" />
+        <Label fx:id="subtitleLabel" styleClass="header-subtitle" text="Small steps every day lead to big changes." style="-fx-font-size: 14px; -fx-text-fill: #64748B;" />
     </VBox>
     <Region HBox.hgrow="ALWAYS" />
     <!-- Action Icons -->
