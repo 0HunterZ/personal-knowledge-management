@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.shape.Circle?>
+
+<ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: #F8FAFC;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focusnode.controller.SettingsViewController">
+    <VBox spacing="12" style="-fx-padding: 12 18;">
+        
+        <!-- Header -->
+        <HBox alignment="CENTER_LEFT">
+            <VBox spacing="5">
+                <Label style="-fx-font-weight: bold; -fx-font-size: 28px; -fx-text-fill: #1F2937;" text="Settings ⚙" />
+                <Label style="-fx-font-size: 14px; -fx-text-fill: #6B7280;" text="Customize your Focus-Node workspace to maximize your productivity." />
+            </VBox>
+        </HBox>
+
+        <!-- Main Content Area: Split in 2 Main Columns -->
+        <HBox spacing="25">
+            <!-- Left Column (General, Pomodoro, Backup) -->
+            <VBox spacing="25" HBox.hgrow="ALWAYS" style="-fx-min-width: 350; -fx-max-width: 800;">
+                
+                <!-- Account Profile Settings Card -->
+                <VBox spacing="15" styleClass="card">
+                    <Label text="Account Profile" styleClass="card-title" />
+                    
+                    <HBox spacing="20" alignment="CENTER_LEFT" style="-fx-padding: 10 0;">
+                        <StackPane fx:id="avatarPane">
+                            <Circle fx:id="avatarCircle" radius="36" fill="#8B5CF6" />
+                            <Label fx:id="avatarInitial" text="U" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 24px;" />
+                        </StackPane>
+                        <VBox spacing="8">
+                            <Label text="Upload Avatar Image" style="-fx-font-weight: bold; -fx-text-fill: #1F2937; -fx-font-size: 13px;" />
+                            <Label text="JPG, PNG up to 2MB" style="-fx-font-size: 11px; -fx-text-fill: #94A3B8;" />
+                            <HBox spacing="10">
+                                <Button fx:id="uploadBtn" text="Upload New" onAction="#onUploadAvatar" styleClass="btn-add-task" style="-fx-font-size: 12px; -fx-padding: 5 10;" />
+                                <Button fx:id="removeBtn" text="Remove" onAction="#onRemoveAvatar" styleClass="btn-outline" style="-fx-font-size: 12px; -fx-padding: 5 10; -fx-border-color: #EF4444; -fx-text-fill: #EF4444;" />
+                            </HBox>
+                        </VBox>
+                    </HBox>
+                    
+                    <GridPane hgap="15" vgap="12">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="30" />
+                            <ColumnConstraints percentWidth="70" />
+                        </columnConstraints>
+                        <rowConstraints>
+                            <RowConstraints minHeight="36" />
+                            <RowConstraints minHeight="36" />
+                        </rowConstraints>
+                        
+                        <Label text="Display Name:" style="-fx-text-fill: #6B7280; -fx-font-weight: 500;" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <TextField fx:id="displayNameField" text="User" styleClass="search-bar" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        
+                        <Label text="Email Address:" style="-fx-text-fill: #6B7280; -fx-font-weight: 500;" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <TextField fx:id="emailField" text="user@focusnode.local" styleClass="search-bar" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                    </GridPane>
+                </VBox>
+
+                <!-- Pomodoro Timer Settings Card -->
+                <VBox spacing="15" styleClass="card">
+                    <Label text="Pomodoro Timer Configurations" styleClass="card-title" />
+                    
+                    <GridPane hgap="20" vgap="12">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="50" />
+                            <ColumnConstraints percentWidth="50" />
+                        </columnConstraints>
+                        <rowConstraints>
+                            <RowConstraints minHeight="36" />
+                            <RowConstraints minHeight="36" />
+                            <RowConstraints minHeight="36" />
+                        </rowConstraints>
+                        
+                        <Label text="Focus Interval Duration (mins):" style="-fx-text-fill: #6B7280;" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <Spinner min="1" max="180" initialValue="25" styleClass="search-bar" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        
+                        <Label text="Short Break Duration (mins):" style="-fx-text-fill: #6B7280;" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <Spinner min="1" max="60" initialValue="5" styleClass="search-bar" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        
+                        <Label text="Long Break Duration (mins):" style="-fx-text-fill: #6B7280;" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <Spinner min="1" max="120" initialValue="15" styleClass="search-bar" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                    </GridPane>
+                </VBox>
+                
+                <!-- System Sync & Backup Card -->
+                <VBox spacing="15" styleClass="card">
+                    <Label text="Data Backup &amp; Synchronisation" styleClass="card-title" />
+                    
+                    <VBox spacing="12">
+                        <HBox alignment="CENTER_LEFT" spacing="15">
+                            <Label text="Auto-sync to cloud servers:" style="-fx-text-fill: #6B7280;" HBox.hgrow="ALWAYS" />
+                            <Region HBox.hgrow="ALWAYS" />
+                            <ToggleButton text="Enabled" selected="true" styleClass="toggle-btn, toggle-btn-active" />
+                        </HBox>
+                        
+                        <HBox alignment="CENTER_LEFT" spacing="15">
+                            <Label text="Sync frequency (mins):" style="-fx-text-fill: #6B7280;" />
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Slider min="5" max="120" value="15" showTickLabels="true" showTickMarks="true" prefWidth="200" />
+                        </HBox>
+                        
+                        <Separator style="-fx-padding: 5 0;" />
+                        
+                        <HBox spacing="15" alignment="CENTER_RIGHT">
+                            <Button text="Backup Database Now" styleClass="btn-outline" />
+                            <Button text="Restore from File" styleClass="btn-outline" />
+                        </HBox>
+                    </VBox>
+                </VBox>
+
+            </VBox>
+
+            <!-- Right Column (General, Goals, Actions) -->
+            <VBox spacing="25" HBox.hgrow="ALWAYS" style="-fx-min-width: 300; -fx-max-width: 600;">
+                
+                <!-- General Workspace Settings Card -->
+                <VBox spacing="15" styleClass="card">
+                    <Label text="Workspace Preferences" styleClass="card-title" />
+                    
+                    <VBox spacing="15">
+                        <VBox spacing="5">
+                            <Label text="Visual Appearance Theme" style="-fx-font-weight: 500; -fx-text-fill: #1F2937;" />
+                            <HBox spacing="8" style="-fx-padding: 5 0 0 0;">
+                                <ToggleButton text="Light Mode" selected="true" styleClass="toggle-btn, toggle-btn-active" maxWidth="Infinity" HBox.hgrow="ALWAYS" />
+                                <ToggleButton text="Dark Mode" styleClass="toggle-btn" maxWidth="Infinity" HBox.hgrow="ALWAYS" />
+                            </HBox>
+                        </VBox>
+                        
+                        <Separator style="-fx-padding: 5 0;" />
+                        
+                        <CheckBox text="Launch on system startup" selected="true" style="-fx-text-fill: #6B7280; -fx-font-size: 13px;" />
+                        <CheckBox text="Enable audio sound effects" selected="true" style="-fx-text-fill: #6B7280; -fx-font-size: 13px;" />
+                        <CheckBox text="Enable desktop push notifications" selected="true" style="-fx-text-fill: #6B7280; -fx-font-size: 13px;" />
+                        <CheckBox text="Allow focus hub discoveries" selected="false" style="-fx-text-fill: #6B7280; -fx-font-size: 13px;" />
+                    </VBox>
+                </VBox>
+
+                <!-- Focus Targets & Goals Card -->
+                <VBox spacing="15" styleClass="card">
+                    <Label text="Focus Target Settings" styleClass="card-title" />
+                    
+                    <VBox spacing="12">
+                        <Label text="Your daily focus goal controls the completion circle in Analytics." style="-fx-font-size: 12px; -fx-text-fill: #6B7280;" wrapText="true" />
+                        
+                        <VBox spacing="5" style="-fx-padding: 8 0;">
+                            <HBox>
+                                <Label text="Daily target (hours):" style="-fx-font-weight: 500; -fx-text-fill: #1F2937;" />
+                                <Region HBox.hgrow="ALWAYS" />
+                                <Label text="4.0 hrs" style="-fx-font-weight: bold; -fx-text-fill: #22C55E;" />
+                            </HBox>
+                            <Slider min="1" max="16" value="4" showTickMarks="true" majorTickUnit="2" showTickLabels="true" />
+                        </VBox>
+                        
+                        <VBox spacing="5">
+                            <Label text="Weekly focus streak target (days):" style="-fx-font-weight: 500; -fx-text-fill: #1F2937;" />
+                            <HBox spacing="8" style="-fx-padding: 5 0 0 0;">
+                                <ToggleButton text="3 Days" styleClass="toggle-btn" maxWidth="Infinity" HBox.hgrow="ALWAYS" />
+                                <ToggleButton text="5 Days" selected="true" styleClass="toggle-btn, toggle-btn-active" maxWidth="Infinity" HBox.hgrow="ALWAYS" />
+                                <ToggleButton text="7 Days" styleClass="toggle-btn" maxWidth="Infinity" HBox.hgrow="ALWAYS" />
+                            </HBox>
+                        </VBox>
+                    </VBox>
+                </VBox>
+                
+                <!-- Action Card at Bottom -->
+                <VBox spacing="15" styleClass="card">
+                    <Label text="System Information" styleClass="card-title" />
+                    <VBox spacing="8">
+                        <HBox>
+                            <Label text="Version:" style="-fx-text-fill: #6B7280;" />
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Label text="1.2.0-Production" style="-fx-font-weight: bold; -fx-text-fill: #1F2937;" />
+                        </HBox>
+                        <HBox>
+                            <Label text="Updates:" style="-fx-text-fill: #6B7280;" />
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Label text="Up to date ✓" style="-fx-font-weight: bold; -fx-text-fill: #22C55E;" />
+                        </HBox>
+                        <HBox>
+                            <Label text="Build:" style="-fx-text-fill: #6B7280;" />
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Label text="May 2026 Build" style="-fx-text-fill: #6B7280;" />
+                        </HBox>
+                    </VBox>
+                    
+                    <Separator style="-fx-padding: 5 0;" />
+                    
+                    <HBox spacing="12" alignment="CENTER_RIGHT">
+                        <Button text="Reset Settings" styleClass="btn-outline" style="-fx-border-color: #EF4444; -fx-text-fill: #EF4444;" />
+                        <Button text="Save Settings" styleClass="btn-primary" />
+                    </HBox>
+                </VBox>
+
+            </VBox>
+        </HBox>
+    </VBox>
+</ScrollPane>

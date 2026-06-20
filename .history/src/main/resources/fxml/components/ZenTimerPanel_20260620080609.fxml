@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+
+<VBox alignment="CENTER" spacing="10" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <Label styleClass="zen-eyebrow" text="Focus on what matters" />
+    <ComboBox fx:id="taskComboBox" promptText="Select a task to focus" prefWidth="260" />
+    <HBox alignment="CENTER" spacing="10">
+        <ComboBox fx:id="phaseComboBox" prefWidth="140" promptText="Session type" />
+        <VBox alignment="CENTER_LEFT" spacing="4">
+            <Label text="Focus min" styleClass="zen-subtitle" />
+            <Spinner fx:id="focusDurationSpinner" prefWidth="100" />
+        </VBox>
+        <VBox alignment="CENTER_LEFT" spacing="4">
+            <Label text="Break min" styleClass="zen-subtitle" />
+            <Spinner fx:id="breakDurationSpinner" prefWidth="100" />
+        </VBox>
+    </HBox>
+    <Label fx:id="taskTitleLabel" id="taskTitleLabel" wrapText="true" styleClass="zen-task-title" text="Build LAN connection module" />
+    <Label fx:id="taskCategoryLabel" id="taskCategoryLabel" styleClass="zen-category-pill" text="Project" />
+
+    <StackPane minHeight="230" minWidth="230" prefHeight="250" prefWidth="250">
+        <Circle fill="TRANSPARENT" radius="112" stroke="#E2E8F0" strokeWidth="8" />
+        <Circle fx:id="progressCircle" id="progressCircle" fill="TRANSPARENT" radius="112" stroke="#22C55E" strokeDashArray="488, 220" strokeLineCap="ROUND" strokeWidth="8" />
+        <VBox alignment="CENTER" spacing="8">
+            <Label fx:id="timerLabel" id="timerLabel" styleClass="zen-timer-text" text="25:00" />
+            <Label fx:id="statusLabel" id="statusLabel" styleClass="zen-timer-label" text="Ready" />
+            <Label fx:id="sessionLabel" id="sessionLabel" styleClass="zen-session-label" text="Session 1 of 4" />
+        </VBox>
+    </StackPane>
+
+    <Label fx:id="endsAtLabel" id="endsAtLabel" styleClass="zen-time-pill" text="Ready when you are" />
+</VBox>

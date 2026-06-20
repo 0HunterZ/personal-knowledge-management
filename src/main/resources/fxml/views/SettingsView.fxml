@@ -26,17 +26,18 @@
                     <Label text="Account Profile" styleClass="card-title" />
                     
                     <HBox spacing="20" alignment="CENTER_LEFT" style="-fx-padding: 10 0;">
-                        <StackPane>
-                            <Circle radius="36" fill="#8B5CF6" />
-                            <Label text="U" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 24px;" />
+                        <StackPane fx:id="avatarPane">
+                            <Circle fx:id="avatarCircle" radius="36" fill="#8B5CF6" />
+                            <Label fx:id="avatarInitial" text="U" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 24px;" />
                         </StackPane>
                         <VBox spacing="8">
                             <Label text="Upload Avatar Image" style="-fx-font-weight: bold; -fx-text-fill: #1F2937; -fx-font-size: 13px;" />
                             <Label text="JPG, PNG up to 2MB" style="-fx-font-size: 11px; -fx-text-fill: #94A3B8;" />
-                            <HBox spacing="10">
-                                <Button text="Upload New" styleClass="btn-add-task" style="-fx-font-size: 12px; -fx-padding: 5 10;" />
-                                <Button text="Remove" styleClass="btn-outline" style="-fx-font-size: 12px; -fx-padding: 5 10; -fx-border-color: #EF4444; -fx-text-fill: #EF4444;" />
-                            </HBox>
+                                <HBox spacing="10">
+                                    <Button fx:id="uploadBtn" text="Upload New" onAction="#onUploadAvatar" styleClass="btn-add-task" style="-fx-font-size: 12px; -fx-padding: 5 10;" />
+                                    <Button fx:id="removeBtn" text="Remove" onAction="#onRemoveAvatar" styleClass="btn-outline" style="-fx-font-size: 12px; -fx-padding: 5 10; -fx-border-color: #EF4444; -fx-text-fill: #EF4444;" />
+                                    <Button text="Edit Profile" onAction="#onEditProfile" styleClass="btn-primary" style="-fx-font-size: 12px; -fx-padding: 5 10;" />
+                                </HBox>
                         </VBox>
                     </HBox>
                     
@@ -51,10 +52,10 @@
                         </rowConstraints>
                         
                         <Label text="Display Name:" style="-fx-text-fill: #6B7280; -fx-font-weight: 500;" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                        <TextField text="User" styleClass="search-bar" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <TextField fx:id="displayNameField" text="User" styleClass="search-bar" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                         
                         <Label text="Email Address:" style="-fx-text-fill: #6B7280; -fx-font-weight: 500;" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                        <TextField text="user@focusnode.local" styleClass="search-bar" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="emailField" text="user@focusnode.local" styleClass="search-bar" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                     </GridPane>
                 </VBox>
 
@@ -74,13 +75,13 @@
                         </rowConstraints>
                         
                         <Label text="Focus Interval Duration (mins):" style="-fx-text-fill: #6B7280;" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                        <Spinner min="1" max="180" initialValue="25" styleClass="search-bar" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <Spinner fx:id="focusIntervalSpinner" min="1" max="180" initialValue="25" styleClass="search-bar" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                         
                         <Label text="Short Break Duration (mins):" style="-fx-text-fill: #6B7280;" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                        <Spinner min="1" max="60" initialValue="5" styleClass="search-bar" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Spinner fx:id="shortBreakSpinner" min="1" max="60" initialValue="5" styleClass="search-bar" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         
                         <Label text="Long Break Duration (mins):" style="-fx-text-fill: #6B7280;" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                        <Spinner min="1" max="120" initialValue="15" styleClass="search-bar" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Spinner fx:id="longBreakSpinner" min="1" max="120" initialValue="15" styleClass="search-bar" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                     </GridPane>
                 </VBox>
                 
@@ -92,20 +93,20 @@
                         <HBox alignment="CENTER_LEFT" spacing="15">
                             <Label text="Auto-sync to cloud servers:" style="-fx-text-fill: #6B7280;" HBox.hgrow="ALWAYS" />
                             <Region HBox.hgrow="ALWAYS" />
-                            <ToggleButton text="Enabled" selected="true" styleClass="toggle-btn, toggle-btn-active" />
+                            <ToggleButton fx:id="autoSyncToggle" text="Enabled" selected="true" styleClass="toggle-btn, toggle-btn-active" />
                         </HBox>
                         
                         <HBox alignment="CENTER_LEFT" spacing="15">
                             <Label text="Sync frequency (mins):" style="-fx-text-fill: #6B7280;" />
                             <Region HBox.hgrow="ALWAYS" />
-                            <Slider min="5" max="120" value="15" showTickLabels="true" showTickMarks="true" prefWidth="200" />
+                            <Slider fx:id="syncFrequencySlider" min="5" max="120" value="15" showTickLabels="true" showTickMarks="true" prefWidth="200" />
                         </HBox>
                         
                         <Separator style="-fx-padding: 5 0;" />
                         
                         <HBox spacing="15" alignment="CENTER_RIGHT">
-                            <Button text="Backup Database Now" styleClass="btn-outline" />
-                            <Button text="Restore from File" styleClass="btn-outline" />
+                            <Button text="Backup Database Now" styleClass="btn-outline" onAction="#onBackupDatabase" />
+                            <Button text="Restore from File" styleClass="btn-outline" onAction="#onRestoreDatabase" />
                         </HBox>
                     </VBox>
                 </VBox>
@@ -123,17 +124,17 @@
                         <VBox spacing="5">
                             <Label text="Visual Appearance Theme" style="-fx-font-weight: 500; -fx-text-fill: #1F2937;" />
                             <HBox spacing="8" style="-fx-padding: 5 0 0 0;">
-                                <ToggleButton text="Light Mode" selected="true" styleClass="toggle-btn, toggle-btn-active" maxWidth="Infinity" HBox.hgrow="ALWAYS" />
-                                <ToggleButton text="Dark Mode" styleClass="toggle-btn" maxWidth="Infinity" HBox.hgrow="ALWAYS" />
+                                <ToggleButton fx:id="lightModeToggle" text="Light Mode" selected="true" styleClass="toggle-btn, toggle-btn-active" maxWidth="Infinity" HBox.hgrow="ALWAYS" />
+                                <ToggleButton fx:id="darkModeToggle" text="Dark Mode" styleClass="toggle-btn" maxWidth="Infinity" HBox.hgrow="ALWAYS" />
                             </HBox>
                         </VBox>
                         
                         <Separator style="-fx-padding: 5 0;" />
                         
-                        <CheckBox text="Launch on system startup" selected="true" style="-fx-text-fill: #6B7280; -fx-font-size: 13px;" />
-                        <CheckBox text="Enable audio sound effects" selected="true" style="-fx-text-fill: #6B7280; -fx-font-size: 13px;" />
-                        <CheckBox text="Enable desktop push notifications" selected="true" style="-fx-text-fill: #6B7280; -fx-font-size: 13px;" />
-                        <CheckBox text="Allow focus hub discoveries" selected="false" style="-fx-text-fill: #6B7280; -fx-font-size: 13px;" />
+                        <CheckBox fx:id="startupCheck" text="Launch on system startup" selected="true" style="-fx-text-fill: #6B7280; -fx-font-size: 13px;" />
+                        <CheckBox fx:id="soundCheck" text="Enable audio sound effects" selected="true" style="-fx-text-fill: #6B7280; -fx-font-size: 13px;" />
+                        <CheckBox fx:id="notificationsCheck" text="Enable desktop push notifications" selected="true" style="-fx-text-fill: #6B7280; -fx-font-size: 13px;" />
+                        <CheckBox fx:id="discoveriesCheck" text="Allow focus hub discoveries" selected="false" style="-fx-text-fill: #6B7280; -fx-font-size: 13px;" />
                     </VBox>
                 </VBox>
 
@@ -148,17 +149,17 @@
                             <HBox>
                                 <Label text="Daily target (hours):" style="-fx-font-weight: 500; -fx-text-fill: #1F2937;" />
                                 <Region HBox.hgrow="ALWAYS" />
-                                <Label text="4.0 hrs" style="-fx-font-weight: bold; -fx-text-fill: #22C55E;" />
+                                <Label fx:id="dailyTargetLabel" text="4.0 hrs" style="-fx-font-weight: bold; -fx-text-fill: #22C55E;" />
                             </HBox>
-                            <Slider min="1" max="16" value="4" showTickMarks="true" majorTickUnit="2" showTickLabels="true" />
+                            <Slider fx:id="dailyTargetSlider" min="1" max="16" value="4" showTickMarks="true" majorTickUnit="2" showTickLabels="true" />
                         </VBox>
                         
                         <VBox spacing="5">
                             <Label text="Weekly focus streak target (days):" style="-fx-font-weight: 500; -fx-text-fill: #1F2937;" />
                             <HBox spacing="8" style="-fx-padding: 5 0 0 0;">
-                                <ToggleButton text="3 Days" styleClass="toggle-btn" maxWidth="Infinity" HBox.hgrow="ALWAYS" />
-                                <ToggleButton text="5 Days" selected="true" styleClass="toggle-btn, toggle-btn-active" maxWidth="Infinity" HBox.hgrow="ALWAYS" />
-                                <ToggleButton text="7 Days" styleClass="toggle-btn" maxWidth="Infinity" HBox.hgrow="ALWAYS" />
+                                <ToggleButton fx:id="streak3Toggle" text="3 Days" styleClass="toggle-btn" maxWidth="Infinity" HBox.hgrow="ALWAYS" />
+                                <ToggleButton fx:id="streak5Toggle" text="5 Days" selected="true" styleClass="toggle-btn, toggle-btn-active" maxWidth="Infinity" HBox.hgrow="ALWAYS" />
+                                <ToggleButton fx:id="streak7Toggle" text="7 Days" styleClass="toggle-btn" maxWidth="Infinity" HBox.hgrow="ALWAYS" />
                             </HBox>
                         </VBox>
                     </VBox>
@@ -188,8 +189,8 @@
                     <Separator style="-fx-padding: 5 0;" />
                     
                     <HBox spacing="12" alignment="CENTER_RIGHT">
-                        <Button text="Reset Settings" styleClass="btn-outline" style="-fx-border-color: #EF4444; -fx-text-fill: #EF4444;" />
-                        <Button text="Save Settings" styleClass="btn-primary" />
+                        <Button text="Reset Settings" styleClass="btn-outline" style="-fx-border-color: #EF4444; -fx-text-fill: #EF4444;" onAction="#onResetSettings" />
+                        <Button text="Save Settings" styleClass="btn-primary" onAction="#onSaveSettings" />
                     </HBox>
                 </VBox>
 

@@ -1,34 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
 
-<VBox spacing="10" styleClass="zen-glass-card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<VBox spacing="10" styleClass="zen-glass-card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focusnode.controller.ZenTeamFocusCardController">
     <Label styleClass="zen-card-title-large" text="Team Focus" />
-
-    <HBox alignment="CENTER_LEFT" spacing="10">
-        <Circle fill="#6EE7B7" radius="13" />
-        <Label styleClass="zen-member-name" text="You (Host)" />
-        <Region HBox.hgrow="ALWAYS" />
-        <Label styleClass="zen-status-focus" text="Focusing" />
-    </HBox>
-
-    <HBox alignment="CENTER_LEFT" spacing="10">
-        <Circle fill="#C4B5FD" radius="13" />
-        <Label styleClass="zen-member-name" text="Alice" />
-        <Region HBox.hgrow="ALWAYS" />
-        <Label styleClass="zen-status-focus" text="Focusing" />
-    </HBox>
-
-    <HBox alignment="CENTER_LEFT" spacing="10">
-        <Circle fill="#FDE68A" radius="13" />
-        <Label styleClass="zen-member-name" text="Bob" />
-        <Region HBox.hgrow="ALWAYS" />
-        <Label styleClass="zen-status-break" text="Break" />
-    </HBox>
-
-    <Button styleClass="zen-link-button" text="View all members ->" />
+    <VBox fx:id="membersContainer" spacing="10" />
+    <Button fx:id="viewAllButton" styleClass="zen-link-button" text="View all members ->" />
 </VBox>

@@ -31,7 +31,7 @@ public class StorageCardController {
         scheduler.scheduleAtFixedRate(this::updateStorageInfo, 5, 5, TimeUnit.MINUTES);
     }
 
-    private void updateStorageInfo() {
+    public void updateStorageInfo() {
         File dbFile = new File(DB_FILE_PATH);
         long currentBytes = dbFile.exists() ? dbFile.length() : 0;
         

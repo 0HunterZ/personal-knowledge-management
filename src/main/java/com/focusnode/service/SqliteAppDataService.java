@@ -124,4 +124,9 @@ public class SqliteAppDataService implements AppDataService {
             reviewItemRepo.update(item);
         }
     }
+
+    @Override
+    public com.focusnode.model.DashboardMetrics getDashboardMetrics() {
+        return new com.focusnode.model.DashboardMetrics();
+    }
 }

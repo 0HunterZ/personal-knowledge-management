@@ -20,27 +20,22 @@ public class LanRoomActionsController implements Initializable {
 
     private final LanSessionService sessionService = ServiceLocator.getLanSessionService();
 
+    private Runnable onCreateRoomCallback;
+    private Runnable onJoinRoomCallback;
+
+    public void setCallbacks(Runnable onCreate, Runnable onJoin) {
+        this.onCreateRoomCallback = onCreate;
+        this.onJoinRoomCallback = onJoin;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Simple mock actions for now
         createRoomBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-            LanRoom room = new LanRoom(
-                UUID.randomUUID().toString(),
-                "My New Focus Room",
-                "127.0.0.1",
-                5050
-            );
-            LanMember host = new LanMember("u1", "You", "127.0.0.1", true);
-            room.getMembers().add(host);
-            
-            sessionService.activeRoomProperty().set(room);
-            
-            // Start broadcasting presence
-            ServiceLocator.getLanDiscoveryService().startBroadcasting(room);
+            if (onCreateRoomCallback != null) onCreateRoomCallback.run();
         });
 
         joinRoomBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-            System.out.println("Join Room clicked - to be implemented");
+            if (onJoinRoomCallback != null) onJoinRoomCallback.run();
         });
     }
 }

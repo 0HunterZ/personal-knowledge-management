@@ -34,7 +34,10 @@ public class TaskRowController {
 
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("MMM d, yyyy");
 
+    private Task currentTask;
+
     public void bind(Task task) {
+        this.currentTask = task;
         if (task == null) {
             return;
         }
@@ -69,13 +72,23 @@ public class TaskRowController {
         }
         if (focusTimeLabel != null) {
             focusTimeLabel.textProperty().bind(javafx.beans.binding.Bindings.createStringBinding(
-                () -> "⏱ " + task.getFocusMinutes() + " min",
+                () -> task.getFocusMinutes() + " min",
                 task.focusMinutesProperty()
             ));
         }
         if (checkboxBox != null && checkboxLabel != null) {
             task.completedProperty().addListener((obs, oldVal, newVal) -> updateCheckboxStyle(newVal));
             updateCheckboxStyle(task.isCompleted());
+            
+            checkboxBox.setOnMouseClicked(event -> {
+                boolean newCompleted = !task.isCompleted();
+                task.setCompleted(newCompleted);
+                if (newCompleted) {
+                    task.setStatus(Task.Status.COMPLETED);
+                } else {
+                    task.setStatus(Task.Status.IN_PROGRESS);
+                }
+            });
         }
     }
 
@@ -102,10 +115,10 @@ public class TaskRowController {
 
     private void updateCheckboxStyle(boolean isCompleted) {
         if (isCompleted) {
-            checkboxBox.getStyleClass().setAll("task-checkbox", "task-checkbox-checked");
+            checkboxBox.getStyleClass().setAll("task-checkbox", "task-checkbox-checked", "task-checkbox-circle");
             checkboxLabel.setText("✓");
         } else {
-            checkboxBox.getStyleClass().setAll("task-checkbox");
+            checkboxBox.getStyleClass().setAll("task-checkbox", "task-checkbox-circle");
             checkboxLabel.setText("");
         }
     }

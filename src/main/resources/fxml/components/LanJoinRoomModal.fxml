@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="20" styleClass="card" maxWidth="400" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focusnode.controller.LanJoinRoomModalController">
+    <!-- Header -->
+    <VBox spacing="5">
+        <Label text="Join Focus Room" style="-fx-font-weight: bold; -fx-font-size: 20px; -fx-text-fill: #1F2937;" />
+        <Label text="Nhập địa chỉ IP của Host để kết nối." style="-fx-font-size: 13px; -fx-text-fill: #6B7280;" wrapText="true" />
+    </VBox>
+    
+    <!-- Body -->
+    <VBox spacing="15">
+        <VBox spacing="5">
+            <Label text="Host IP Address" style="-fx-font-weight: bold; -fx-text-fill: #374151;" />
+            <TextField fx:id="ipInput" promptText="192.168.1.xxx" style="-fx-font-size: 16px;" styleClass="input-field" />
+            <Label text="VD: 192.168.1.xxx (Hỏi người tạo phòng)" style="-fx-font-size: 11px; -fx-text-fill: #9CA3AF;" />
+            
+            <HBox spacing="8" style="-fx-padding: 5 0 0 0;" alignment="CENTER_LEFT">
+                <Label text="Recent:" style="-fx-font-size: 12px; -fx-text-fill: #6B7280;" />
+                <Label styleClass="status-focusing" text="192.168.1.45" style="-fx-cursor: hand; -fx-font-size: 11px;" onMouseClicked="#onRecentIpClicked" />
+                <Label styleClass="status-focusing" text="192.168.1.102" style="-fx-cursor: hand; -fx-font-size: 11px;" onMouseClicked="#onRecentIpClicked" />
+            </HBox>
+        </VBox>
+        
+        <HBox spacing="15">
+            <VBox spacing="5" HBox.hgrow="SOMETIMES">
+                <Label text="Port" style="-fx-font-weight: bold; -fx-text-fill: #374151;" />
+                <TextField fx:id="portInput" text="5050" style="-fx-opacity: 0.7;" styleClass="input-field" />
+            </VBox>
+            <VBox spacing="5" HBox.hgrow="ALWAYS">
+                <Label text="Password" style="-fx-font-weight: bold; -fx-text-fill: #374151;" />
+                <PasswordField fx:id="passwordInput" promptText="Optional" styleClass="input-field" />
+            </VBox>
+        </HBox>
+    </VBox>
+    
+    <!-- Error Label -->
+    <Label fx:id="errorLabel" text="Không thể kết nối. Kiểm tra lại IP, Port hoặc Tường lửa (Firewall) của Host!" style="-fx-text-fill: #EF4444; -fx-font-weight: bold;" visible="false" managed="false" wrapText="true" />
+    
+    <!-- Footer -->
+    <HBox spacing="10" alignment="CENTER_RIGHT" style="-fx-padding: 10 0 0 0;">
+        <Button fx:id="cancelBtn" text="Cancel" style="-fx-background-color: transparent; -fx-text-fill: #6B7280; -fx-cursor: hand; -fx-font-weight: bold;" />
+        <Button fx:id="connectBtn" text="Connect" style="-fx-background-color: #3B82F6; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16; -fx-background-radius: 6; -fx-cursor: hand;">
+            <graphic>
+                <ProgressIndicator fx:id="spinner" visible="false" managed="false" prefWidth="16" prefHeight="16" style="-fx-progress-color: white;"/>
+            </graphic>
+        </Button>
+    </HBox>
+</VBox>

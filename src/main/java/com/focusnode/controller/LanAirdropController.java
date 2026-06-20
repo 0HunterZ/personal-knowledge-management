@@ -53,4 +53,17 @@ public class LanAirdropController implements Initializable {
             event.consume();
         });
     }
+
+    @FXML
+    public void onSelectFiles() {
+        javafx.stage.FileChooser fileChooser = new javafx.stage.FileChooser();
+        fileChooser.setTitle("Select Files to Airdrop");
+        javafx.stage.Window window = airdropZone.getScene().getWindow();
+        java.util.List<File> files = fileChooser.showOpenMultipleDialog(window);
+        if (files != null) {
+            for (File file : files) {
+                transferService.sendFile(file, "Everyone");
+            }
+        }
+    }
 }

@@ -176,4 +176,9 @@ public class InMemoryAppDataService implements AppDataService {
             reviewItems.add(item);
         }
     }
+
+    @Override
+    public com.focusnode.model.DashboardMetrics getDashboardMetrics() {
+        return new com.focusnode.model.DashboardMetrics();
+    }
 }

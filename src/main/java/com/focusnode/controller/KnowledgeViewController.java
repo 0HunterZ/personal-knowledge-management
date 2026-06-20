@@ -51,13 +51,26 @@ import com.focusnode.model.KnowledgeNode;
 public class KnowledgeViewController {
 
     @FXML private ScrollPane notesScrollPane;
-    @FXML private FlowPane notesFlowPane;
+    @FXML private VBox gridContainer;
+    @FXML private VBox foldersSection;
+    @FXML private FlowPane foldersFlowPane;
+    @FXML private VBox filesSection;
+    @FXML private FlowPane filesFlowPane;
     @FXML private VBox listViewContainer;
     @FXML private VBox listItemsBox;
+    
+    @FXML private Label filterAllBtn;
+    @FXML private Label filterFoldersBtn;
+    @FXML private Label filterNotesBtn;
     @FXML private HBox breadcrumbContainer;
     @FXML private Label gridViewBtn;
     @FXML private Label listViewBtn;
     @FXML private StackPane editorContainer;
+    
+    @FXML private QuickNoteController quickNoteCardController;
+    @FXML private TagsCloudController tagsCloudCardController;
+    @FXML private StorageCardController storageCardController;
+
     @FXML private VBox rightSidebar;
     @FXML private TextField searchInput;
 
@@ -81,6 +94,7 @@ public class KnowledgeViewController {
     private Folder currentFolder = null; // null means root "My Drive"
     private boolean isGridView = true;
     private boolean isTrashMode = false;
+    private int currentFilterType = 0; // 0=All, 1=Folders, 2=Notes & Files
 
     @FXML
     public void initialize() {
@@ -88,11 +102,20 @@ public class KnowledgeViewController {
         
         setupViewToggles();
         setupDragAndDrop();
+        setupQuickFilters();
         
         showDashboard();
         
         if (searchInput != null) {
             searchInput.textProperty().addListener((obs, oldVal, newVal) -> filterContent(newVal));
+        }
+
+        if (quickNoteCardController != null) {
+            quickNoteCardController.setOnNoteSaved(() -> {
+                loadCurrentFolderData();
+                if (tagsCloudCardController != null) tagsCloudCardController.refreshTags();
+                if (storageCardController != null) storageCardController.updateStorageInfo();
+            });
         }
     }
     
@@ -110,14 +133,48 @@ public class KnowledgeViewController {
         }
     }
     
+    private void setupQuickFilters() {
+        if (filterAllBtn != null) {
+            filterAllBtn.setOnMouseClicked(e -> {
+                currentFilterType = 0;
+                updateFilterStyles();
+                filterContent(searchInput != null ? searchInput.getText() : "");
+            });
+        }
+        if (filterFoldersBtn != null) {
+            filterFoldersBtn.setOnMouseClicked(e -> {
+                currentFilterType = 1;
+                updateFilterStyles();
+                filterContent(searchInput != null ? searchInput.getText() : "");
+            });
+        }
+        if (filterNotesBtn != null) {
+            filterNotesBtn.setOnMouseClicked(e -> {
+                currentFilterType = 2;
+                updateFilterStyles();
+                filterContent(searchInput != null ? searchInput.getText() : "");
+            });
+        }
+    }
+    
+    private void updateFilterStyles() {
+        if (filterAllBtn != null) filterAllBtn.getStyleClass().remove("notion-filter-pill-active");
+        if (filterFoldersBtn != null) filterFoldersBtn.getStyleClass().remove("notion-filter-pill-active");
+        if (filterNotesBtn != null) filterNotesBtn.getStyleClass().remove("notion-filter-pill-active");
+        
+        if (currentFilterType == 0 && filterAllBtn != null) filterAllBtn.getStyleClass().add("notion-filter-pill-active");
+        if (currentFilterType == 1 && filterFoldersBtn != null) filterFoldersBtn.getStyleClass().add("notion-filter-pill-active");
+        if (currentFilterType == 2 && filterNotesBtn != null) filterNotesBtn.getStyleClass().add("notion-filter-pill-active");
+    }
+    
     private void updateViewMode() {
         if (gridViewBtn == null || listViewBtn == null) return;
         
         if (isGridView) {
             gridViewBtn.getStyleClass().add("toggle-btn-active");
             listViewBtn.getStyleClass().remove("toggle-btn-active");
-            notesFlowPane.setVisible(true);
-            notesFlowPane.setManaged(true);
+            gridContainer.setVisible(true);
+            gridContainer.setManaged(true);
             listViewContainer.setVisible(false);
             listViewContainer.setManaged(false);
         } else {
@@ -125,8 +182,8 @@ public class KnowledgeViewController {
             gridViewBtn.getStyleClass().remove("toggle-btn-active");
             listViewContainer.setVisible(true);
             listViewContainer.setManaged(true);
-            notesFlowPane.setVisible(false);
-            notesFlowPane.setManaged(false);
+            gridContainer.setVisible(false);
+            gridContainer.setManaged(false);
         }
     }
     
@@ -313,8 +370,9 @@ public class KnowledgeViewController {
     }
 
     private void filterContent(String query) {
-        if (notesFlowPane == null || listItemsBox == null) return;
-        notesFlowPane.getChildren().clear();
+        if (gridContainer == null || listItemsBox == null) return;
+        foldersFlowPane.getChildren().clear();
+        filesFlowPane.getChildren().clear();
         listItemsBox.getChildren().clear();
         
         String lowerQuery = query == null ? "" : query.toLowerCase();
@@ -326,6 +384,9 @@ public class KnowledgeViewController {
         
         for (KnowledgeNode item : allItems) {
             if (lowerQuery.isEmpty() || item.getName().toLowerCase().contains(lowerQuery)) {
+                if (currentFilterType == 1 && !(item instanceof Folder)) continue;
+                if (currentFilterType == 2 && (item instanceof Folder)) continue;
+                
                 Node card = null;
                 Node row = null;
                 
@@ -352,11 +413,23 @@ public class KnowledgeViewController {
                 }
                 
                 if (card != null && row != null) {
-                    notesFlowPane.getChildren().add(card);
+                    if (item instanceof Folder) {
+                        foldersFlowPane.getChildren().add(card);
+                    } else {
+                        filesFlowPane.getChildren().add(card);
+                    }
                     listItemsBox.getChildren().add(row);
                 }
             }
         }
+        
+        boolean showFolders = (currentFilterType == 0 || currentFilterType == 1) && !foldersFlowPane.getChildren().isEmpty();
+        boolean showFiles = (currentFilterType == 0 || currentFilterType == 2) && !filesFlowPane.getChildren().isEmpty();
+        
+        foldersSection.setVisible(showFolders);
+        foldersSection.setManaged(showFolders);
+        filesSection.setVisible(showFiles);
+        filesSection.setManaged(showFiles);
     }
     
     private void openFile(FileResource file) {
@@ -543,35 +616,38 @@ public class KnowledgeViewController {
     }
     
     private Node createFolderCard(Folder folder) {
-        VBox card = new VBox(8);
-        card.setStyle("-fx-background-color: #FFFFFF; -fx-padding: 20; -fx-background-radius: 12; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.04), 10, 0, 0, 4);");
-        card.setPrefWidth(200);
-        card.setPrefHeight(120);
+        HBox card = new HBox(12);
+        card.setAlignment(Pos.CENTER_LEFT);
+        card.setStyle("-fx-background-color: #FFFFFF; -fx-padding: 12 16; -fx-background-radius: 8; -fx-cursor: hand; -fx-border-color: #E5E7EB; -fx-border-radius: 8; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.02), 5, 0, 0, 2);");
+        // About 260px width to fit 3 per row comfortably
+        card.setPrefWidth(260);
+        card.setPrefHeight(60);
         
         javafx.scene.layout.StackPane iconWrapper = new javafx.scene.layout.StackPane();
-        iconWrapper.setPrefSize(40, 40);
-        iconWrapper.setMaxSize(40, 40);
-        iconWrapper.setStyle("-fx-background-color: #FEF3C7; -fx-background-radius: 8;");
+        iconWrapper.setPrefSize(32, 32);
+        iconWrapper.setMaxSize(32, 32);
+        iconWrapper.setStyle("-fx-background-color: #FEF3C7; -fx-background-radius: 6;");
         
         javafx.scene.shape.SVGPath icon = new javafx.scene.shape.SVGPath();
         icon.setContent("M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z");
         icon.setFill(javafx.scene.paint.Color.web("#D97706"));
-        icon.setScaleX(1.2);
-        icon.setScaleY(1.2);
-        
         iconWrapper.getChildren().add(icon);
         
-        Region spacer = new Region();
-        VBox.setVgrow(spacer, Priority.ALWAYS);
-        
         Label title = new Label(folder.getName());
-        title.setStyle("-fx-font-weight: bold; -fx-font-size: 15px; -fx-text-fill: #1F2937;");
+        title.setStyle("-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #1F2937;");
         
-        // We can show stats if we have them, otherwise just generic or date
-        Label subtitle = new Label("Folder");
-        subtitle.setStyle("-fx-font-size: 12px; -fx-text-fill: #6B7280;");
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
         
-        card.getChildren().addAll(iconWrapper, spacer, title, subtitle);
+        javafx.scene.control.Button menuBtn = new javafx.scene.control.Button("⋮");
+        menuBtn.setStyle("-fx-background-color: transparent; -fx-text-fill: #9CA3AF; -fx-font-weight: bold; -fx-font-size: 16px; -fx-cursor: hand; -fx-padding: 0 5;");
+        menuBtn.setOnMouseClicked(e -> {
+            e.consume();
+            card.fireEvent(new javafx.scene.input.ContextMenuEvent(javafx.scene.input.ContextMenuEvent.CONTEXT_MENU_REQUESTED, e.getSceneX(), e.getSceneY(), e.getScreenX(), e.getScreenY(), false, null));
+        });
+        
+        card.getChildren().addAll(iconWrapper, title, spacer, menuBtn);
+        
         card.setOnMouseClicked(e -> {
             if (e.getButton() == MouseButton.PRIMARY) {
                 currentFolder = folder;
@@ -579,54 +655,97 @@ public class KnowledgeViewController {
             }
         });
         
-        // Add hover effect via Java code since we don't have a specific CSS class here, 
-        // but applying a class is better. Let's stick to inline for simplicity or add a class.
-        card.setOnMouseEntered(e -> card.setStyle("-fx-background-color: #FFFFFF; -fx-padding: 20; -fx-background-radius: 12; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 15, 0, 0, 6);"));
-        card.setOnMouseExited(e -> card.setStyle("-fx-background-color: #FFFFFF; -fx-padding: 20; -fx-background-radius: 12; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.04), 10, 0, 0, 4);"));
+        card.setOnMouseEntered(e -> card.setStyle("-fx-background-color: #F9FAFB; -fx-padding: 12 16; -fx-background-radius: 8; -fx-cursor: hand; -fx-border-color: #D1D5DB; -fx-border-radius: 8; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 8, 0, 0, 3);"));
+        card.setOnMouseExited(e -> card.setStyle("-fx-background-color: #FFFFFF; -fx-padding: 12 16; -fx-background-radius: 8; -fx-cursor: hand; -fx-border-color: #E5E7EB; -fx-border-radius: 8; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.02), 5, 0, 0, 2);"));
         
         return card;
     }
     
     private Node createFileCard(FileResource file) {
-        VBox card = new VBox(8);
-        card.setStyle("-fx-background-color: #FFFFFF; -fx-padding: 20; -fx-background-radius: 12; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.04), 10, 0, 0, 4);");
-        card.setPrefWidth(200);
-        card.setPrefHeight(120);
-        
-        javafx.scene.layout.StackPane iconWrapper = new javafx.scene.layout.StackPane();
-        iconWrapper.setPrefSize(40, 40);
-        iconWrapper.setMaxSize(40, 40);
-        iconWrapper.setStyle("-fx-background-color: #E0E7FF; -fx-background-radius: 8;");
+        VBox card = new VBox();
+        card.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 4);");
+        card.setPrefWidth(260);
+        card.setMinHeight(280);
+
+        // Top section: Preview thumbnail
+        VBox topSection = new VBox();
+        topSection.setAlignment(Pos.CENTER);
+        String[] pastels = {"#ECFDF5", "#EFF6FF", "#FEF2F2", "#FFFBEB", "#F3E8FF", "#FCE7F3", "#E0F2FE"};
+        String bgColor = pastels[Math.abs(file.getId()) % pastels.length];
+        topSection.setStyle("-fx-background-color: " + bgColor + "; -fx-padding: 15; -fx-background-radius: 12 12 0 0;");
+        topSection.setPrefHeight(120);
+        topSection.setMinHeight(120);
         
         javafx.scene.shape.SVGPath icon = new javafx.scene.shape.SVGPath();
         icon.setContent("M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z");
         icon.setFill(javafx.scene.paint.Color.web("#4338CA"));
-        icon.setScaleX(1.2);
-        icon.setScaleY(1.2);
-        
-        iconWrapper.getChildren().add(icon);
-        
-        Region spacer = new Region();
-        VBox.setVgrow(spacer, Priority.ALWAYS);
+        icon.setScaleX(2.0);
+        icon.setScaleY(2.0);
+        topSection.getChildren().add(icon);
+
+        // Bottom section: Info
+        VBox infoSection = new VBox(8);
+        infoSection.setStyle("-fx-padding: 15;");
         
         Label title = new Label(file.getFileName());
-        title.setStyle("-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #1F2937;");
+        title.setStyle("-fx-font-weight: bold; -fx-font-size: 15px; -fx-text-fill: #1F2937;");
         title.setWrapText(true);
         title.setMaxHeight(40);
         
         String sizeStr = (file.getSizeBytes() / 1024) + " KB";
-        Label sizeLbl = new Label("File • " + sizeStr);
-        sizeLbl.setStyle("-fx-text-fill: #9CA3AF; -fx-font-size: 12px;");
+        Label description = new Label("File • " + sizeStr);
+        description.setStyle("-fx-font-size: 12px; -fx-text-fill: #6B7280;");
+        description.setWrapText(true);
+        description.setMaxHeight(40);
         
-        card.getChildren().addAll(iconWrapper, spacer, title, sizeLbl);
+        // Tags - FileResource doesn't have tags
+        FlowPane tagsPane = new FlowPane(5, 5);
+        
+        Region spacer = new Region();
+        VBox.setVgrow(spacer, Priority.ALWAYS);
+        
+        // Footer
+        HBox footer = new HBox();
+        footer.setAlignment(Pos.CENTER_LEFT);
+        String dateStr = file.getUpdatedAt() != null ? file.getUpdatedAt().format(DateTimeFormatter.ofPattern("MMM dd")) : "";
+        Label dateLbl = new Label("Updated " + dateStr);
+        dateLbl.setStyle("-fx-font-size: 11px; -fx-text-fill: #9CA3AF;");
+        
+        Region fSpacer = new Region();
+        HBox.setHgrow(fSpacer, Priority.ALWAYS);
+        
+        javafx.scene.shape.SVGPath star = new javafx.scene.shape.SVGPath();
+        star.setContent("M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z");
+        star.setFill(javafx.scene.paint.Color.web("#9CA3AF"));
+        star.setScaleX(0.7); star.setScaleY(0.7);
+        
+        javafx.scene.shape.SVGPath dots = new javafx.scene.shape.SVGPath();
+        dots.setContent("M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z");
+        dots.setFill(javafx.scene.paint.Color.web("#9CA3AF"));
+        dots.setScaleX(0.8); dots.setScaleY(0.8);
+        
+        StackPane dotsBtn = new StackPane(dots);
+        dotsBtn.setStyle("-fx-padding: 5; -fx-cursor: hand;");
+        dotsBtn.setOnMouseClicked(e -> {
+            e.consume();
+            card.fireEvent(new javafx.scene.input.ContextMenuEvent(javafx.scene.input.ContextMenuEvent.CONTEXT_MENU_REQUESTED, e.getSceneX(), e.getSceneY(), e.getScreenX(), e.getScreenY(), false, null));
+        });
+        
+        footer.getChildren().addAll(dateLbl, fSpacer, star, dotsBtn);
+        
+        infoSection.getChildren().addAll(title, description, tagsPane, spacer, footer);
+        VBox.setVgrow(infoSection, Priority.ALWAYS);
+        
+        card.getChildren().addAll(topSection, infoSection);
+        
         card.setOnMouseClicked(e -> {
-            if (e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2) {
+            if (e.getButton() == MouseButton.PRIMARY) {
                 openFile(file);
             }
         });
         
-        card.setOnMouseEntered(e -> card.setStyle("-fx-background-color: #FFFFFF; -fx-padding: 20; -fx-background-radius: 12; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 15, 0, 0, 6);"));
-        card.setOnMouseExited(e -> card.setStyle("-fx-background-color: #FFFFFF; -fx-padding: 20; -fx-background-radius: 12; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.04), 10, 0, 0, 4);"));
+        card.setOnMouseEntered(e -> card.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 15, 0, 0, 6);"));
+        card.setOnMouseExited(e -> card.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 4);"));
         
         return card;
     }
@@ -678,41 +797,91 @@ public class KnowledgeViewController {
     }
 
     private Node createNoteCard(Note note) {
-        VBox card = new VBox(8);
-        card.setStyle("-fx-background-color: #FFFFFF; -fx-padding: 20; -fx-background-radius: 12; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.04), 10, 0, 0, 4);");
-        card.setPrefWidth(200);
-        card.setPrefHeight(120);
+        VBox card = new VBox();
+        card.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 4);");
+        card.setPrefWidth(260);
+        card.setMinHeight(280);
 
-        javafx.scene.layout.StackPane iconWrapper = new javafx.scene.layout.StackPane();
-        iconWrapper.setPrefSize(40, 40);
-        iconWrapper.setMaxSize(40, 40);
-        iconWrapper.setStyle("-fx-background-color: #F3E8FF; -fx-background-radius: 8;");
-
-        javafx.scene.shape.SVGPath icon = new javafx.scene.shape.SVGPath();
-        icon.setContent("M9 2H4a2 2 0 00-2 2v16a2 2 0 002 2h14a2 2 0 002-2V8l-6-6H9zm6 1.5L19.5 8H15V3.5z");
-        icon.setFill(javafx.scene.paint.Color.web("#7E22CE"));
-        icon.setScaleX(1.2);
-        icon.setScaleY(1.2);
+        // Top section: Preview thumbnail
+        VBox topSection = new VBox();
+        String[] pastels = {"#ECFDF5", "#EFF6FF", "#FEF2F2", "#FFFBEB", "#F3E8FF", "#FCE7F3", "#E0F2FE"};
+        String bgColor = pastels[Math.abs(note.getId()) % pastels.length];
+        topSection.setStyle("-fx-background-color: " + bgColor + "; -fx-padding: 15; -fx-background-radius: 12 12 0 0;");
+        topSection.setPrefHeight(120);
+        topSection.setMinHeight(120);
         
-        iconWrapper.getChildren().add(icon);
-        
-        Region spacer = new Region();
-        VBox.setVgrow(spacer, Priority.ALWAYS);
+        Label previewContent = new Label(note.getPreview());
+        previewContent.setWrapText(true);
+        previewContent.setStyle("-fx-font-family: 'Consolas'; -fx-font-size: 11px; -fx-text-fill: #4B5563;");
+        topSection.getChildren().add(previewContent);
 
+        // Bottom section: Info
+        VBox infoSection = new VBox(8);
+        infoSection.setStyle("-fx-padding: 15;");
+        
         Label title = new Label(note.getTitle());
         title.setStyle("-fx-font-weight: bold; -fx-font-size: 15px; -fx-text-fill: #1F2937;");
         title.setWrapText(true);
-        title.setMaxHeight(40);
-
-        Label category = new Label("Note • " + note.getSubjectName());
-        category.setStyle("-fx-text-fill: #6B7280; -fx-font-size: 12px;");
-
-        card.getChildren().addAll(iconWrapper, spacer, title, category);
         
-        card.setOnMouseClicked(e -> openEditor(note));
+        Label description = new Label(note.getPreview());
+        description.setStyle("-fx-font-size: 12px; -fx-text-fill: #6B7280;");
+        description.setWrapText(true);
+        description.setMaxHeight(40);
         
-        card.setOnMouseEntered(e -> card.setStyle("-fx-background-color: #FFFFFF; -fx-padding: 20; -fx-background-radius: 12; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 15, 0, 0, 6);"));
-        card.setOnMouseExited(e -> card.setStyle("-fx-background-color: #FFFFFF; -fx-padding: 20; -fx-background-radius: 12; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.04), 10, 0, 0, 4);"));
+        // Tags
+        FlowPane tagsPane = new FlowPane(5, 5);
+        if (note.getTags() != null) {
+            for (String tag : note.getTags()) {
+                Label tagLbl = new Label("#" + tag);
+                tagLbl.setStyle("-fx-font-size: 11px; -fx-text-fill: #059669; -fx-background-color: #D1FAE5; -fx-padding: 2 6; -fx-background-radius: 8;");
+                tagsPane.getChildren().add(tagLbl);
+            }
+        }
+        
+        Region spacer = new Region();
+        VBox.setVgrow(spacer, Priority.ALWAYS);
+        
+        // Footer
+        HBox footer = new HBox();
+        footer.setAlignment(Pos.CENTER_LEFT);
+        String dateStr = note.getUpdatedAt() != null ? note.getUpdatedAt().format(DateTimeFormatter.ofPattern("MMM dd")) : "";
+        Label dateLbl = new Label("Updated " + dateStr);
+        dateLbl.setStyle("-fx-font-size: 11px; -fx-text-fill: #9CA3AF;");
+        
+        Region fSpacer = new Region();
+        HBox.setHgrow(fSpacer, Priority.ALWAYS);
+        
+        javafx.scene.shape.SVGPath star = new javafx.scene.shape.SVGPath();
+        star.setContent("M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z");
+        star.setFill(javafx.scene.paint.Color.web("#9CA3AF"));
+        star.setScaleX(0.7); star.setScaleY(0.7);
+        
+        javafx.scene.shape.SVGPath dots = new javafx.scene.shape.SVGPath();
+        dots.setContent("M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z");
+        dots.setFill(javafx.scene.paint.Color.web("#9CA3AF"));
+        dots.setScaleX(0.8); dots.setScaleY(0.8);
+        
+        StackPane dotsBtn = new StackPane(dots);
+        dotsBtn.setStyle("-fx-padding: 5; -fx-cursor: hand;");
+        dotsBtn.setOnMouseClicked(e -> {
+            e.consume();
+            card.fireEvent(new javafx.scene.input.ContextMenuEvent(javafx.scene.input.ContextMenuEvent.CONTEXT_MENU_REQUESTED, e.getSceneX(), e.getSceneY(), e.getScreenX(), e.getScreenY(), false, null));
+        });
+        
+        footer.getChildren().addAll(dateLbl, fSpacer, star, dotsBtn);
+        
+        infoSection.getChildren().addAll(title, description, tagsPane, spacer, footer);
+        VBox.setVgrow(infoSection, Priority.ALWAYS);
+        
+        card.getChildren().addAll(topSection, infoSection);
+        
+        card.setOnMouseClicked(e -> {
+            if (e.getButton() == MouseButton.PRIMARY) {
+                openEditor(note);
+            }
+        });
+        card.setOnMouseEntered(e -> card.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 15, 0, 0, 6);"));
+        card.setOnMouseExited(e -> card.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 4);"));
         
         return card;
     }
@@ -727,7 +896,8 @@ public class KnowledgeViewController {
             }
             closeEditor();
             loadCurrentFolderData(); // Refresh
-
+            if (tagsCloudCardController != null) tagsCloudCardController.refreshTags();
+            if (storageCardController != null) storageCardController.updateStorageInfo();
         }, this::closeEditor);
         editorContainer.setVisible(true);
     }
@@ -829,6 +999,135 @@ public class KnowledgeViewController {
         loadCurrentFolderData();
     }
 
+    @FXML
+    public void openShared() {
+        isTrashMode = false;
+        currentFolder = null;
+        if (dashboardContainer != null) {
+            dashboardContainer.setVisible(false);
+            dashboardContainer.setManaged(false);
+        }
+        if (personalRepoContainer != null) {
+            personalRepoContainer.setVisible(true);
+            personalRepoContainer.setManaged(true);
+        }
+        
+        Platform.runLater(() -> {
+            if (breadcrumbContainer != null) {
+                breadcrumbContainer.getChildren().clear();
+                Label rootLbl = new Label("Shared with me");
+                rootLbl.setStyle("-fx-font-size: 14px; -fx-text-fill: #3B82F6; -fx-cursor: hand;");
+                rootLbl.setOnMouseClicked(e -> showDashboard());
+                breadcrumbContainer.getChildren().add(rootLbl);
+            }
+            if (foldersFlowPane != null) foldersFlowPane.getChildren().clear();
+            if (filesFlowPane != null) filesFlowPane.getChildren().clear();
+            if (listItemsBox != null) listItemsBox.getChildren().clear();
+            foldersSection.setVisible(false);
+            foldersSection.setManaged(false);
+            
+            if (newBtn != null) {
+                newBtn.setVisible(false);
+                newBtn.setManaged(false);
+            }
+        });
+
+        com.focusnode.service.ServiceLocator.getAsyncExecutor().execute(() -> {
+            try {
+                com.focusnode.repository.LanTransferHistoryRepository repo = new com.focusnode.repository.LanTransferHistoryRepository();
+                java.util.List<com.focusnode.model.LanTransferHistory> history = repo.getHistoryByUserId(1);
+                
+                java.util.List<com.focusnode.model.FileResource> sharedFiles = new java.util.ArrayList<>();
+                String downloadsPath = System.getProperty("user.home") + java.io.File.separator + "Downloads" + java.io.File.separator + "FocusNode";
+                
+                int pseudoId = -1000;
+                for (com.focusnode.model.LanTransferHistory h : history) {
+                    if ("COMPLETED".equals(h.getStatus()) && h.getTargetName() != null && h.getTargetName().startsWith("From ")) {
+                        java.io.File f = new java.io.File(downloadsPath, h.getFileName());
+                        if (f.exists()) {
+                            com.focusnode.model.FileResource fileRes = new com.focusnode.model.FileResource(
+                                pseudoId--,
+                                1,
+                                null,
+                                h.getFileName(),
+                                f.getAbsolutePath(),
+                                1, 
+                                h.getSizeBytes(),
+                                h.getCreatedAt(),
+                                false
+                            );
+                            sharedFiles.add(fileRes);
+                        }
+                    }
+                }
+                
+                Platform.runLater(() -> {
+                    if (sharedFiles.isEmpty()) {
+                        filesSection.setVisible(false);
+                        filesSection.setManaged(false);
+                    } else {
+                        filesSection.setVisible(true);
+                        filesSection.setManaged(true);
+                        if (isGridView) {
+                            for (com.focusnode.model.FileResource file : sharedFiles) {
+                                filesFlowPane.getChildren().add(createFileCard(file));
+                            }
+                        } else {
+                            for (com.focusnode.model.FileResource file : sharedFiles) {
+                                String dateStr = file.getUpdatedAt() != null ? file.getUpdatedAt().format(java.time.format.DateTimeFormatter.ofPattern("MMM dd")) : "";
+                                listItemsBox.getChildren().add(createListItem(file.getName(), "Shared File", dateStr, () -> openFile(file)));
+                            }
+                        }
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    @FXML
+    public void openRecent() {
+        isTrashMode = false;
+        currentFolder = null;
+        if (dashboardContainer != null) {
+            dashboardContainer.setVisible(false);
+            dashboardContainer.setManaged(false);
+        }
+        if (personalRepoContainer != null) {
+            personalRepoContainer.setVisible(true);
+            personalRepoContainer.setManaged(true);
+        }
+        
+        ServiceLocator.getAsyncExecutor().execute(() -> {
+            try {
+                int userId = 1;
+                List<Note> recentNotes = noteRepo.getRecentNotesByUserId(userId, 20);
+                
+                Platform.runLater(() -> {
+                    if (breadcrumbContainer != null) {
+                        breadcrumbContainer.getChildren().clear();
+                        Label rootLbl = new Label("Recent Activity");
+                        rootLbl.setStyle("-fx-font-size: 14px; -fx-text-fill: #3B82F6; -fx-cursor: hand;");
+                        rootLbl.setOnMouseClicked(e -> showDashboard());
+                        breadcrumbContainer.getChildren().add(rootLbl);
+                    }
+                    if (newBtn != null) {
+                        newBtn.setVisible(false);
+                        newBtn.setManaged(false);
+                    }
+                    
+                    // Populate recent notes
+                    allNotes = recentNotes;
+                    currentFolders = new ArrayList<>();
+                    currentFiles = new ArrayList<>();
+                    filterContent(searchInput != null ? searchInput.getText() : "");
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
     @FXML
     public void openTrash() {
         isTrashMode = true;

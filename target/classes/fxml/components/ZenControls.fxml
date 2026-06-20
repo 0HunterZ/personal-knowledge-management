@@ -5,7 +5,7 @@
 <HBox alignment="CENTER" spacing="18" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <Button styleClass="zen-control-button" text="Lo-fi Beats" />
     <Button styleClass="zen-round-button" text="|&lt;" />
-    <Button styleClass="zen-play-button" text="||" />
+    <Button fx:id="playPauseButton" id="playPauseButton" styleClass="zen-play-button" text="&gt;" />
     <Button styleClass="zen-round-button" text="&gt;|" />
-    <Button styleClass="zen-control-button" text="End Session" />
+    <Button fx:id="endSessionButton" id="endSessionButton" styleClass="zen-control-button" text="End Session" />
 </HBox>

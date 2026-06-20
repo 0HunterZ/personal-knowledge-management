@@ -6,36 +6,61 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 
-<ScrollPane fitToWidth="true" styleClass="tasks-scroll-pane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focusnode.controller.TasksViewController">
+    <ScrollPane fx:id="mainScrollPane" fitToWidth="true" styleClass="tasks-scroll-pane">
     
-    <HBox spacing="30" styleClass="tasks-main-container">
+    <HBox spacing="30" styleClass="tasks-main-container" style="-fx-padding: 20px 24px; -fx-background-color: #F8FAFC;">
         
         <!-- Cột Trái (Nội dung chính) -->
         <VBox spacing="20" HBox.hgrow="ALWAYS">
             
             <!-- Header -->
-            <HBox alignment="CENTER_LEFT">
-                <VBox spacing="5">
-                    <Label styleClass="tasks-header-title" text="Tasks 📋" />
-                    <Label styleClass="tasks-header-subtitle" text="Plan your day. Focus on what matters." />
-                </VBox>
+            <HBox alignment="CENTER" style="-fx-padding: 10 0 0 0;">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <VBox spacing="5">
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <Label styleClass="tasks-header-title" text="Tasks" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #0F172A;" />
+                            <ImageView fitHeight="36" fitWidth="36" preserveRatio="true">
+                                <image>
+                                    <Image url="@/images/tasks_icon.png" />
+                                </image>
+                            </ImageView>
+                        </HBox>
+                        <Label styleClass="tasks-header-subtitle" text="Plan your day. Focus on what matters." style="-fx-font-size: 14px; -fx-text-fill: #64748B;" />
+                    </VBox>
+                </HBox>
                 
                 <Region HBox.hgrow="ALWAYS" />
                 
-                <HBox spacing="10" alignment="CENTER_LEFT">
-                    <Label styleClass="btn-new-note" text="+ New Task ⌄" />
+                <HBox spacing="10" alignment="CENTER">
+                    <javafx.scene.control.Button style="-fx-background-color: #10B981; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 8 16; -fx-cursor: hand;" text="+ New Task" onAction="#createNewTask" />
                     <!-- Toggles -->
-                    <HBox spacing="5">
-                        <Label styleClass="toggle-btn" text="≡" style="-fx-font-size: 18px;" />
-                        <Label styleClass="toggle-btn" text="📅" style="-fx-font-size: 16px;" />
+                    <HBox spacing="5" alignment="CENTER">
+                        <Label styleClass="toggle-btn" text="≡" style="-fx-font-size: 18px; -fx-padding: 4 8;" onMouseClicked="#handleViewToggle" />
+                        <Label styleClass="toggle-btn" text="📅" style="-fx-font-size: 16px; -fx-padding: 4 8;" onMouseClicked="#handleViewToggle" />
                     </HBox>
                 </HBox>
             </HBox>
             
             <!-- Stats Row -->
             <HBox spacing="20">
-                <fx:include source="../components/TaskStatCard.fxml" />
+                <!-- Completed Stat -->
+                <HBox spacing="15" alignment="CENTER_LEFT" styleClass="task-stat-card">
+                    <VBox styleClass="stat-icon-wrapper" style="-fx-background-color: #DCFCE7;">
+                        <Label style="-fx-font-size: 18px; -fx-text-fill: #22C55E;" text="✓" />
+                    </VBox>
+                    <VBox spacing="2">
+                        <Label fx:id="completedCountLabel" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1F2937;" text="0" />
+                        <Label style="-fx-font-size: 11px; -fx-text-fill: #6B7280;" text="Completed" />
+                        <Label style="-fx-font-size: 10px; -fx-text-fill: #94A3B8;" text="Today" />
+                    </VBox>
+                </HBox>
                 
                 <!-- In Progress Stat -->
                 <HBox spacing="15" alignment="CENTER_LEFT" styleClass="task-stat-card">
@@ -43,7 +68,7 @@
                         <Label style="-fx-font-size: 18px; -fx-text-fill: #3B82F6;" text="🎯" />
                     </VBox>
                     <VBox spacing="2">
-                        <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1F2937;" text="8" />
+                        <Label fx:id="inProgressCountLabel" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1F2937;" text="0" />
                         <Label style="-fx-font-size: 11px; -fx-text-fill: #6B7280;" text="In Progress" />
                         <Label style="-fx-font-size: 10px; -fx-text-fill: #94A3B8;" text="Ongoing" />
                     </VBox>
@@ -55,7 +80,7 @@
                         <Label style="-fx-font-size: 18px; -fx-text-fill: #F59E0B;" text="⏱" />
                     </VBox>
                     <VBox spacing="2">
-                        <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1F2937;" text="3" />
+                        <Label fx:id="pendingCountLabel" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1F2937;" text="0" />
                         <Label style="-fx-font-size: 11px; -fx-text-fill: #6B7280;" text="Pending" />
                         <Label style="-fx-font-size: 10px; -fx-text-fill: #94A3B8;" text="Upcoming" />
                     </VBox>
@@ -67,7 +92,7 @@
                         <Label style="-fx-font-size: 16px; -fx-text-fill: #9333EA;" text="📅" />
                     </VBox>
                     <VBox spacing="2">
-                        <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1F2937;" text="18" />
+                        <Label fx:id="totalCountLabel" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1F2937;" text="0" />
                         <Label style="-fx-font-size: 11px; -fx-text-fill: #6B7280;" text="Total Tasks" />
                         <Label style="-fx-font-size: 10px; -fx-text-fill: #94A3B8;" text="This Week" />
                     </VBox>
@@ -76,16 +101,16 @@
             
             <!-- Filters & Search -->
             <HBox alignment="CENTER_LEFT" spacing="15">
-                <HBox spacing="10">
-                    <Label styleClass="quick-filter-btn, quick-filter-btn-active" text="All" />
-                    <Label styleClass="quick-filter-btn" text="Today" />
-                    <Label styleClass="quick-filter-btn" text="Upcoming" />
-                    <Label styleClass="quick-filter-btn" text="Completed" />
+                <HBox spacing="10" fx:id="quickFiltersContainer">
+                    <Label fx:id="filterAll" styleClass="quick-filter-btn, quick-filter-btn-active" text="All" onMouseClicked="#handleQuickFilter" />
+                    <Label fx:id="filterToday" styleClass="quick-filter-btn" text="Today" onMouseClicked="#handleQuickFilter" />
+                    <Label fx:id="filterUpcoming" styleClass="quick-filter-btn" text="Upcoming" onMouseClicked="#handleQuickFilter" />
+                    <Label fx:id="filterCompleted" styleClass="quick-filter-btn" text="Completed" onMouseClicked="#handleQuickFilter" />
                 </HBox>
                 
                 <Region HBox.hgrow="ALWAYS" />
                 
-                <TextField prefWidth="250" promptText="🔍 Search tasks..." styleClass="search-bar" />
+                <TextField fx:id="searchField" prefWidth="250" promptText="🔍 Search tasks..." styleClass="search-bar" />
                 <Label styleClass="btn-outline" text="⚙ Filter" />
             </HBox>
             
@@ -106,76 +131,16 @@
                     <Label styleClass="tasks-col-header-center" prefWidth="50" alignment="CENTER" text="Actions" />
                 </HBox>
                 
-                <!-- Task Rows -->
-                <fx:include source="../components/TaskRowItem.fxml" />
+                <!-- Tasks will be loaded here dynamically -->
+                <VBox fx:id="taskListContainer" spacing="0" />
                 
-                <!-- Mock In Progress Row -->
-                <HBox alignment="CENTER_LEFT" styleClass="task-row">
-                    <HBox alignment="CENTER" prefWidth="50">
-                        <VBox styleClass="task-checkbox, task-checkbox-circle" style="-fx-border-color: #3B82F6;" />
-                    </HBox>
-                    <VBox spacing="2" prefWidth="250">
-                        <Label style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: #1F2937;" text="Review knowledge base UI" />
-                        <Label style="-fx-font-size: 11px; -fx-text-fill: #6B7280;" text="Review" />
-                    </VBox>
-                    <HBox prefWidth="120" alignment="CENTER_LEFT">
-                        <Label styleClass="status-badge-inprogress" text="In Progress" />
-                    </HBox>
-                    <HBox prefWidth="100" alignment="CENTER_LEFT" spacing="5">
-                        <Label styleClass="priority-medium" text="— Medium" />
-                    </HBox>
-                    <HBox prefWidth="120" alignment="CENTER_LEFT">
-                        <Label style="-fx-font-size: 12px; -fx-text-fill: #6B7280;" text="May 24, 2025" />
-                    </HBox>
-                    <HBox prefWidth="100" alignment="CENTER_LEFT" spacing="5">
-                        <Label style="-fx-text-fill: #6B7280;" text="⏱" />
-                        <Label style="-fx-font-size: 12px; -fx-text-fill: #1F2937;" text="45 min" />
-                    </HBox>
-                    <Region HBox.hgrow="ALWAYS" />
-                    <HBox alignment="CENTER" prefWidth="50">
-                        <Label styleClass="btn-icon-transparent" text="⋯" />
-                    </HBox>
-                </HBox>
-
-                <!-- Mock Pending Row -->
-                <HBox alignment="CENTER_LEFT" styleClass="task-row">
-                    <HBox alignment="CENTER" prefWidth="50">
-                        <VBox styleClass="task-checkbox, task-checkbox-circle" style="-fx-border-color: #CBD5E1;" />
-                    </HBox>
-                    <VBox spacing="2" prefWidth="250">
-                        <Label style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: #1F2937;" text="Read AI research papers" />
-                        <Label style="-fx-font-size: 11px; -fx-text-fill: #6B7280;" text="Study" />
-                    </VBox>
-                    <HBox prefWidth="120" alignment="CENTER_LEFT">
-                        <Label styleClass="status-badge-pending" text="Pending" />
-                    </HBox>
-                    <HBox prefWidth="100" alignment="CENTER_LEFT" spacing="5">
-                        <Label styleClass="priority-medium" text="— Medium" />
-                    </HBox>
-                    <HBox prefWidth="120" alignment="CENTER_LEFT">
-                        <Label style="-fx-font-size: 12px; -fx-text-fill: #6B7280;" text="May 27, 2025" />
-                    </HBox>
-                    <HBox prefWidth="100" alignment="CENTER_LEFT" spacing="5">
-                        <Label style="-fx-text-fill: #6B7280;" text="⏱" />
-                        <Label style="-fx-font-size: 12px; -fx-text-fill: #1F2937;" text="50 min" />
-                    </HBox>
-                    <Region HBox.hgrow="ALWAYS" />
-                    <HBox alignment="CENTER" prefWidth="50">
-                        <Label styleClass="btn-icon-transparent" text="⋯" />
-                    </HBox>
-                </HBox>
-
                 <!-- Footer / Pagination -->
                 <HBox alignment="CENTER_LEFT" styleClass="tasks-pagination-footer">
-                    <Label styleClass="tasks-pagination-text" text="Showing 1-8 of 18 tasks" />
+                    <Label fx:id="paginationSummaryLabel" styleClass="tasks-pagination-text" text="Showing 0 tasks" />
                     <Region HBox.hgrow="ALWAYS" />
                     
-                    <HBox spacing="5" alignment="CENTER">
-                        <Label styleClass="pagination-btn" text="&lt;" />
-                        <Label styleClass="pagination-btn, pagination-btn-active" text="1" />
-                        <Label styleClass="pagination-btn" text="2" />
-                        <Label styleClass="pagination-btn" text="3" />
-                        <Label styleClass="pagination-btn" text="&gt;" />
+                    <HBox fx:id="paginationContainer" spacing="5" alignment="CENTER">
+                        <!-- Pagination buttons generated dynamically -->
                     </HBox>
 
                     <Region HBox.hgrow="ALWAYS" />
@@ -198,3 +163,5 @@
         
     </HBox>
 </ScrollPane>
+    <StackPane fx:id="editorContainer" visible="false" />
+</StackPane>

@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
 
 <VBox spacing="15" styleClass="card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focusnode.controller.LanFileTransfersController">
     <Label styleClass="card-title" text="File Transfers" />
     
-    <VBox fx:id="transfersContainer" spacing="15" />
-    
-    <Label styleClass="btn-text" text="View Transfer History →" style="-fx-alignment: center;" prefWidth="250" />
+    <StackPane>
+        <!-- EMPTY STATE -->
+        <VBox fx:id="emptyStateContainer" spacing="10" alignment="CENTER" style="-fx-padding: 10 0;">
+            <Label style="-fx-font-size: 24px; -fx-text-fill: #94A3B8;" text="📁" />
+            <Label style="-fx-font-size: 13px; -fx-text-fill: #6B7280;" text="No active transfers" />
+        </VBox>
+
+        <!-- ACTIVE STATE -->
+        <VBox fx:id="transfersContainer" spacing="15" visible="false" />
+    </StackPane>
+
+    <HBox alignment="CENTER" fx:id="viewHistoryContainer" visible="false">
+        <Label style="-fx-text-fill: #3B82F6; -fx-font-weight: bold; -fx-font-size: 12px; -fx-cursor: hand;" text="View Transfer History →" />
+    </HBox>
 </VBox>

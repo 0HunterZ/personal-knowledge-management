@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.UUID;
 
 public class LanSessionClient {
 
@@ -35,6 +36,7 @@ public class LanSessionClient {
                 // Send JOIN packet
                 SyncPacket joinPacket = new SyncPacket("JOIN", localMember);
                 sendPacket(joinPacket);
+                sendClockSyncPings();
 
                 String inputLine;
                 while (isRunning && (inputLine = in.readLine()) != null) {
@@ -64,13 +66,44 @@ public class LanSessionClient {
         }
     }
 
+    private void sendClockSyncPings() {
+        ServiceLocator.getAsyncExecutor().submit(() -> {
+            for (int i = 0; i < 5 && isRunning; i++) {
+                SyncPacket ping = new SyncPacket();
+                ping.setType("CLOCK_PING");
+                ping.setPingId(UUID.randomUUID().toString());
+                ping.setClientSentAtEpochMillis(System.currentTimeMillis());
+                sendPacket(ping);
+                try {
+                    Thread.sleep(150);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    return;
+                }
+            }
+        });
+    }
+
     private void handlePacket(SyncPacket packet) {
+        if ("CLOCK_PONG".equals(packet.getType())) {
+            sessionService.updateHostClockOffset(
+                    packet.getClientSentAtEpochMillis(),
+                    packet.getHostSentAtEpochMillis(),
+                    System.currentTimeMillis()
+            );
+            return;
+        }
+
         Platform.runLater(() -> {
             LanRoom room = sessionService.getActiveRoom();
 
             if (packet.getType().equals("STATE_SYNC")) {
                 // Initial sync from server
-                sessionService.activeRoomProperty().set(packet.getRoomState());
+                sessionService.activeRoomProperty().set(packet.getRoomState().toLanRoom());
+                return;
+            }
+            if (packet.getType().equals("POMODORO_SYNC")) {
+                sessionService.applyPomodoroState(packet.getPomodoroState());
                 return;
             }
 
@@ -80,25 +113,37 @@ public class LanSessionClient {
                 case "JOIN":
                     // Check if member already exists
                     boolean exists = room.getMembers().stream()
-                            .anyMatch(m -> m.getId().equals(packet.getMember().getId()));
+                            .anyMatch(m -> m.getId().equals(packet.getMember().id));
                     if (!exists) {
-                        room.getMembers().add(packet.getMember());
+                        room.getMembers().add(packet.getMember().toLanMember());
                         room.setMemberCount(room.getMembers().size());
+                        room.getActivities().add(new com.focusnode.model.LanActivity(packet.getMember().name + " joined", "#94A3B8", ""));
                     }
                     break;
                 case "LEAVE":
-                    room.getMembers().removeIf(m -> m.getId().equals(packet.getMember().getId()));
+                    room.getMembers().removeIf(m -> m.getId().equals(packet.getMember().id));
                     room.setMemberCount(room.getMembers().size());
+                    room.getActivities().add(new com.focusnode.model.LanActivity(packet.getMember().name + " left", "#94A3B8", ""));
                     break;
                 case "STATUS_UPDATE":
                     for (LanMember m : room.getMembers()) {
-                        if (m.getId().equals(packet.getMember().getId())) {
-                            m.setStatus(packet.getMember().getStatus());
-                            m.setTimeLeftSeconds(packet.getMember().getTimeLeftSeconds());
-                            m.setAudioMuted(packet.getMember().isAudioMuted());
+                        if (m.getId().equals(packet.getMember().id)) {
+                            m.setStatus(packet.getMember().status);
+                            m.setTimeLeftSeconds(packet.getMember().timeLeftSeconds);
+                            m.setAudioMuted(packet.getMember().isAudioMuted);
                             break;
                         }
                     }
+                    break;
+                case "FILE_TRANSFER":
+                    // A file is being sent, let's receive it
+                    ServiceLocator.getLanFileTransferService().receiveFile(
+                            socket.getInetAddress().getHostAddress(),
+                            packet.getFileServerPort(),
+                            packet.getFileName(),
+                            packet.getFileSize(),
+                            packet.getTransferId()
+                    );
                     break;
             }
         });

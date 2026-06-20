@@ -13,6 +13,12 @@ public class QuickNoteController {
     
     @FXML private TextArea noteArea;
     @FXML private Label charCountLabel;
+    
+    private Runnable onNoteSaved;
+
+    public void setOnNoteSaved(Runnable onNoteSaved) {
+        this.onNoteSaved = onNoteSaved;
+    }
 
     @FXML
     public void initialize() {
@@ -50,6 +56,9 @@ public class QuickNoteController {
             Platform.runLater(() -> {
                 noteArea.clear();
                 noteArea.setPromptText("Saved successfully! Write another...");
+                if (onNoteSaved != null) {
+                    onNoteSaved.run();
+                }
                 ServiceLocator.getAsyncExecutor().execute(() -> {
                     try { Thread.sleep(2000); } catch (Exception e) {}
                     Platform.runLater(() -> noteArea.setPromptText("Write something...\n(press Enter to save)"));

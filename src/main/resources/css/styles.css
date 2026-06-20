@@ -488,6 +488,34 @@
     -fx-text-fill: white;
 }
 
+.avatar-purple { -fx-background-color: #A78BFA; }
+.avatar-blue { -fx-background-color: #93C5FD; }
+.avatar-yellow { -fx-background-color: #FCD34D; }
+.avatar-green { -fx-background-color: #86EFAC; }
+.avatar-pink { -fx-background-color: #F9A8D4; }
+
+.lan-room-host-badge {
+    -fx-background-color: #DCFCE7;
+    -fx-text-fill: #22C55E;
+    -fx-padding: 3px 8px;
+    -fx-background-radius: 8px;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.lan-room-leave-btn {
+    -fx-border-color: #EF4444;
+    -fx-border-radius: 8px;
+    -fx-text-fill: #EF4444;
+    -fx-padding: 6px 12px;
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+}
+.lan-room-leave-btn:hover {
+    -fx-background-color: #FEF2F2;
+}
+
 /* Status Badges */
 .status-focusing {
     -fx-background-color: #DCFCE7;
@@ -540,14 +568,14 @@
 .task-stat-card {
     -fx-background-color: #FFFFFF;
     -fx-background-radius: 12px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.03), 10, 0, 0, 2);
-    -fx-padding: 15px;
-    -fx-min-width: 150px;
+    -fx-effect: dropshadow(three-pass-box, rgba(15,23,42,0.04), 16, 0, 0, 4);
+    -fx-padding: 20px 25px;
+    -fx-min-width: 210px;
 }
 .stat-icon-wrapper {
     -fx-background-radius: 25px;
-    -fx-pref-width: 40px;
-    -fx-pref-height: 40px;
+    -fx-pref-width: 50px;
+    -fx-pref-height: 50px;
     -fx-alignment: center;
 }
 
@@ -598,9 +626,15 @@
     -fx-border-color: #CBD5E1;
     -fx-border-width: 2px;
     -fx-border-radius: 4px;
-    -fx-pref-width: 18px;
-    -fx-pref-height: 18px;
+    -fx-pref-width: 20px;
+    -fx-pref-height: 20px;
     -fx-cursor: hand;
+    -fx-background-color: transparent;
+    -fx-transition: all 0.2s ease;
+}
+.task-checkbox:hover {
+    -fx-border-color: #3B82F6;
+    -fx-background-color: #EFF6FF;
 }
 .task-checkbox-checked {
     -fx-background-color: #22C55E;
@@ -608,7 +642,8 @@
     -fx-alignment: center;
 }
 .task-checkbox-circle {
-    -fx-border-radius: 20px;
+    -fx-border-radius: 50%;
+    -fx-background-radius: 50%;
 }
 
 /* Pagination Buttons */
@@ -817,6 +852,46 @@
 .zen-status-break {
     -fx-background-color: #DBEAFE;
     -fx-text-fill: #2563EB;
+}
+.zen-team-member-row {
+    -fx-background-color: rgba(255,255,255,0.82);
+    -fx-background-radius: 12px;
+    -fx-padding: 10px;
+    -fx-border-color: rgba(226,232,240,0.85);
+    -fx-border-width: 1px;
+    -fx-alignment: center-left;
+}
+.zen-team-member-name {
+    -fx-font-size: 13px;
+    -fx-text-fill: #0F172A;
+}
+.zen-status-pill {
+    -fx-font-size: 11px;
+}
+.zen-member-time {
+    -fx-text-fill: #475569;
+    -fx-font-size: 12px;
+}
+.zen-ring-clock {
+    -fx-min-width: 40px;
+    -fx-min-height: 40px;
+}
+.zen-ring-clock-label {
+    -fx-text-fill: #0F172A;
+    -fx-font-size: 10px;
+}
+.zen-member-dot {
+    -fx-stroke: transparent;
+}
+.zen-status-focus-dot {
+    -fx-fill: #22C55E;
+}
+.zen-status-break-dot {
+    -fx-fill: #2563EB;
+}
+.zen-placeholder-text {
+    -fx-text-fill: #64748B;
+    -fx-font-size: 12px;
 }
 .zen-tip-box {
     -fx-background-color: #EFF6FF;

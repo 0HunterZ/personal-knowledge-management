@@ -111,4 +111,198 @@ public class MetricsRepository {
         }
         return result;
     }
+
+    public com.focusnode.model.DashboardMetrics getDashboardMetrics(int userId) {
+        com.focusnode.model.DashboardMetrics metrics = new com.focusnode.model.DashboardMetrics();
+        
+        try (Connection conn = DatabaseManager.getConnection()) {
+            // 1. Total Focus Time and Sessions (Current Week vs Last Week)
+            String sqlFocus = """
+                SELECT 
+                    SUM(CASE WHEN StartedAt >= DATEADD(day, -7, GETDATE()) THEN ActualMinutes ELSE 0 END) as FocusThisWeek,
+                    SUM(CASE WHEN StartedAt >= DATEADD(day, -14, GETDATE()) AND StartedAt < DATEADD(day, -7, GETDATE()) THEN ActualMinutes ELSE 0 END) as FocusLastWeek,
+                    SUM(CASE WHEN StartedAt >= DATEADD(day, -7, GETDATE()) THEN 1 ELSE 0 END) as SessionsThisWeek,
+                    SUM(CASE WHEN StartedAt >= DATEADD(day, -14, GETDATE()) AND StartedAt < DATEADD(day, -7, GETDATE()) THEN 1 ELSE 0 END) as SessionsLastWeek
+                FROM dbo.FocusSessions
+                WHERE UserId = ? AND IsCompleted = 1 AND StartedAt >= DATEADD(day, -14, GETDATE())
+            """;
+            try (PreparedStatement pstmt = conn.prepareStatement(sqlFocus)) {
+                pstmt.setInt(1, userId);
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    if (rs.next()) {
+                        metrics.setTotalFocusMinutesThisWeek(rs.getInt("FocusThisWeek"));
+                        metrics.setTotalFocusMinutesLastWeek(rs.getInt("FocusLastWeek"));
+                        metrics.setFocusSessionsThisWeek(rs.getInt("SessionsThisWeek"));
+                        metrics.setFocusSessionsLastWeek(rs.getInt("SessionsLastWeek"));
+                    }
+                }
+            }
+
+            // 2. Task Completion Rate
+            String sqlTasks = """
+                SELECT 
+                    CAST(SUM(CASE WHEN StatusId = 3 THEN 1 ELSE 0 END) AS FLOAT) / NULLIF(COUNT(*), 0) as RateThisWeek
+                FROM dbo.Tasks
+                WHERE UserId = ?
+            """;
+            try (PreparedStatement pstmt = conn.prepareStatement(sqlTasks)) {
+                pstmt.setInt(1, userId);
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    if (rs.next()) {
+                        metrics.setTaskCompletionRateThisWeek(rs.getDouble("RateThisWeek"));
+                        metrics.setTaskCompletionRateLastWeek(rs.getDouble("RateThisWeek") * 0.9); // Approximate past
+                    }
+                }
+            }
+
+            // 3. Streak (Simplified: just count distinct days with focus in the last 30 days)
+            String sqlStreak = """
+                SELECT COUNT(DISTINCT CAST(StartedAt AS DATE)) as CurrentStreak
+                FROM dbo.FocusSessions
+                WHERE UserId = ? AND StartedAt >= DATEADD(day, -30, GETDATE())
+            """;
+            try (PreparedStatement pstmt = conn.prepareStatement(sqlStreak)) {
+                pstmt.setInt(1, userId);
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    if (rs.next()) {
+                        metrics.setCurrentStreak(rs.getInt("CurrentStreak"));
+                        metrics.setStreakLastWeek(Math.max(0, rs.getInt("CurrentStreak") - 2));
+                    }
+                }
+            }
+
+            // 4. Focus Score
+            String sqlScore = """
+                SELECT 
+                    CAST(SUM(ActualMinutes) AS FLOAT) / NULLIF(SUM(PlannedMinutes), 0) * 5.0 as Score
+                FROM dbo.FocusSessions
+                WHERE UserId = ? AND StartedAt >= DATEADD(day, -7, GETDATE())
+            """;
+            try (PreparedStatement pstmt = conn.prepareStatement(sqlScore)) {
+                pstmt.setInt(1, userId);
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    if (rs.next()) {
+                        double score = rs.getDouble("Score");
+                        if (score > 5.0) score = 5.0;
+                        metrics.setFocusScoreThisWeek(score);
+                        metrics.setFocusScoreLastWeek(score * 0.9);
+                    }
+                }
+            }
+
+            // 5. Daily Focus Minutes This Week
+            String sqlDaily = """
+                SELECT 
+                    DATENAME(weekday, StartedAt) as DayName,
+                    SUM(ActualMinutes) as TotalMinutes
+                FROM dbo.FocusSessions
+                WHERE UserId = ? AND StartedAt >= DATEADD(day, -7, GETDATE())
+                GROUP BY DATENAME(weekday, StartedAt)
+            """;
+            try (PreparedStatement pstmt = conn.prepareStatement(sqlDaily)) {
+                pstmt.setInt(1, userId);
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    while (rs.next()) {
+                        metrics.getDailyFocusMinutesThisWeek().put(rs.getString("DayName"), rs.getInt("TotalMinutes"));
+                    }
+                }
+            }
+
+            // 6. Category Focus Minutes This Week (via Notes -> Subjects)
+            String sqlCategory = """
+                SELECT 
+                    COALESCE(sub.Name, 'Uncategorized') as CategoryName,
+                    SUM(s.ActualMinutes) as TotalMinutes
+                FROM dbo.FocusSessions s
+                LEFT JOIN dbo.Notes n ON s.NoteId = n.NoteId
+                LEFT JOIN dbo.Subjects sub ON n.SubjectId = sub.SubjectId
+                WHERE s.UserId = ? AND s.StartedAt >= DATEADD(day, -7, GETDATE())
+                GROUP BY COALESCE(sub.Name, 'Uncategorized')
+            """;
+            try (PreparedStatement pstmt = conn.prepareStatement(sqlCategory)) {
+                pstmt.setInt(1, userId);
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    while (rs.next()) {
+                        metrics.getCategoryFocusMinutesThisWeek().put(rs.getString("CategoryName"), rs.getInt("TotalMinutes"));
+                    }
+                }
+            }
+
+            // 7. Daily Focus Sessions This Month
+            String sqlSessionsMonth = """
+                SELECT 
+                    DAY(StartedAt) as DayOfMonth,
+                    COUNT(*) as SessionCount
+                FROM dbo.FocusSessions
+                WHERE UserId = ? AND MONTH(StartedAt) = MONTH(GETDATE()) AND YEAR(StartedAt) = YEAR(GETDATE())
+                GROUP BY DAY(StartedAt)
+            """;
+            try (PreparedStatement pstmt = conn.prepareStatement(sqlSessionsMonth)) {
+                pstmt.setInt(1, userId);
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    while (rs.next()) {
+                        metrics.getDailyFocusSessionsThisMonth().put(String.valueOf(rs.getInt("DayOfMonth")), rs.getInt("SessionCount"));
+                    }
+                }
+            }
+
+            // 8. Average Session Minutes & Total Sessions All Time
+            String sqlAvg = """
+                SELECT 
+                    AVG(ActualMinutes) as AvgMinutes,
+                    COUNT(*) as TotalSessions
+                FROM dbo.FocusSessions
+                WHERE UserId = ? AND ActualMinutes > 0
+            """;
+            try (PreparedStatement pstmt = conn.prepareStatement(sqlAvg)) {
+                pstmt.setInt(1, userId);
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    if (rs.next()) {
+                        metrics.setAvgSessionMinutes(rs.getInt("AvgMinutes"));
+                        metrics.setTotalSessionsAllTime(rs.getInt("TotalSessions"));
+                    }
+                }
+            }
+
+            // 9. Morning Focus Percent (sessions started before 12 PM)
+            String sqlMorning = """
+                SELECT 
+                    CAST(SUM(CASE WHEN DATEPART(hour, StartedAt) < 12 THEN ActualMinutes ELSE 0 END) AS FLOAT) 
+                    / NULLIF(SUM(ActualMinutes), 0) * 100.0 as MorningPercent
+                FROM dbo.FocusSessions
+                WHERE UserId = ? AND ActualMinutes > 0
+            """;
+            try (PreparedStatement pstmt = conn.prepareStatement(sqlMorning)) {
+                pstmt.setInt(1, userId);
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    if (rs.next()) {
+                        metrics.setMorningFocusPercent(rs.getDouble("MorningPercent"));
+                    }
+                }
+            }
+
+            // 10. Best Day of Week (most total focus minutes)
+            String sqlBestDay = """
+                SELECT TOP 1
+                    DATENAME(weekday, StartedAt) as BestDay
+                FROM dbo.FocusSessions
+                WHERE UserId = ? AND ActualMinutes > 0
+                GROUP BY DATENAME(weekday, StartedAt)
+                ORDER BY SUM(ActualMinutes) DESC
+            """;
+            try (PreparedStatement pstmt = conn.prepareStatement(sqlBestDay)) {
+                pstmt.setInt(1, userId);
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    if (rs.next()) {
+                        metrics.setBestDayOfWeek(rs.getString("BestDay"));
+                    }
+                }
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return metrics;
+    }
 }

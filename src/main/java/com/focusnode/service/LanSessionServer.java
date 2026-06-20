@@ -69,6 +69,7 @@ public class LanSessionServer {
         private final Socket socket;
         private PrintWriter out;
         private BufferedReader in;
+        private com.focusnode.model.LanMemberDto clientMember;
 
         public ClientHandler(Socket socket) {
             this.socket = socket;
@@ -86,18 +87,38 @@ public class LanSessionServer {
                     SyncPacket initialSync = new SyncPacket("STATE_SYNC", activeRoom);
                     sendMessage(gson.toJson(initialSync));
                 }
+                if (sessionService.getPomodoroState() != null) {
+                    SyncPacket timerSync = new SyncPacket("POMODORO_SYNC", sessionService.getPomodoroState());
+                    sendMessage(gson.toJson(timerSync));
+                }
 
                 String inputLine;
                 while ((inputLine = in.readLine()) != null) {
                     // Handle incoming packets from this client
                     SyncPacket packet = gson.fromJson(inputLine, SyncPacket.class);
+                    if ("JOIN".equals(packet.getType()) && packet.getMember() != null) {
+                        this.clientMember = packet.getMember();
+                    }
                     handlePacket(packet, this);
                 }
             } catch (Exception e) {
-                // Client disconnected
+                // Client disconnected ungracefully
             } finally {
                 close();
                 clients.remove(this);
+                // Handle ungraceful disconnect by simulating a LEAVE packet if they joined
+                if (clientMember != null) {
+                    SyncPacket leavePacket = new SyncPacket("LEAVE", clientMember.toLanMember());
+                    Platform.runLater(() -> {
+                        LanRoom room = sessionService.getActiveRoom();
+                        if (room != null) {
+                            room.getMembers().removeIf(m -> m.getId().equals(clientMember.id));
+                            room.setMemberCount(room.getMembers().size());
+                            room.getActivities().add(new com.focusnode.model.LanActivity(clientMember.name + " disconnected", "#EF4444", ""));
+                            broadcastPacket(leavePacket);
+                        }
+                    });
+                }
             }
         }
 
@@ -117,6 +138,16 @@ public class LanSessionServer {
     }
 
     private void handlePacket(SyncPacket packet, ClientHandler sender) {
+        if ("CLOCK_PING".equals(packet.getType())) {
+            SyncPacket pong = new SyncPacket();
+            pong.setType("CLOCK_PONG");
+            pong.setPingId(packet.getPingId());
+            pong.setClientSentAtEpochMillis(packet.getClientSentAtEpochMillis());
+            pong.setHostSentAtEpochMillis(System.currentTimeMillis());
+            sender.sendMessage(gson.toJson(pong));
+            return;
+        }
+
         // Run updates on JavaFX thread
         Platform.runLater(() -> {
             LanRoom room = sessionService.getActiveRoom();
@@ -124,27 +155,47 @@ public class LanSessionServer {
 
             switch (packet.getType()) {
                 case "JOIN":
-                    room.getMembers().add(packet.getMember());
+                    // Avoid duplicates if reconnecting
+                    room.getMembers().removeIf(m -> m.getId().equals(packet.getMember().id));
+                    room.getMembers().add(packet.getMember().toLanMember());
                     room.setMemberCount(room.getMembers().size());
+                    room.getActivities().add(new com.focusnode.model.LanActivity(packet.getMember().name + " joined", "#94A3B8", ""));
                     // Broadcast the join to everyone else
                     broadcastPacket(packet);
                     break;
                 case "LEAVE":
-                    room.getMembers().removeIf(m -> m.getId().equals(packet.getMember().getId()));
+                    room.getMembers().removeIf(m -> m.getId().equals(packet.getMember().id));
                     room.setMemberCount(room.getMembers().size());
+                    room.getActivities().add(new com.focusnode.model.LanActivity(packet.getMember().name + " left", "#94A3B8", ""));
                     broadcastPacket(packet);
                     break;
                 case "STATUS_UPDATE":
                     for (LanMember m : room.getMembers()) {
-                        if (m.getId().equals(packet.getMember().getId())) {
-                            m.setStatus(packet.getMember().getStatus());
-                            m.setTimeLeftSeconds(packet.getMember().getTimeLeftSeconds());
-                            m.setAudioMuted(packet.getMember().isAudioMuted());
+                        if (m.getId().equals(packet.getMember().id)) {
+                            m.setStatus(packet.getMember().status);
+                            m.setTimeLeftSeconds(packet.getMember().timeLeftSeconds);
+                            m.setAudioMuted(packet.getMember().isAudioMuted);
                             break;
                         }
                     }
                     // Re-broadcast to sync others
                     broadcastPacket(packet);
+                    break;
+                case "POMODORO_SYNC":
+                    // Pomodoro timer is Host-authoritative; clients cannot overwrite it.
+                    break;
+                case "FILE_TRANSFER":
+                    // Re-broadcast to all other clients
+                    broadcastPacket(packet);
+                    
+                    // The server itself should also receive it
+                    ServiceLocator.getLanFileTransferService().receiveFile(
+                            sender.socket.getInetAddress().getHostAddress(),
+                            packet.getFileServerPort(),
+                            packet.getFileName(),
+                            packet.getFileSize(),
+                            packet.getTransferId()
+                    );
                     break;
             }
         });

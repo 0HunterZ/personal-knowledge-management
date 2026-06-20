@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="20" styleClass="card" maxWidth="400" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focusnode.controller.LanCreateRoomModalController">
+    <!-- Header -->
+    <VBox spacing="5">
+        <Label text="Create Focus Room" style="-fx-font-weight: bold; -fx-font-size: 20px; -fx-text-fill: #1F2937;" />
+        <Label text="Mở phòng để học cùng bạn bè trong cùng mạng LAN." style="-fx-font-size: 13px; -fx-text-fill: #6B7280;" wrapText="true" />
+    </VBox>
+    
+    <!-- Body -->
+    <VBox spacing="15">
+        <VBox spacing="5">
+            <Label text="Room Name" style="-fx-font-weight: bold; -fx-text-fill: #374151;" />
+            <TextField fx:id="roomNameInput" promptText="Your Room" styleClass="input-field" />
+        </VBox>
+        
+        <VBox spacing="5">
+            <Label text="Port Number" style="-fx-font-weight: bold; -fx-text-fill: #374151;" />
+            <TextField fx:id="portInput" text="5050" style="-fx-opacity: 0.7;" styleClass="input-field" />
+        </VBox>
+        
+        <VBox spacing="10">
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <CheckBox fx:id="requirePasswordToggle" text="Require Password" style="-fx-font-weight: bold; -fx-text-fill: #374151;" />
+            </HBox>
+            <VBox fx:id="passwordContainer" managed="false" visible="false" spacing="5">
+                <PasswordField fx:id="passwordInput" promptText="Enter password" styleClass="input-field" />
+            </VBox>
+        </VBox>
+    </VBox>
+    
+    <!-- Error Label -->
+    <Label fx:id="errorLabel" text="Không thể kết nối. Kiểm tra lại thông tin!" style="-fx-text-fill: #EF4444; -fx-font-weight: bold;" visible="false" managed="false" wrapText="true" />
+    
+    <!-- Footer -->
+    <HBox spacing="10" alignment="CENTER_RIGHT" style="-fx-padding: 10 0 0 0;">
+        <Button fx:id="cancelBtn" text="Cancel" style="-fx-background-color: transparent; -fx-text-fill: #6B7280; -fx-cursor: hand; -fx-font-weight: bold;" />
+        <Button fx:id="startHostingBtn" text="Start Hosting" style="-fx-background-color: #10B981; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16; -fx-background-radius: 6; -fx-cursor: hand;">
+            <graphic>
+                <ProgressIndicator fx:id="spinner" visible="false" managed="false" prefWidth="16" prefHeight="16" style="-fx-progress-color: white;"/>
+            </graphic>
+        </Button>
+    </HBox>
+</VBox>

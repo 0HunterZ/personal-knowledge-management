@@ -3,12 +3,12 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox spacing="15" styleClass="card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focusnode.controller.LanAirdropController">
-    <Label styleClass="card-title" text="🛫 LAN Airdrop" />
+    <Label styleClass="card-title" text="LAN Airdrop" />
     
-    <VBox fx:id="airdropZone" spacing="10" styleClass="airdrop-zone">
-        <Label style="-fx-font-size: 32px; -fx-text-fill: #93C5FD;" text="☁" />
-        <Label style="-fx-font-weight: bold; -fx-text-fill: #1F2937; -fx-font-size: 13px;" text="Drag &amp; drop files here" />
-        <Label style="-fx-font-size: 11px; -fx-text-fill: #94A3B8;" text="or" />
-        <Label style="-fx-background-color: #DCFCE7; -fx-text-fill: #22C55E; -fx-padding: 8 15; -fx-background-radius: 6; -fx-font-weight: bold; -fx-cursor: hand;" text="Select Files" />
+    <VBox fx:id="airdropZone" styleClass="airdrop-zone" spacing="15">
+        <Label style="-fx-font-size: 32px; -fx-text-fill: #94A3B8;" text="☁️" />
+        <Label style="-fx-font-weight: bold; -fx-text-fill: #1F2937;" text="Drag &amp; drop files here" />
+        <Label style="-fx-text-fill: #6B7280; -fx-font-size: 12px;" text="or" />
+        <Label fx:id="selectFilesLabel" onMouseClicked="#onSelectFiles" style="-fx-background-color: #ECFDF5; -fx-text-fill: #10B981; -fx-padding: 8 20; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold;" text="Select Files" />
     </VBox>
 </VBox>

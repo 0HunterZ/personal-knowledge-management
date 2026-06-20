@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane fx:controller="com.focusnode.controller.TagsViewController" fitToWidth="true" style="-fx-background-color: #F8FAFC;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+
+    <HBox spacing="30" style="-fx-padding: 30; -fx-background-color: #F8FAFC;">
+
+        <!-- Cột Trái (Nội dung chính) -->
+        <VBox spacing="25" HBox.hgrow="ALWAYS">
+
+            <!-- Header -->
+            <HBox alignment="CENTER_LEFT">
+                <VBox spacing="5">
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label style="-fx-font-weight: bold; -fx-font-size: 28px; -fx-text-fill: #1F2937;" text="Tags" />
+                        <Label style="-fx-font-size: 22px;" text="🏷" />
+                    </HBox>
+                    <Label style="-fx-font-size: 14px; -fx-text-fill: #6B7280;" text="Organize your notes with tags. Colorful, simple, effective." />
+                </VBox>
+                <Region HBox.hgrow="ALWAYS" />
+                <HBox spacing="10" alignment="CENTER">
+                    <Label styleClass="btn-new-note" text="+ New Tag" />
+                    <Label styleClass="btn-outline" text="☁ Import Tags" />
+                </HBox>
+            </HBox>
+
+            <!-- All Tags Section -->
+            <VBox spacing="15">
+                <Label style="-fx-font-weight: bold; -fx-font-size: 15px; -fx-text-fill: #1F2937;" text="All Tags" />
+
+                <!-- Row 1: 5 tags -->
+                <HBox spacing="15">
+                    <!-- #study -->
+                    <HBox alignment="CENTER_LEFT" styleClass="tag-item-card" HBox.hgrow="ALWAYS">
+                        <VBox styleClass="tag-dot" style="-fx-background-color: #22C55E;" />
+                        <VBox spacing="2" HBox.hgrow="ALWAYS" style="-fx-padding: 0 0 0 10;">
+                            <Label styleClass="tag-name-label" text="#study" />
+                            <Label styleClass="tag-notes-label" text="18 notes" />
+                        </VBox>
+                        <Label styleClass="tag-action-icon" text="⋯" />
+                    </HBox>
+                    <!-- #project -->
+                    <HBox alignment="CENTER_LEFT" styleClass="tag-item-card" HBox.hgrow="ALWAYS">
+                        <VBox styleClass="tag-dot" style="-fx-background-color: #3B82F6;" />
+                        <VBox spacing="2" HBox.hgrow="ALWAYS" style="-fx-padding: 0 0 0 10;">
+                            <Label styleClass="tag-name-label" text="#project" />
+                            <Label styleClass="tag-notes-label" text="15 notes" />
+                        </VBox>
+                        <Label styleClass="tag-action-icon" text="⋯" />
+                    </HBox>
+                    <!-- #java -->
+                    <HBox alignment="CENTER_LEFT" styleClass="tag-item-card" HBox.hgrow="ALWAYS">
+                        <VBox styleClass="tag-dot" style="-fx-background-color: #F59E0B;" />
+                        <VBox spacing="2" HBox.hgrow="ALWAYS" style="-fx-padding: 0 0 0 10;">
+                            <Label styleClass="tag-name-label" text="#java" />
+                            <Label styleClass="tag-notes-label" text="14 notes" />
+                        </VBox>
+                        <Label styleClass="tag-action-icon" text="⋯" />
+                    </HBox>
+                    <!-- #network -->
+                    <HBox alignment="CENTER_LEFT" styleClass="tag-item-card" HBox.hgrow="ALWAYS">
+                        <VBox styleClass="tag-dot" style="-fx-background-color: #8B5CF6;" />
+                        <VBox spacing="2" HBox.hgrow="ALWAYS" style="-fx-padding: 0 0 0 10;">
+                            <Label styleClass="tag-name-label" text="#network" />
+                            <Label styleClass="tag-notes-label" text="12 notes" />
+                        </VBox>
+                        <Label styleClass="tag-action-icon" text="⋯" />
+                    </HBox>
+                    <!-- #ai -->
+                    <HBox alignment="CENTER_LEFT" styleClass="tag-item-card" HBox.hgrow="ALWAYS">
+                        <VBox styleClass="tag-dot" style="-fx-background-color: #EC4899;" />
+                        <VBox spacing="2" HBox.hgrow="ALWAYS" style="-fx-padding: 0 0 0 10;">
+                            <Label styleClass="tag-name-label" text="#ai" />
+                            <Label styleClass="tag-notes-label" text="10 notes" />
+                        </VBox>
+                        <Label styleClass="tag-action-icon" text="⋯" />
+                    </HBox>
+                </HBox>
+
+                <!-- Row 2: 5 more tags -->
+                <HBox spacing="15">
+                    <!-- #productivity -->
+                    <HBox alignment="CENTER_LEFT" styleClass="tag-item-card" HBox.hgrow="ALWAYS">
+                        <VBox styleClass="tag-dot" style="-fx-background-color: #6366F1;" />
+                        <VBox spacing="2" HBox.hgrow="ALWAYS" style="-fx-padding: 0 0 0 10;">
+                            <Label styleClass="tag-name-label" text="#productivity" />
+                            <Label styleClass="tag-notes-label" text="9 notes" />
+                        </VBox>
+                        <Label styleClass="tag-action-icon" text="⋯" />
+                    </HBox>
+                    <!-- #linux -->
+                    <HBox alignment="CENTER_LEFT" styleClass="tag-item-card" HBox.hgrow="ALWAYS">
+                        <VBox styleClass="tag-dot" style="-fx-background-color: #6B7280;" />
+                        <VBox spacing="2" HBox.hgrow="ALWAYS" style="-fx-padding: 0 0 0 10;">
+                            <Label styleClass="tag-name-label" text="#linux" />
+                            <Label styleClass="tag-notes-label" text="8 notes" />
+                        </VBox>
+                        <Label styleClass="tag-action-icon" text="⋯" />
+                    </HBox>
+                    <!-- #tips -->
+                    <HBox alignment="CENTER_LEFT" styleClass="tag-item-card" HBox.hgrow="ALWAYS">
+                        <VBox styleClass="tag-dot" style="-fx-background-color: #06B6D4;" />
+                        <VBox spacing="2" HBox.hgrow="ALWAYS" style="-fx-padding: 0 0 0 10;">
+                            <Label styleClass="tag-name-label" text="#tips" />
+                            <Label styleClass="tag-notes-label" text="7 notes" />
+                        </VBox>
+                        <Label styleClass="tag-action-icon" text="⋯" />
+                    </HBox>
+                    <!-- #focus -->
+                    <HBox alignment="CENTER_LEFT" styleClass="tag-item-card" HBox.hgrow="ALWAYS">
+                        <VBox styleClass="tag-dot" style="-fx-background-color: #84CC16;" />
+                        <VBox spacing="2" HBox.hgrow="ALWAYS" style="-fx-padding: 0 0 0 10;">
+                            <Label styleClass="tag-name-label" text="#focus" />
+                            <Label styleClass="tag-notes-label" text="6 notes" />
+                        </VBox>
+                        <Label styleClass="tag-action-icon" text="⋯" />
+                    </HBox>
+                    <!-- #database -->
+                    <HBox alignment="CENTER_LEFT" styleClass="tag-item-card" HBox.hgrow="ALWAYS">
+                        <VBox styleClass="tag-dot" style="-fx-background-color: #F97316;" />
+                        <VBox spacing="2" HBox.hgrow="ALWAYS" style="-fx-padding: 0 0 0 10;">
+                            <Label styleClass="tag-name-label" text="#database" />
+                            <Label styleClass="tag-notes-label" text="5 notes" />
+                        </VBox>
+                        <Label styleClass="tag-action-icon" text="⋯" />
+                    </HBox>
+                </HBox>
+
+                <!-- Show more -->
+                <HBox alignment="CENTER">
+                    <Label style="-fx-text-fill: #6B7280; -fx-font-size: 13px; -fx-cursor: hand; -fx-padding: 5;" text="Show more ⌄" />
+                </HBox>
+            </VBox>
+
+            <!-- Bottom: Popular + Management -->
+            <HBox spacing="20">
+                <fx:include source="../components/PopularTagsCard.fxml" />
+                <fx:include source="../components/TagManagementCard.fxml" />
+            </HBox>
+
+        </VBox>
+
+        <!-- Cột Phải (Widgets) -->
+        <VBox minWidth="300" prefWidth="300" spacing="20">
+            <fx:include source="../components/QuoteCard.fxml" />
+            <fx:include source="../components/QuickNoteCard.fxml" />
+            <fx:include source="../components/DailyStreakCard.fxml" />
+            <fx:include source="../components/TagUsageOverviewCard.fxml" />
+        </VBox>
+
+    </HBox>
+</ScrollPane>

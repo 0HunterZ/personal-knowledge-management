@@ -9,7 +9,7 @@
     
     <!-- Checkbox (Custom) -->
     <HBox alignment="CENTER" prefWidth="50">
-        <VBox fx:id="checkboxBox" styleClass="task-checkbox">
+        <VBox fx:id="checkboxBox" styleClass="task-checkbox, task-checkbox-circle">
             <Label fx:id="checkboxLabel" style="-fx-text-fill: white; -fx-font-size: 10px;" text="" />
         </VBox>
     </HBox>

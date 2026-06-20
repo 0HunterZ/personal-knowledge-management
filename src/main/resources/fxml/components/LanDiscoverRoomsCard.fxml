@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
-<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.layout.StackPane?>
 
 <VBox spacing="15" styleClass="card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focusnode.controller.LanDiscoverRoomsController">
     <HBox alignment="CENTER_LEFT">
@@ -12,7 +12,16 @@
         <Label style="-fx-text-fill: #6B7280; -fx-cursor: hand;" text="🔄" />
     </HBox>
     
-    <VBox fx:id="discoverRoomsContainer" spacing="10" />
+    <StackPane>
+        <!-- EMPTY STATE -->
+        <VBox fx:id="emptyStateContainer" spacing="10" alignment="CENTER" style="-fx-padding: 20 0;">
+            <Label style="-fx-font-size: 24px; -fx-text-fill: #94A3B8;" text="🔍" />
+            <Label style="-fx-font-size: 13px; -fx-text-fill: #6B7280;" text="No rooms found on LAN" />
+        </VBox>
+
+        <!-- ACTIVE STATE -->
+        <VBox fx:id="discoverRoomsContainer" spacing="10" visible="false" />
+    </StackPane>
 
     <Label style="-fx-text-fill: #3B82F6; -fx-font-size: 12px; -fx-padding: 10 0 0 0;" text="📶 Broadcasting for rooms..." />
 </VBox>

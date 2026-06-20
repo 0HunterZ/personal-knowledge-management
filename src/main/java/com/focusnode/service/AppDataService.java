@@ -26,4 +26,5 @@ public interface AppDataService {
     void saveFocusSession(com.focusnode.model.FocusSession session);
     List<com.focusnode.model.ReviewItem> getReviewItems();
     void saveReviewItem(com.focusnode.model.ReviewItem item);
+    com.focusnode.model.DashboardMetrics getDashboardMetrics();
 }

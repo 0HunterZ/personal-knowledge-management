@@ -16,6 +16,10 @@ public class TagsCloudController {
 
     @FXML
     public void initialize() {
+        refreshTags();
+    }
+
+    public void refreshTags() {
         ServiceLocator.getAsyncExecutor().execute(() -> {
             List<TagUsageItem> tags = ServiceLocator.getAppDataService().getTagUsage();
 

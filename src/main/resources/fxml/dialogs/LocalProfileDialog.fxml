@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.focusnode.controller.LocalProfileDialogController"
+      spacing="10" alignment="CENTER" prefWidth="420" prefHeight="260">
+    <padding>
+        <Insets top="16" right="16" bottom="16" left="16"/>
+    </padding>
+    <Label text="Chào mừng! Hãy tạo hồ sơ cục bộ của bạn"/>
+    <TextField fx:id="nameField" promptText="Tên của bạn"/>
+    <ImageView fx:id="avatarView" fitWidth="96" fitHeight="96" preserveRatio="true"/>
+    <Button text="Chọn Avatar..." onAction="#onChooseAvatar"/>
+    <Button text="Lưu và Tiếp tục" onAction="#onSave"/>
+</VBox>

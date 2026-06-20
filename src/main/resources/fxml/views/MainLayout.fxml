@@ -2,12 +2,15 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17"
+<BorderPane fx:id="rootPane"
+            xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.focusnode.controller.MainLayoutController"
             style="-fx-padding: 24 0 0 0; -fx-background-color: #F8FAFC;">
     <left>
-        <fx:include source="../components/Sidebar.fxml" />
+        <StackPane fx:id="sidebarArea">
+            <fx:include source="../components/Sidebar.fxml" />
+        </StackPane>
     </left>
 
     <center>

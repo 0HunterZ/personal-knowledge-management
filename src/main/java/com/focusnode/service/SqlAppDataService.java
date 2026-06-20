@@ -20,6 +20,7 @@ public class SqlAppDataService implements AppDataService {
     private final FocusSessionRepository focusSessionRepo = new FocusSessionRepository();
 
     private final MetricsRepository metricsRepo = new MetricsRepository();
+    private final ReviewItemRepository reviewRepo = new ReviewItemRepository();
 
     @Override
     public String getUserName() {
@@ -113,11 +114,20 @@ public class SqlAppDataService implements AppDataService {
 
     @Override
     public List<ReviewItem> getReviewItems() {
-        return Collections.emptyList(); // Spaced Repetition removed from 3NF Schema
+        return reviewRepo.findAll();
     }
 
     @Override
     public void saveReviewItem(ReviewItem item) {
-        // Spaced Repetition removed from 3NF Schema
+        if (item.getId() <= 0) {
+            reviewRepo.add(item);
+        } else {
+            reviewRepo.update(item);
+        }
+    }
+
+    @Override
+    public com.focusnode.model.DashboardMetrics getDashboardMetrics() {
+        return metricsRepo.getDashboardMetrics(1); // Default UserId = 1
     }
 }

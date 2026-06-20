@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane fitToWidth="true" style="-fx-background-color: #F8FAFC;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane fx:controller="com.focusnode.controller.TagsViewController" fitToWidth="true" style="-fx-background-color: #F8FAFC;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
 
     <HBox spacing="30" style="-fx-padding: 30; -fx-background-color: #F8FAFC;">
 
@@ -25,7 +25,7 @@
                 <Region HBox.hgrow="ALWAYS" />
                 <HBox spacing="10" alignment="CENTER">
                     <Label styleClass="btn-new-note" text="+ New Tag" />
-                    <Label styleClass="btn-outline" text="☁ Import Tags" />
+                    <Label fx:id="importTagsLabel" styleClass="btn-outline" text="☁ Import Tags" onMouseClicked="#handleImportTags" />
                 </HBox>
             </HBox>
 

@@ -12,12 +12,17 @@ public class LanRoom {
     private final IntegerProperty memberCount = new SimpleIntegerProperty(1);
     private final IntegerProperty maxMembers = new SimpleIntegerProperty(10);
     private final ObservableList<LanMember> members = FXCollections.observableArrayList();
+    private final ObservableList<LanActivity> activities = FXCollections.observableArrayList();
 
     public LanRoom(String id, String name, String hostIp, int port) {
         this.id.set(id);
         this.name.set(name);
         this.hostIp.set(hostIp);
         this.port.set(port);
+    }
+
+    public ObservableList<LanActivity> getActivities() {
+        return activities;
     }
 
     public String getId() { return id.get(); }

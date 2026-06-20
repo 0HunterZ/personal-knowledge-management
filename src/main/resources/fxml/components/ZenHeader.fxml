@@ -27,5 +27,8 @@
 
     <Region HBox.hgrow="ALWAYS" />
 
-    <Button styleClass="zen-exit-button" text="Exit Zen Mode" />
+    <VBox alignment="CENTER_RIGHT" spacing="2">
+        <Button fx:id="exitZenButton" id="exitZenButton" styleClass="zen-exit-button" text="Exit Zen Mode" />
+        <Label styleClass="zen-muted" text="Session will be saved" />
+    </VBox>
 </HBox>
