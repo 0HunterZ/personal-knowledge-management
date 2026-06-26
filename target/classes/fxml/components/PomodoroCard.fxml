@@ -20,17 +20,17 @@
     <!-- Vòng tròn Timer -->
     <StackPane>
         <Circle radius="70" fill="TRANSPARENT" stroke="#E2E8F0" strokeWidth="8" />
-        <Arc radiusX="70" radiusY="70" startAngle="90" length="-270" fill="TRANSPARENT" stroke="#10B981" strokeWidth="8" strokeLineCap="ROUND" />
+        <Arc fx:id="progressArc" radiusX="70" radiusY="70" startAngle="90" length="-270" fill="TRANSPARENT" stroke="#10B981" strokeWidth="8" strokeLineCap="ROUND" />
         
         <VBox alignment="CENTER">
             <Label fx:id="timeLabel" text="25:00" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #1F2937;" />
-            <Label text="Focus Time" style="-fx-font-size: 12px; -fx-text-fill: #6B7280;" />
+            <Label fx:id="phaseLabel" text="Focus Time" style="-fx-font-size: 12px; -fx-text-fill: #6B7280;" />
         </VBox>
     </StackPane>
 
     <!-- Nút điều khiển -->
     <VBox spacing="10" alignment="CENTER" maxWidth="Infinity">
-        <Button text="▶ Start Focus" onAction="#startFocus" maxWidth="Infinity" styleClass="btn-primary" />
-        <Button text="☕ Short Break" onAction="#startBreak" maxWidth="Infinity" styleClass="btn-text" />
+        <Button fx:id="toggleButton" text="▶ Start Focus" onAction="#toggleTimer" maxWidth="Infinity" styleClass="btn-primary" />
+        <Button text="☕ Enter Zen Mode" onAction="#enterZenMode" maxWidth="Infinity" styleClass="btn-text" />
     </VBox>
 </VBox>

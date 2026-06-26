@@ -1,4 +1,5 @@
 com\focusnode\service\SqliteAppDataService.class
+com\focusnode\util\OSManager.class
 com\focusnode\repository\FocusSessionRepository.class
 com\focusnode\service\AppDataService.class
 com\focusnode\model\Note.class
@@ -15,10 +16,12 @@ com\focusnode\controller\ZenTeamFocusCardController$1.class
 com\focusnode\repository\DatabaseManager.class
 com\focusnode\controller\NoteCardController.class
 com\focusnode\service\InMemoryAppDataService.class
+com\focusnode\service\AudioService.class
 com\focusnode\controller\ZenHeaderController.class
 com\focusnode\repository\FolderRepository.class
 com\focusnode\controller\ReviewViewController.class
 com\focusnode\controller\TaskRowController.class
+com\focusnode\service\PomodoroEngine.class
 com\focusnode\controller\TaskEditorController$1.class
 com\focusnode\repository\TaskRepository.class
 com\focusnode\service\LanSessionServer$ClientHandler.class
@@ -37,6 +40,7 @@ com\focusnode\model\FocusSession.class
 com\focusnode\controller\KnowledgeViewController.class
 com\focusnode\service\LanFileTransferService.class
 com\focusnode\controller\LanActiveRoomController.class
+com\focusnode\service\PomodoroEngine$1.class
 com\focusnode\Main.class
 com\focusnode\model\DiscoveryPacket.class
 com\focusnode\repository\FileResourceRepository.class
@@ -52,18 +56,23 @@ com\focusnode\controller\ZenModeController.class
 com\focusnode\model\Task$Status.class
 com\focusnode\controller\LanDiscoverRoomsController.class
 com\focusnode\repository\LanTransferHistoryRepository.class
+com\focusnode\model\CrdtNote.class
 com\focusnode\repository\CategoryBreakdownRepository.class
 com\focusnode\controller\LanCreateRoomModalController.class
 com\focusnode\controller\TaskRowController$1.class
+com\focusnode\util\EventBus$EventType.class
 com\focusnode\repository\UserRepository.class
 com\focusnode\repository\MetricsRepository.class
 com\focusnode\controller\SettingsViewController.class
 com\focusnode\controller\ZenTeamFocusCardController.class
 com\focusnode\util\ScreenshotTool.class
 com\focusnode\controller\HeaderController.class
+com\focusnode\controller\GraphCanvasController.class
 com\focusnode\controller\LocalProfileDialogController.class
+com\focusnode\util\EventBus.class
 com\focusnode\controller\TagsCloudController.class
 com\focusnode\model\LocalProfile.class
+com\focusnode\service\AIAssistantService.class
 com\focusnode\util\VaultManager.class
 com\focusnode\controller\NoteEditorController$1.class
 com\focusnode\controller\LanAirdropController.class
@@ -87,7 +96,6 @@ com\focusnode\model\PomodoroPreset.class
 com\focusnode\controller\SurveyDialogController.class
 com\focusnode\controller\TopBarController.class
 com\focusnode\navigation\AppView.class
-com\focusnode\controller\ZenModeController$2.class
 com\focusnode\controller\RecentNotesController.class
 com\focusnode\service\ServiceLocator.class
 com\focusnode\model\LanRoomDto.class
@@ -112,4 +120,5 @@ com\focusnode\model\Task$Priority.class
 com\focusnode\model\Subject.class
 com\focusnode\TestFXML.class
 com\focusnode\controller\TagUsageController.class
+com\focusnode\service\GoogleDriveService.class
 com\focusnode\util\CrashHandler.class

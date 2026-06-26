@@ -1,0 +1,204 @@
+TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN VÀ TRUYỀN THÔNG VIỆT HÀN
+KHOA KHOA HỌC MÁY TÍNH
+_______________
+BÁO CÁO ĐỒ ÁN CƠ SỞ 1
+ĐỀ TÀI: XÂY DỰNG ỨNG DỤNG QUẢN LÝ TRI THỨC VÀ HỖ TRỢ HỌC TẬP CÁ NHÂN
+Sinh viên thực hiện: Đỗ Nguyễn Phước Định  25GT007
+Lớp: 	   25GT
+Giảng viên hướng dẫn: TS. Nguyễn Văn Bình
+Đà Nẵng, tháng 05 năm 2026
+TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN VÀ TRUYỀN THÔNG VIỆT HÀN
+KHOA KHOA HỌC MÁY TÍNH
+_______________
+BÁO CÁO ĐỒ ÁN CƠ SỞ 1
+ĐỀ TÀI: XÂY DỰNG ỨNG DỤNG QUẢN LÝ TRI THỨC VÀ HỖ TRỢ HỌC TẬP CÁ NHÂN
+Sinh viên thực hiện: Đỗ Nguyễn Phước Định  25GT007
+Lớp: 	   25GT
+Giảng viên hướng dẫn: TS. Nguyễn Văn Bình
+Đà Nẵng, tháng 05 năm 2026
+LỜI MỞ ĐẦU
+Trong kỷ nguyên số, con người đang phải đối mặt với lượng thông tin khổng lồ được tạo ra mỗi ngày từ Internet, mạng xã hội, các nền tảng làm việc trực tuyến và hệ thống lưu trữ đám mây. Mặc dù sự phát triển của công nghệ giúp việc tiếp cận tri thức trở nên dễ dàng hơn, nhưng đồng thời cũng làm gia tăng tình trạng quá tải thông tin (Information Overload), gây khó khăn trong việc ghi nhớ, tổ chức và khai thác kiến thức một cách hiệu quả.
+Bên cạnh đó, sự phụ thuộc ngày càng lớn vào các nền tảng trực tuyến khiến người dùng thường xuyên bị phân tâm bởi thông báo, quảng cáo và các yếu tố gây nhiễu khác. Điều này ảnh hưởng đáng kể đến khả năng tập trung, năng suất học tập cũng như hiệu quả làm việc của cá nhân và nhóm.
+Xuất phát từ thực tiễn trên, nhóm thực hiện đề xuất xây dựng Focus Node – một siêu ứng dụng quản lý tri thức cá nhân (Personal Knowledge Management – PKM) trên nền tảng Desktop, tích hợp quản lý công việc (Todo Management), chế độ tập trung (Pomodoro/Zen Mode) và khả năng đồng bộ dữ liệu phi tập trung trong mạng nội bộ (LAN). Hệ thống hướng đến việc giúp người dùng xây dựng kho tri thức cá nhân an toàn, nâng cao khả năng tập trung và hỗ trợ cộng tác nhóm mà không phụ thuộc vào các dịch vụ đám mây bên ngoài.
+Thông qua dự án này, nhóm mong muốn vận dụng các kiến thức đã học về phát triển phần mềm, thiết kế hệ thống phân tán và bảo mật dữ liệu để xây dựng một sản phẩm có tính ứng dụng thực tiễn cao, đáp ứng nhu cầu học tập và làm việc trong môi trường hiện đại.
+LỜI CẢM ƠN
+Đầu tiên, em xin gửi lời cảm ơn chân thành nhất đến Trường Đại học Công nghệ Thông tin và Truyền thông Việt - Hàn đã đưa môn học "Đồ án cơ sở 1" vào chương trình đào tạo. Đây là một học phần vô cùng ý nghĩa, tạo cơ hội cho sinh viên được vận dụng tổng hợp các kiến thức đã tích lũy trong suốt quá trình học tập để giải quyết một bài toán thực tiễn mang tính ứng dụng cao.
+Đặc biệt, em xin gửi lời tri ân sâu sắc đến Giảng viên hướng dẫn TS. Nguyễn Văn Bình người đã tận tình chỉ bảo, định hướng phương pháp nghiên cứu, cung cấp những nền tảng kiến thức quý báu và luôn sẵn sàng giải đáp mọi thắc mắc trong suốt quá trình em nghiên cứu và phát triển đề tài này. Những góp ý chuyên môn của cô không chỉ giúp em hoàn thiện sản phẩm mà còn giúp em rèn luyện tư duy phân tích và kỹ năng giải quyết vấn đề.
+Đồng thời, em cũng xin gửi lời cảm ơn đến toàn thể quý Thầy Cô trong Khoa Khoa học Máy tính đã trực tiếp giảng dạy, truyền đạt những kinh nghiệm thực tiễn và tạo dựng một môi trường học tập tích cực, sáng tạo. Những kiến thức nền tảng về lập trình hướng đối tượng, cơ sở dữ liệu, kiến trúc phần mềm mà các Thầy Cô đã truyền đạt chính là nền móng vững chắc để em có thể xây dựng và hoàn thành dự án này.
+Cuối cùng, em xin cảm ơn gia đình, bạn bè đã luôn đồng hành, động viên tinh thần và góp ý kiến xây dựng để hệ thống có thể hoàn thiện một cách trọn vẹn nhất. Mặc dù đã cố gắng hết sức trong quá trình nghiên cứu và phát triển, song đồ án chắc chắn không tránh khỏi những thiếu sót nhất định. Em rất mong nhận được sự góp ý, phê bình từ quý Thầy Cô và bạn đọc để sản phẩm ngày càng hoàn thiện hơn trong tương lai.
+                                                                           Em xin chân thành cảm ơn!
+NHẬN XÉT CỦA GIẢNG VIÊN
+………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………
+                                                                           Đà Nẵng, ngày …. tháng …. năm 2026
+                                                                       Chữ kí giảng viên
+DANH MỤC TỪ VIẾT TẮT
+DANH MỤC HÌNH VẼ
+Hình 1: Giao diện Home 
+Hình 2: Giao diện hồ sơ cục bộ
+Hình 3: Giao diện LAN Hub trước khi có người vào phòng 
+Hình 4: Giao diện LAN Hub sau khi vào phòng
+Hình 5: Giao diện Pomodoro Zen Mode
+GIỚI THIỆU CHUNG VỀ DỰ ÁN
+Giới thiệu dự án và Người thực hiện
+Focus Node là một ứng dụng Desktop được phát triển bằng nền tảng JavaFX, hướng đến mục tiêu xây dựng một môi trường làm việc và học tập tập trung, an toàn và hiệu quả. Hệ thống kết hợp ba thành phần cốt lõi gồm: Quản lý tri thức cá nhân (PKM); Quản lý công việc và tiến độ thực hiện; Chế độ tập trung Pomodoro và Zen Mode.
+Khác với các nền tảng quản lý công việc truyền thống phụ thuộc vào Internet, Focus Node được thiết kế theo hướng offline-first, cho phép người dùng lưu trữ, quản lý và chia sẻ dữ liệu trực tiếp trong mạng LAN thông qua mô hình P2P. Điều này giúp giảm sự phụ thuộc vào dịch vụ đám mây đồng thời nâng cao khả năng bảo mật và kiểm soát dữ liệu.
+Ngoài việc phục vụ nhu cầu quản lý tri thức cá nhân, hệ thống còn hỗ trợ cộng tác nhóm trong cùng môi trường mạng nội bộ, tạo điều kiện thuận lợi cho học tập, nghiên cứu và phát triển dự án.Dự án do sinh viên Tài chịu trách nhiệm toàn bộ từ khâu thu thập yêu cầu, khảo sát thực trạng, phân tích nghiệp vụ, thiết kế kiến trúc hệ thống, thiết kế cơ sở dữ liệu, phát triển mã nguồn (coding), xây dựng giao diện tương tác người dùng, cho đến khâu kiểm thử chức năng và viết tài liệu kỹ thuật. Quá trình phát triển được thực hiện dưới sự hướng dẫn trực tiếp của TS. Nguyễn Văn Bình — giảng viên thuộc Khoa Khoa học Máy tính.
+Lý do chọn đề tài
+Trong những năm gần đây, các ứng dụng quản lý ghi chú và công việc trực tuyến như Notion, Trello hay ClickUp đã trở nên phổ biến. Tuy nhiên, việc sử dụng các nền tảng này vẫn tồn tại một số hạn chế đáng chú ý.
+Thứ nhất, dữ liệu người dùng thường được lưu trữ trên hạ tầng đám mây của bên thứ ba. Điều này tiềm ẩn các rủi ro liên quan đến quyền riêng tư, rò rỉ dữ liệu hoặc phụ thuộc vào nhà cung cấp dịch vụ.
+Thứ hai, môi trường làm việc trực tuyến thường đi kèm với nhiều yếu tố gây xao nhãng như thông báo liên tục, mạng xã hội và các nội dung giải trí. Những tác động này làm suy giảm khả năng tập trung và ảnh hưởng đến hiệu suất làm việc.
+Thứ ba, xu hướng phát triển các giải pháp PKM offline đang ngày càng được cộng đồng quan tâm nhằm đảm bảo quyền sở hữu dữ liệu cá nhân và tăng tính chủ động trong quản lý thông tin.
+Xuất phát từ các vấn đề trên, nhóm lựa chọn phát triển Focus Node nhằm xây dựng một nền tảng quản lý tri thức và công việc hoạt động độc lập với Internet, đảm bảo bảo mật dữ liệu và hỗ trợ tối đa khả năng tập trung của người dùng.
+Đặc tả bài toán quản lý
+Bài toán đặt ra là xây dựng một hệ thống cho phép người dùng:
+Tạo và quản lý các ghi chú tri thức dưới dạng nút (Node).
+Liên kết các nút kiến thức để hình thành Knowledge Graph trực quan.
+Quản lý danh sách công việc, mục tiêu và tiến độ thực hiện.
+Hỗ trợ cộng tác nhóm thông qua cơ chế đồng bộ dữ liệu ngang hàng trong mạng LAN.
+Hoạt động ổn định ngay cả khi không có kết nối Internet.
+Hệ thống cần đảm bảo dữ liệu được đồng bộ giữa nhiều thiết bị trong cùng mạng nội bộ theo thời gian thực, đồng thời hạn chế tối đa xung đột dữ liệu phát sinh khi nhiều người dùng cùng chỉnh sửa nội dung.
+Ngoài ra, giải pháp phải cung cấp môi trường làm việc tối giản, giảm thiểu các yếu tố gây phân tâm và hỗ trợ người dùng duy trì trạng thái tập trung trong thời gian dài.
+Mục tiêu cốt lõi của hệ thống
+Mục tiêu tổng quát của dự án là xây dựng một phần mềm toàn diện, đáp ứng đầy đủ các yêu cầu nghiệp vụ đã phân tích ở trên. Cụ thể, hệ thống hướng đến ba mục tiêu cốt lõi sau:
+Mục tiêu thứ nhất — Đảm bảo bảo mật dữ liệu bằng E2EE: Toàn bộ dữ liệu trao đổi giữa các thiết bị được mã hóa đầu cuối (End-to-End Encryption), giúp ngăn chặn việc truy cập trái phép và bảo vệ quyền riêng tư của người dùng.
+Mục tiêu thứ hai — Đồng bộ dữ liệu thời gian thực: Triển khai cơ chế đồng bộ P2P trong mạng LAN cho phép các thiết bị cập nhật dữ liệu gần như tức thời, đảm bảo tính nhất quán và liên tục trong quá trình làm việc nhóm.
+Mục tiêu thứ ba — Xây dựng hệ thống quản lý tri thức hiệu quả: Cho phép người dùng tổ chức, tìm kiếm và liên kết kiến thức dưới dạng mạng lưới tư duy, hỗ trợ quá trình ghi nhớ và tái sử dụng thông tin.
+Mục tiêu thứ tư — Tối ưu hóa hiệu suất nhận thức: Tích hợp Pomodoro Timer và Zen Mode nhằm giảm thiểu sự xao nhãng, tăng cường khả năng tập trung và nâng cao năng suất học tập, nghiên cứu cũng như làm việc.
+Mục tiêu thứ năm — Hoạt động độc lập với Internet: Thiết kế hệ thống theo triết lý Offline-First, cho phép người dùng sử dụng đầy đủ các chức năng cốt lõi mà không cần phụ thuộc vào hạ tầng trực tuyến hoặc dịch vụ đám mây.
+CHƯƠNG 2: NGHIÊN CỨU TỔNG QUAN VÀ CƠ SỞ LÝ THUYẾT
+2.1. Cấu trúc Kiến trúc
+Dự án Focus Node thiết lập một nền tảng kỹ thuật vững chắc thông qua việc ứng dụng mẫu thiết kế MVC (Model-View-Controller) kết hợp chặt chẽ với Kiến trúc Phân lớp (Layered Architecture). Sự phân rã này đảm bảo nguyên lý Đơn trách nhiệm (Single Responsibility Principle), giúp cô lập các thay đổi và gia tăng khả năng bảo trì. Cụ thể, không gian mã nguồn được phân rã thành các packages độc lập: model đảm nhiệm việc định nghĩa các thực thể và cấu trúc đồ thị tri thức; view quản lý các tệp định dạng giao diện; controller đóng vai trò điều hướng các sự kiện từ người dùng; service là nơi tập trung toàn bộ các thuật toán xử lý nghiệp vụ phức tạp (như phân tích CRDT hay tính toán thời gian Pomodoro); và repository chịu trách nhiệm cô lập logic truy xuất cơ sở dữ liệu.
+2.2. Kiến trúc phân lớp 3-Tier (Ba Lớp)
+Kiến trúc Ba Lớp (3-Tier Architecture) là một mô hình kiến trúc phần mềm kinh điển và được áp dụng rộng rãi trong phát triển các hệ thống quản lý thông tin. Trong mô hình này, ứng dụng được chia thành ba tầng logic độc lập, mỗi tầng đảm nhận một nhóm trách nhiệm riêng biệt. Mục đích cốt lõi của việc phân lớp là nhằm chia nhỏ độ phức tạp của bài toán, tăng cường khả năng tái sử dụng mã nguồn (Code Reusability), và đảm bảo rằng sự thay đổi ở một tầng sẽ có tác động tối thiểu đến các tầng khác (Loose Coupling). Ba lớp đó bao gồm:
+Lớp 1 — Presentation Tier (Lớp Trình diễn): Đây là tầng giao diện, chịu trách nhiệm tương tác trực tiếp với người dùng cuối (End User). Lớp này hiển thị thông tin dưới dạng trực quan (bảng biểu, biểu đồ, form nhập liệu) và thu thập dữ liệu đầu vào từ người dùng. Trong dự án, lớp Trình diễn được xây dựng hoàn toàn bằng JavaFX kết hợp FXML, cho phép tách biệt giữa cấu trúc giao diện (FXML) và logic xử lý sự kiện (Controller). Điều quan trọng là bất kỳ thay đổi nào ở lớp này (ví dụ: thay đổi layout, đổi màu sắc, thêm animation) đều không làm ảnh hưởng đến logic nghiệp vụ hoặc lớp truy xuất dữ liệu bên dưới.
+Lớp 2 — Business Logic Tier (Lớp Nghiệp vụ): Đóng vai trò là bộ não xử lý trung tâm của hệ thống. Lớp này chứa toàn bộ các thuật toán tính toán, các quy tắc kiểm duyệt dữ liệu (Validation Rules), và logic điều phối luồng công việc (Workflow Orchestration). 
+Lớp 3 — Data Access Tier (Lớp Truy xuất dữ liệu): Nhiệm vụ duy nhất và cốt lõi của lớp này là thực thi các câu lệnh SQL (INSERT, UPDATE, DELETE, SELECT) và gọi các Stored Procedures để tương tác với hệ quản trị CSDL. Lớp này ẩn giấu hoàn toàn các chi tiết về kết nối, cấu hình và ngôn ngữ truy vấn đối với lớp Nghiệp vụ ở phía trên. Trong dự án, lớp DAO sử dụng JDBC PreparedStatement để ngăn chặn các cuộc tấn công SQL Injection.
+2.3. Mẫu thiết kế MVC (Model – View – Controller)
+Trong nội bộ Lớp Trình diễn (Presentation Tier), hệ thống áp dụng mẫu thiết kế MVC (Model-View-Controller) để tổ chức mã nguồn giao diện một cách có hệ thống. Mẫu thiết kế MVC là một trong những Design Patterns phổ biến nhất trong phát triển phần mềm, được Martin Fowler và nhiều chuyên gia kiến trúc phần mềm khuyến nghị sử dụng cho các ứng dụng có giao diện đồ họa. MVC phân tách lớp trình diễn thành ba thành phần có trách nhiệm rõ ràng:
+Model (Mô hình dữ liệu): Đại diện cho cấu trúc dữ liệu và trạng thái của ứng dụng. Trong dự án mỗi class là một POJO (Plain Old Java Object) ánh xạ trực tiếp 1:1 với một bảng trong cơ sở dữ liệu. Các class này chứa các thuộc tính (fields) và các phương thức truy xuất/thiết lập (getters/setters) tương ứng.
+View (Khung nhìn): Chịu trách nhiệm hiển thị giao diện cho người dùng. Trong JavaFX, View được xây dựng hoàn toàn bằng FXML — một ngôn ngữ đánh dấu dựa trên XML. Mỗi file FXML quy định cách sắp xếp các thành phần giao diện (TextField, Button, TableView, ComboBox...) trên màn hình. Việc sử dụng FXML thay vì mã Java thuần giúp thiết kế giao diện trực quan hơn và có thể chỉnh sửa bằng các công cụ WYSIWYG như Scene Builder.
+Controller (Bộ điều khiển): Đóng vai trò cầu nối giữa View và Model. Controller nhận các sự kiện từ View (ví dụ: người dùng nhấn nút "Lưu", chọn mục từ ComboBox, nhập liệu vào TextField), sau đó tương tác với các Service ở lớp Nghiệp vụ để xử lý logic, và cuối cùng cập nhật lại View với kết quả mới nhất. Controller giữ cho View và Model hoàn toàn độc lập với nhau — View không biết dữ liệu đến từ đâu, và Model không biết dữ liệu được hiển thị như thế nào.
+2.4. Công nghệ và Thư viện sử dụng
+2.4.1. Core Java 21
+Java là một ngôn ngữ lập trình hướng đối tượng mạnh mẽ, được phát triển bởi Sun Microsystems (nay thuộc Oracle Corporation). Với triết lý "Write Once, Run Anywhere" (Viết một lần, chạy mọi nơi), Java cung cấp khả năng tương thích đa nền tảng thông qua Máy ảo Java (JVM - Java Virtual Machine). Phiên bản Java 17+ được sử dụng trong dự án mang đến nhiều cải tiến quan trọng: hệ thống kiểu mạnh (Strong Typing), bộ thu gom rác tự động (Garbage Collection), hỗ trợ lập trình đa luồng (Multi-threading), và cú pháp hiện đại với các tính năng như Lambda Expressions, Stream API, Optional API giúp mã nguồn trở nên ngắn gọn và biểu đạt hơn.
+Lý do lựa chọn Java: Java là ngôn ngữ được giảng dạy chính trong chương trình đào tạo tại trường, sinh viên đã có nền tảng kiến thức vững chắc để phát triển ứng dụng. Bên cạnh đó, hệ sinh thái thư viện của Java vô cùng phong phú, cung cấp sẵn các giải pháp cho hầu hết mọi bài toán kỹ thuật. Cộng đồng Java trên toàn cầu rất lớn, giúp việc tìm kiếm tài liệu tham khảo và khắc phục sự cố trở nên dễ dàng.
+2.4.2. Nền tảng JavaFX và FXML
+JavaFX là bộ công cụ xây dựng giao diện đồ họa (GUI) thế hệ mới của Java, được thiết kế để thay thế cho Java Swing đã lỗi thời. JavaFX hỗ trợ mạnh mẽ việc tách biệt giao diện (presentation) và logic (behavior) thông qua cơ chế FXML + Controller. Đặc biệt, JavaFX cho phép sử dụng CSS để định dạng giao diện tương tự như phát triển Web, mang đến khả năng tùy biến cao về mặt thẩm mỹ. Các hiệu ứng hoạt họa (Animation), chuyển cảnh mượt mà (FadeTransition, ScaleTransition) cũng được JavaFX hỗ trợ sẵn, giúp tạo ra trải nghiệm người dùng chuyên nghiệp.
+Lý do lựa chọn JavaFX: So với các framework GUI khác trên nền Java (Swing, AWT), JavaFX cung cấp giao diện hiện đại hơn đáng kể, hỗ trợ CSS giúp thiết kế linh hoạt, và có kiến trúc sạch hơn nhờ tách biệt View (FXML) và Controller (Java). Điều này phù hợp hoàn hảo với kiến trúc MVC mà dự án áp dụng.
+2.4.3. Hệ quản trị CSDL Microsoft SQL Server và SQLite
+Microsoft SQL Server là một hệ quản trị cơ sở dữ liệu quan hệ (RDBMS) cấp doanh nghiệp, được phát triển bởi Microsoft. SQL Server nổi bật với nhiều tính năng nâng cao phục vụ quản lý dữ liệu: hỗ trợ giao dịch ACID (Atomicity, Consistency, Isolation, Durability) đảm bảo tính toàn vẹn dữ liệu trong mọi tình huống; tích hợp ngôn ngữ lập trình Transact-SQL (T-SQL) cực kỳ mạnh mẽ cho phép viết các Stored Procedures, Triggers, và Functions phức tạp; và cung cấp các công cụ quản trị trực quan thông qua SQL Server Management Studio (SSMS).
+Lý do lựa chọn SQL Server: Dự án yêu cầu xử lý các nghiệp vụ phức tạp tại tầng CSDL (Triggers tự động cập nhật sức chứa phòng, Stored Procedures kiểm tra ràng buộc đồng thời). SQL Server cung cấp đầy đủ các tính năng này với hiệu suất cao và độ tin cậy tốt. Ngoài ra, hệ thống Collation Vietnamese_CI_AS hỗ trợ tốt cho việc lưu trữ và truy vấn dữ liệu tiếng Việt có dấu.
+SQL Server / SQLite & JDBC: Giải pháp lưu trữ đa dạng, giao tiếp qua API JDBC. SQLite phục vụ hoàn hảo cho triết lý lưu trữ cục bộ tại máy trạm, trong khi SQL Server sẵn sàng hỗ trợ các phiên bản triển khai tập trung.
+2.4.4. Thư viện AtlantaFX và Ikonli:
+AtlantaFX: Thư viện giao diện tiên tiến dành cho JavaFX, cung cấp một hệ thống thiết kế phẳng (flat interface) hiện đại được truyền cảm hứng từ các framework Web,. Với triết lý tiếp cận ưu tiên CSS (CSS first) và hệ thống màu sắc trực quan được xây dựng dựa trên nguyên tắc thiết kế GitHub Primer, AtlantaFX cho phép tùy biến giao diện toàn diện và chuyên nghiệp.
+Ikonli: Thư viện quản lý biểu tượng (icon) chuyên dụng cho JavaFX, tích hợp sẵn các bộ icon tiêu chuẩn công nghiệp như FontAwesome và Feather, giúp tối ưu hóa dung lượng ứng dụng thay vì phải nhúng các tệp hình ảnh tĩnh rời rạc.
+CHƯƠNG 3: PHÂN TÍCH VÀ THIẾT KẾ HỆ THỐNG
+3.1. Cấu trúc Package và Tổ chức mã nguồn
+Dự án Focus Node được xây dựng dựa trên mô hình kiến trúc MVC (Model-View-Controller) kết hợp với thiết kế Phân tầng (Layered Architecture). Cấu trúc mã nguồn được phân chia một cách logic và rành mạch thành các package riêng biệt, tuân thủ nguyên tắc "Separation of Concerns" (Phân tách mối quan tâm) nhằm đảm bảo tính toàn vẹn, khả năng bảo trì và dễ dàng mở rộng trong tương lai. Toàn bộ mã nguồn của hệ thống được đặt trong thư mục src/main/java/com/focusnode/ và được tổ chức thành các thành phần cốt lõi như sau:
+Cấu trúc mã nguồn Java (src/main/java/com/focusnode) : 
+‘com.focusnode.model’: Nơi định nghĩa các thực thể (Entity) đại diện cho cấu trúc dữ liệu cốt lõi của ứng dụng. Bao gồm các lớp như Note, Task, User, FocusSession, LanRoom, KnowledgeNode... Đây là các đối tượng thuần túy, không chứa logic giao diện, đóng vai trò luân chuyển dữ liệu (DTO) giữa các tầng.
+‘com.focusnode.controller’: Đóng vai trò là Tầng Trình điều khiển (Controller) trong mô hình MVC. Các lớp trong package này (như MainLayoutController, ZenModeController, LanHubViewController...) liên kết trực tiếp với các tệp giao diện FXML để xử lý sự kiện từ người dùng (User Events) và gọi các hàm xử lý từ tầng Service.
+‘com.focusnode.service’: Trái tim của ứng dụng, nơi chứa các nghiệp vụ xử lý (Business Logic) phức tạp độc lập với giao diện. Tiêu biểu như LanFileTransferService (quản lý chuyển file mạng LAN), GoogleDriveService (đồng bộ đám mây), hay AIAssistantService (kết nối AI). Việc tách biệt Service giúp tái sử dụng logic một cách linh hoạt.
+‘com.focusnode.repository’: Tầng giao tiếp trực tiếp với Cơ sở dữ liệu (Database). Các lớp repository (như TaskRepository, UserRepository, DatabaseManager...) thực hiện các tác vụ CRUD (Create, Read, Update, Delete) thông qua JDBC, giúp Controller và Service không cần quan tâm đến các câu lệnh SQL vật lý.
+‘com.focusnode.util’: Chứa các lớp tiện ích (Utility classes) hỗ trợ toàn hệ thống, ví dụ như AsyncExecutor (xử lý đa luồng), VaultManager (mã hóa dữ liệu bảo mật), và CrashHandler (quản lý ngoại lệ và ghi log lỗi).
+‘com.focusnode.navigation’: Quản lý việc chuyển đổi và điều hướng (Routing) mượt mà giữa các màn hình khác nhau trong ứng dụng (thông qua AppNavigator). 
+Cấu trúc Tài nguyên tĩnh (src/main/resources), phần tài nguyên giao diện và cấu hình (Resources) cũng được tổ chức rất quy chuẩn:
+src/main/resources
+├── css/           # CSS tùy chỉnh giao diện (styles.css)
+├── db/migration/  # Kịch bản Flyway quản lý version CSDL
+├── fonts/         # Các font chữ nhúng kèm (Inter, Poppins, Roboto)
+├── fxml/          # Các tệp thiết kế giao diện dạng XML (View Layer)
+│   ├── components/  # Các UI Component tái sử dụng (NoteCard, TopBar...)
+│   ├── dialogs/     # Các hộp thoại hệ thống (LocalProfileDialog...)
+│   └── views/       # Các màn hình chính (HomeView, ZenMode...)
+└── images/        # Các tài nguyên hình ảnh, vector icons
+Điểm nổi bật trong tổ chức Tài nguyên:
+Chia nhỏ FXML: Giao diện không bị nhồi nhét vào một tệp duy nhất mà được chia nhỏ thành các components có tính tái sử dụng cao, giúp giảm thiểu sự trùng lặp code.
+Database Migration (db/migration): Ứng dụng sử dụng Flyway để quản lý lược đồ Cơ sở dữ liệu. Các tệp SQL (V1__Initial_Setup.sql, V8__Add_Google_Drive_Sync.sql...) lưu trữ lịch sử thay đổi cấu trúc CSDL, đảm bảo tính nhất quán dữ liệu ở mọi môi trường cài đặt.
+3.2. Đặc tả các Use Case cốt lõi
+UC-01: Mở phiên làm việc LAN: Cung cấp khả năng thiết lập mạng ngang hàng (P2P) cục bộ. Khi người dùng khởi tạo phiên, hệ thống tự động phát hiện các máy trạm (nodes) khác trong cùng mạng LAN, bỏ qua hoàn toàn sự phụ thuộc vào các dịch vụ đám mây hay máy chủ trung gian, đảm bảo dữ liệu (data locality) tuyệt đối không rời khỏi mạng nội bộ của người dùng.
+UC-02: Kích hoạt Zen Mode: Use case đặc thù hướng đến trải nghiệm người dùng. Khi được kích hoạt, hệ thống tự động ẩn toàn bộ các thanh công cụ, bảng điều hướng và thông báo phụ, đưa ứng dụng vào trạng thái toàn màn hình kết hợp với bộ đếm Pomodoro, tạo ra một không gian nhận thức tĩnh tại tuyệt đối.
+3.3. Kiến trúc Dữ liệu Đa hình (Multi-DB Architecture)
+Để đáp ứng yêu cầu chuyển đổi môi trường linh hoạt, Focus Node được kiến trúc theo mô hình đa cơ sở dữ liệu. Tại chế độ hoạt động độc lập (Offline), lớp Repository sẽ tiêm (inject) SqliteAppDataService nhằm tối ưu hóa tốc độ truy xuất cục bộ trên cơ sở dữ liệu SQLite. Ngay khi hệ thống phát hiện có kết nối mạng nhóm, kiến trúc sẽ tự động chuyển đổi luồng dữ liệu sang SqlAppDataService. Trong môi trường đa thiết bị này, thuật toán CRDT (Conflict-free Replicated Data Type) đóng vai trò cốt lõi. CRDT cho phép các máy trạm trong mạng LAN chấp nhận các thao tác ghi đè song song (concurrent writes) ngay cả khi mất kết nối tạm thời, và tự động hợp nhất (merge) dữ liệu một cách minh bạch, phi xung đột ngay khi kết nối được phục hồi.
+3.4. Quản lý Cơ sở dữ liệu & An toàn dữ liệu
+Cơ chế Migration với Flyway: Việc kiểm soát các phiên bản lược đồ cơ sở dữ liệu (Database Schema) được tự động hóa hoàn toàn nhờ Redgate Flyway. Flyway giám sát và thực thi các tệp kịch bản SQL thuần túy (plain SQL) ngay trong quá trình khởi động ứng dụng (startup) thông qua Java API, đảm bảo cấu trúc dữ liệu tại mọi máy trạm luôn đồng bộ với phiên bản mã nguồn mới nhất.
+Hệ thống VaultManager: Triển khai cơ chế bảo mật theo mô hình mã hóa đầu cuối (E2EE). VaultManager tiến hành mã hóa toàn bộ Token xác thực và dữ liệu nhạy cảm bằng các khóa sinh tự động ngay tại máy trạm trước khi lưu trữ xuống cơ sở dữ liệu, chặn đứng nguy cơ đánh cắp phiên làm việc.
+Hệ thống CrashHandler (Cứu hộ dữ liệu): Nhằm giải quyết các sự cố đóng ứng dụng đột ngột (App Crash), dự án tích hợp hệ thống CrashHandler thông qua việc ghi đè phương thức Thread.UncaughtExceptionHandler của Java,. Bất cứ khi nào luồng giao diện JavaFX phát sinh một ngoại lệ nghiêm trọng chưa được xử lý, CrashHandler sẽ kích hoạt luồng cứu hộ khẩn cấp, tiến hành tuần tự hóa (serialize) và sao lưu toàn bộ trạng thái dữ liệu (bản nháp, công việc dở dang) xuống ổ đĩa cục bộ trước khi tiến trình JVM thực sự kết thúc,. Cơ chế này mang lại độ tin cậy tuyệt đối cho dữ liệu của người dùng.
+3.5. Thiết kế Kiến trúc Dữ liệu Đa hình (Multi-DB Architecture)
+Nếu thiết kế theo hướng truyền thống — tức là các lớp Controller và View trực tiếp phụ thuộc vào một nguồn dữ liệu cụ thể — thì mỗi khi cần thay đổi môi trường, hệ thống sẽ phải chỉnh sửa rất nhiều vị trí trong mã nguồn, dẫn đến rủi ro phát sinh lỗi và khó kiểm soát. Để khắc phục triệt để vấn đề này, bài áp dụng mẫu thiết kế Strategy Pattern kết hợp với Interface Abstraction, xây dựng một kiến trúc đa hình cho tầng dữ liệu, cho phép hoán đổi toàn bộ nguồn dữ liệu mà không làm ảnh hưởng đến bất kỳ thành phần nào ở tầng trên.
+3.5.1. Interface AppDataService
+Toàn bộ kiến trúc được xây dựng xoay quanh một Java Interface trung tâm là AppDataService. Interface này đóng vai trò như một "hợp đồng" (Contract) mà mọi cài đặt nguồn dữ liệu đều phải tuân thủ, bao gồm đầy đủ các thao tác nghiệp vụ cốt lõi của hệ thống như: quản lý công việc (getTasks, saveTask, deleteTask), quản lý ghi chú (getNotes, saveNote), truy xuất phiên làm việc tập trung (getFocusSessions), truy xuất dữ liệu ôn tập (getReviewItems), và lấy số liệu tổng hợp Dashboard (getDashboardMetrics).
+Nhờ vào cơ chế trừu tượng hóa này, toàn bộ tầng Controller và View chỉ giao tiếp thông qua kiểu trừu tượng AppDataService, hoàn toàn không có sự phụ thuộc vào bất kỳ chi tiết cài đặt dữ liệu nào bên dưới. Đây chính là hiện thực hóa của nguyên lý Dependency Inversion — một trong năm nguyên lý thiết kế SOLID — được áp dụng triệt để trong kiến trúc hệ thống.
+3.5.2. ServiceLocator
+Lớp ServiceLocator đóng vai trò là điểm khởi tạo và phân phối dịch vụ duy nhất (Single Point of Truth) cho toàn bộ ứng dụng, triển khai mẫu thiết kế Service Locator Pattern. Tại thời điểm khởi động (initialize()), ServiceLocator chịu trách nhiệm khởi tạo kết nối cơ sở dữ liệu, kích hoạt Flyway Migration và đăng ký mặc định SqlAppDataService làm nguồn dữ liệu chính cho môi trường production.
+Đáng chú ý, ServiceLocator cung cấp phương thức setAppDataService(AppDataService service) cho phép hoán đổi toàn bộ nguồn dữ liệu tại thời điểm chạy (Runtime Swapping) mà không cần khởi động lại ứng dụng. Cơ chế này được tận dụng triệt để trong kiểm thử tự động: các lớp kiểm thử chỉ cần gọi ServiceLocator.setAppDataService(new InMemoryAppDataService()) để cô lập hoàn toàn logic nghiệp vụ khỏi cơ sở dữ liệu thực, đảm bảo tính độc lập và tái lặp được của từng ca kiểm thử.
+3.5.3. DatabaseManager
+Lớp DatabaseManager chịu trách nhiệm quản lý kết nối đến SQL Server và tự động thực thi Flyway Migration mỗi khi ứng dụng khởi động. Đặc biệt, lớp này hỗ trợ cấu hình linh hoạt thông qua System Properties (focusnode.db.url, focusnode.db.user) hoặc biến môi trường hệ thống (FOCUSNODE_DB_URL, FOCUSNODE_DB_USER), ưu tiên theo thứ tự từ cao đến thấp: biến môi trường hệ điều hành, tham số JVM, và giá trị mặc định được cài đặt sẵn trong mã nguồn. Cơ chế này giúp ứng dụng dễ dàng triển khai trên các máy chủ khác nhau mà không cần chỉnh sửa mã nguồn.
+Khi được gọi, DatabaseManager.initialize() sẽ tuần tự thực hiện: nạp cấu hình kết nối, kích hoạt Flyway để kiểm tra và áp dụng các tập tin Migration còn thiếu (V1__Initial_Setup.sql đến V8__Add_Google_Drive_Sync.sql), và cuối cùng xác nhận kết nối thành công đến cơ sở dữ liệu FocusNodeDB trên cổng 1433. Toàn bộ quá trình này diễn ra hoàn toàn tự động và minh bạch với người dùng cuối, đảm bảo lược đồ cơ sở dữ liệu luôn đồng bộ với phiên bản ứng dụng hiện tại mà không cần bất kỳ can thiệp thủ công nào.
+3.6. Kiến trúc Logic Nâng cao: VaultManager và CrashHandler
+Bên cạnh các thành phần nghiệp vụ cốt lõi, một hệ thống phần mềm ở mức độ hoàn chỉnh còn phải giải quyết hai vấn đề phi chức năng (Non-functional Requirements) thường bị bỏ qua trong giai đoạn thiết kế: bảo vệ tài nguyên dữ liệu quan trọng tại máy trạm và đảm bảo tính bền vững của ứng dụng trong các tình huống ngoại lệ không lường trước. Focus Node giải quyết đồng thời hai vấn đề này thông qua hai tiện ích độc lập được đặt trong package com.focusnode.util, lần lượt là VaultManager và CrashHandler.
+3.7. Mô hình dữ liệu quan hệ
+Mô hình phân hệ Quản trị Người dùng & Cấu trúc
+Mô hình Phân hệ Quản lý Ghi chú & Tài nguyên
+Mô hình phân hệ Quản lý Công việc & Năng suất
+Mô hình phân hệ Cộng tác Mạng Nội bộ
+CHƯƠNG 4: KẾT QUẢ ĐẠT ĐƯỢC VÀ GIAO DIỆN HỆ THỐNG
+4.1. Triết lý thiết kế giao diện
+Focus Node sử dụng AtlantaFX 2.0.1 làm nền tảng giao diện, thay thế hoàn toàn bộ theme mặc định lỗi thời của JavaFX. Triết lý thiết kế xuyên suốt là tối giản có chủ đích — loại bỏ mọi yếu tố thị giác gây phân tâm, đưa người dùng vào trạng thái tập trung ngay từ khi mở ứng dụng.
+Các đặc điểm nổi bật của hệ thống giao diện:
+Hình 1: Giao diện Home
+Thông qua LocalProfileManager, mỗi người dùng được cấp một hồ sơ làm việc (Profile) hoàn toàn độc lập. Toàn bộ ghi chú, công việc, lịch sử tập trung và cài đặt cá nhân đều được cô lập theo hồ sơ, không có bất kỳ sự xâm phạm dữ liệu nào giữa các người dùng khác nhau trên cùng một máy tính.
+Hình 2: Giao diện hồ sơ cục bộ
+4.2. Các tính năng sáng tạo đột phá
+4.2.1. Lõi Đồng bộ Real-time P2P Phi tập trung
+Thay vì phụ thuộc vào đám mây, Focus Node xây dựng hệ thống cộng tác thời gian thực hoàn toàn trong mạng LAN nội bộ.
+Phát hiện thiết bị tự động: LanDiscoveryService phát sóng DiscoveryPacket, người dùng tìm thấy và tham gia phòng mà không cần nhập địa chỉ IP thủ công.
+Đồng chỉnh sửa đồng thời: Từ 5–10 máy trong cùng LAN có thể cùng mở và chỉnh sửa một ghi chú, trạng thái đồng bộ qua SyncPacket gần như tức thời.
+Mã hóa đầu cuối AES-256: Toàn bộ dữ liệu truyền tải qua LanFileTransferService đều được mã hóa E2EE — ngay cả khi bị chặn bắt gói tin trong mạng, nội dung vẫn hoàn toàn không thể đọc được.
+Hình 3: Giao diện LAN Hub trước khi có người vào phòng
+Hình 4: Giao diện LAN Hub sau khi vào phòng
+4.2.2. Hệ thống Ôn tập Ngắt quãng (Spaced Repetition)
+Dựa trên Đường cong Quên lãng (Forgetting Curve) của nhà tâm lý học Ebbinghaus, hệ thống liên tục phân tích lịch sử tương tác với từng thẻ ReviewItem để dự đoán chính xác thời điểm não bộ chuẩn bị quên — và chỉ hiển thị thẻ ôn tập đúng lúc đó.
+4.2.3. Bản đồ Tri thức Không gian (Infinite Canvas Knowledge Graph)
+KnowledgeView render toàn bộ ghi chú thành một đồ thị tri thức trực quan trên không gian làm việc vô hạn:
+Mỗi ghi chú là một Node — các liên kết ngữ nghĩa được trực quan hóa thành Edge nối giữa các node.
+Hỗ trợ phóng to, thu nhỏ và điều hướng tự do, không bị giới hạn bởi kích thước màn hình.
+Node được truy cập nhiều nhất sẽ được làm nổi bật, giúp người dùng nhận ra ngay trung tâm tri thức quan trọng trong hệ thống kiến thức cá nhân.
+4.2.4. Zen Mode — Chế độ Tập trung Toàn diện
+Hình 5: Giao diện Pomodoro Zen Mode
+4.2.5. Những giao diện khác
+Còn những giao diện khác như Knowledge Hub (Personal Repository, Shared with me, Recent, Trash); Tasks; Tags; Analytics; Settings; …
+Golden Hour Detection: Hệ thống phân tích toàn bộ FocusSession để xác định khung giờ người dùng đạt hiệu suất cao nhất, cá nhân hóa khuyến nghị dựa trên dữ liệu hành vi thực tế.
+Burnout Prevention: Khi phát hiện người dùng làm việc liên tục quá mức, hệ thống tự động điều chỉnh nhiệt độ màu giao diện sang tông ấm, dịu hơn; chuyển âm thanh nền sang nhạc lo-fi nhịp độ chậm; tạm thời từ chối nhận thêm công việc mới trong khoảng nghỉ bắt buộc.
+Daily Streak: Chuỗi ngày hoạt động liên tục được theo dõi và hiển thị qua DailyStreakController, tạo động lực tâm lý duy trì thói quen học tập đều đặn.
+CHƯƠNG 5: KẾT LUẬN VÀ ĐÁNH GIÁ HỆ THỐNG
+5.1. Tổng kết kết quả đạt được
+Dự án Focus Node đã hoàn thành xuất sắc mục tiêu ban đầu là xây dựng một hệ sinh thái quản lý tri thức và tối ưu hóa năng suất làm việc (Productivity Ecosystem) toàn diện trên nền tảng Desktop. Vượt qua giới hạn của một ứng dụng quản lý ghi chú thông thường, Focus Node đã vươn lên thành một "siêu ứng dụng" (Super-app) phức tạp, tích hợp thành công nhiều công nghệ tiên tiến trong một khối kiến trúc phần mềm thống nhất. Hệ thống không chỉ đáp ứng trọn vẹn các yêu cầu khắt khe về bảo mật dữ liệu cục bộ và khả năng đồng bộ thời gian thực (Real-time Synchronization) trong mạng nội bộ, mà còn kiến tạo một trải nghiệm người dùng (UX) hiện đại, mượt mà thông qua nền tảng AtlantaFX. Sự ra đời của Focus Node minh chứng cho khả năng phát triển các phần mềm cấp doanh nghiệp (Enterprise-grade) bền vững và hiệu năng cao bằng ngôn ngữ lập trình Java và hệ sinh thái JavaFX 21.
+5.2. Phân tích Điểm mạnh nổi bật
+Thành công của hệ thống được định hình bởi ba trụ cột công nghệ mang tính đột phá:
+Thứ nhất, Kiến trúc Dữ liệu Đa hình (Multi-DB Architecture): Sự kết hợp uyển chuyển giữa dịch vụ SqliteAppDataService (dành cho chế độ hoạt động offline độc lập) và SqlAppDataService (kết nối với máy chủ SQL Server) thông qua mẫu thiết kế định vị dịch vụ (Service Locator Pattern) đã mang lại tính linh hoạt tuyệt đối. Hệ thống tự động nhận diện và chuyển đổi phương thức lưu trữ dựa trên bối cảnh cấu hình hạ tầng, kết hợp cùng cơ chế quản trị phiên bản cơ sở dữ liệu tự động bằng công cụ Flyway, đảm bảo tính toàn vẹn và nhất quán của dữ liệu xuyên suốt vòng đời phát triển ứng dụng.
+Thứ hai, Lõi Đồng bộ LAN P2P Phi tập trung: Việc xây dựng thành công cơ chế cộng tác thời gian thực không phụ thuộc vào kết nối Internet là một thành tựu kỹ thuật đáng tự hào. Thông qua việc tinh chỉnh thuật toán đồng bộ và cơ chế mã hóa đầu cuối (End-to-End Encryption) chuẩn AES-256, một không gian làm việc tập thể (Multiplayer Workspace) cho phép từ năm đến mười máy trạm tự động khám phá lẫn nhau và tiến hành đồng chỉnh sửa tài liệu nội bộ với độ trễ tính bằng mili-giây, đảm bảo tính bảo vệ tuyệt đối cho các luồng thông tin và tệp đính kèm nhạy cảm (Airdrop nội bộ).
+Thứ ba, Orchestrator Chế độ Tập trung (OS-Level Zen Mode): Vượt ra khỏi phạm vi một phần mềm ứng dụng thông thường, hệ thống đã mạnh dạn can thiệp sâu vào tầng hệ điều hành để kiến tạo một môi trường làm việc tĩnh tại. Việc tích hợp kiểm soát thông báo (Do Not Disturb), cơ chế chặn truy cập website độc lập ở mức hệ thống, và phát kích thích thính giác (Binaural Beats) đã định nghĩa lại tiêu chuẩn của một công cụ hỗ trợ khả năng tập trung sâu (Deep Work).
+5.3. Phân tích Điểm hạn chế hiện tại
+Mặc dù đạt được nhiều thành tựu kiến trúc, hệ thống vẫn tồn tại một số rào cản kỹ thuật cần được nhìn nhận một cách khách quan nhằm định hướng tối ưu hóa trong các phiên bản tiếp theo:
+Rào cản hiệu năng của Infinite Canvas: Việc kết xuất (Render) toàn bộ bản đồ tri thức dưới dạng Vũ trụ vì sao (Graph Nodes) trong không gian 3 chiều đòi hỏi năng lực xử lý đồ họa và bộ nhớ đáng kể. Trên các máy trạm có cấu hình phần cứng hạn chế, các thao tác phóng to vô cực (Infinite Zoom) và điều hướng không gian đi qua hàng nghìn Node kết nối chéo có thể đối mặt với hiện tượng sụt giảm tốc độ khung hình (Frame Drop) và gây áp lực lên Bộ thu gom rác (Garbage Collector) của máy ảo Java.
+Giới hạn can thiệp hệ điều hành chéo nền tảng (Cross-platform OS Intervention): Tính năng Zen Mode và hệ thống quản trị hành vi hiện tại được tối ưu hóa sâu cho hệ điều hành Windows thông qua các hàm gọi API đặc thù (Native API calls). Khi triển khai thực thi trên các môi trường sinh thái khác như macOS hay Linux, các cơ chế can thiệp hệ thống — điển hình như việc vô hiệu hóa thông báo toàn cục hay thao túng bảng định tuyến để chặn website — vấp phải các rào cản nghiêm ngặt về phân quyền bảo mật (Sandbox/Permission), dẫn đến việc trải nghiệm quản trị xao nhãng chưa thực sự đồng nhất trên mọi nền tảng hệ điều hành.
+5.4. Bài học kinh nghiệm rút ra
+Quá trình nghiên cứu, thiết kế và phát triển dự án Focus Node đã để lại những giá trị thực tiễn sâu sắc về mặt kỹ thuật phần mềm:
+Bài học về quản trị luồng (Concurrency) trong JavaFX: Các sự cố treo giao diện (UI Freeze) trong giai đoạn nguyên mẫu đã minh chứng cho tính nghiêm ngặt của quy tắc an toàn luồng (Thread Safety). Việc tách biệt hoàn toàn các tác vụ tính toán nặng, thao tác I/O cơ sở dữ liệu và truyền tải mạng ra khỏi JavaFX Application Thread thông qua giao diện Task và điều hướng kết quả bằng Platform.runLater() là nguyên tắc kiến trúc sống còn khi xây dựng các ứng dụng Desktop đồ họa đa luồng.
+Tối ưu hóa và phân giải xung đột bằng CRDTs: Bài toán đồng chỉnh sửa thời gian thực đã bộc lộ rõ giới hạn của các phương pháp khóa bi quan (Pessimistic Locking) truyền thống trong môi trường phân tán mạng LAN. Việc nghiên cứu và ứng dụng lý thuyết Kiểu dữ liệu sao chép giải quyết xung đột (Conflict-free Replicated Data Types - CRDTs) đòi hỏi một tư duy thiết kế cấu trúc dữ liệu hoàn toàn mới, nơi mọi thao tác cập nhật từ các máy trạm độc lập đều phải đảm bảo tính giao hoán (Commutativity) để hệ thống tự động hội tụ về một trạng thái đồng nhất mà không cần cơ chế phân xử trung tâm.
+TÀI LIỆU THAM KHẢO
+Các bài giảng về mô hình kiến trúc 3 lớp từ nền tảng học trực tuyến CodeLearn.
+Các trang blog kỹ thuật, forum lập trình, cộng đồng chia sẻ kiến thức thực tiễn liên quan đến phát triển phần mềm.
+Các video hướng dẫn từ YouTube về thiết kế giao diện Java, kết nối MySQL và quản lý dữ liệu.
+GeeksforGeeks – Hướng dẫn tích hợp Java Swing với MySQL thông qua JDBC.
+Giáo trình các môn học có liên quan: Lập trình hướng đối tượng, Cơ sở dữ liệu quan hệ, Phân tích hệ thống.
+Kho lưu trữ mã nguồn tham khảo trên GitHub: https://github.com/0HunterZ/personal-knowledge-management
+Những góp ý quý báu từ giảng viên hướng dẫn và bạn bè trong suốt quá trình làm đồ án.
+Oracle – Tài liệu chính thức Java SE 8. Truy cập tại: https://docs.oracle.com/javase/8/docs/
+Ramakrishnan – "Database Management Systems" (Phiên bản thứ 3), tài liệu chuyên sâu về hệ quản trị cơ sở dữ liệu.
+Stack Overflow – Diễn đàn trao đổi, hỏi đáp và xử lý lỗi lập trình Java – MySQL.
+Trang tài liệu của MySQL – Hướng dẫn sử dụng và quản trị cơ sở dữ liệu MySQL. Truy cập tại: https://dev.mysql.com/doc/
+Viblo – Hướng dẫn thao tác với file Excel bằng thư viện Apache POI trong Java.
+VietTuts – Nền tảng học lập trình Java từ cơ bản đến nâng cao. Truy cập tại: https://www.viettuts.vn/java
+Các bài giảng về Lập trình hướng đối tượng, Cơ sở dữ liệu, Kiến trúc Phần mềm — Trường Đại học Công nghệ Thông tin và Truyền thông Việt Hàn.

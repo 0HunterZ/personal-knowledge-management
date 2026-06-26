@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Sơ đồ ERD - Focus Node</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'default' });
+    </script>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 40px; 
+            background: #ffffff; 
+            color: #333;
+        }
+        .header-box {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #1976d2;
+            margin-bottom: 40px;
+        }
+        .diagram-container { 
+            margin-bottom: 50px; 
+            border: 1px solid #e0e0e0; 
+            padding: 30px; 
+            border-radius: 8px; 
+            background: #f9f9f9; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        h2 { color: #1976d2; border-bottom: 2px solid #1976d2; padding-bottom: 10px; display: inline-block;}
+        .mermaid { display: flex; justify-content: center; margin-top: 20px; background: white; padding: 20px; border-radius: 8px; border: 1px dashed #ccc;}
+    </style>
+</head>
+<body>
+    <div class="header-box">
+        <h1 style="margin-top: 0;">Sơ đồ Cơ sở dữ liệu (ERD) - Dành cho báo cáo Word</h1>
+        <p><strong>Hướng dẫn:</strong> Đây là các sơ đồ ERD hoàn chỉnh đã được vẽ tự động bằng code Mermaid. Để đưa vào file Word của bạn:</p>
+        <ol>
+            <li>Nhấn tổ hợp phím <b>Windows + Shift + S</b> trên bàn phím.</li>
+            <li>Kéo chuột để <b>chụp lại từng hình sơ đồ</b> bên dưới.</li>
+            <li>Mở file Word lên và nhấn <b>Ctrl + V</b> để dán hình vào phần <i>3.7. Mô hình dữ liệu quan hệ</i>.</li>
+        </ol>
+    </div>
+
+    <div class="diagram-container">
+        <h2>1. Phân hệ Quản trị Người dùng & Cấu trúc</h2>
+        <div class="mermaid">
+erDiagram
+    Users ||--o| UserSettings : "cấu hình"
+    Users ||--o{ Subjects : "quản lý"
+    Users ||--o{ Tags : "tạo"
+    Users ||--o{ Folders : "sở hữu"
+    Folders ||--o{ Folders : "chứa (ParentId)"
+
+    Users {
+        int UserId PK
+        string Username
+        string Email
+        string PasswordHash
+        datetime CreatedAt
+        bit IsDeleted
+    }
+    
+    UserSettings {
+        int UserId PK, FK
+        string Theme
+        int DailyFocusGoalMinutes
+        string Language
+    }
+    
+    Subjects {
+        int SubjectId PK
+        int UserId FK
+        string Name
+        string ColorHex
+    }
+    
+    Folders {
+        int FolderId PK
+        int UserId FK
+        int ParentId FK
+        string Name
+    }
+    
+    Tags {
+        int TagId PK
+        int UserId FK
+        string Name
+        string ColorHex
+    }
+        </div>
+    </div>
+
+    <div class="diagram-container">
+        <h2>2. Phân hệ Quản lý Ghi chú & Tài nguyên</h2>
+        <div class="mermaid">
+erDiagram
+    Users ||--o{ Notes : "tạo"
+    Users ||--o{ QuickNotes : "viết"
+    Users ||--o{ FileResources : "tải lên"
+    
+    Subjects ||--o{ Notes : "thuộc về"
+    Folders ||--o{ Notes : "chứa"
+    Folders ||--o{ FileResources : "chứa"
+    FileTypes ||--o{ FileResources : "định dạng"
+    
+    Notes ||--o{ NoteTags : "thuộc"
+    Tags ||--o{ NoteTags : "gắn vào"
+    
+    Notes ||--o{ NoteFiles : "đính kèm"
+    FileResources ||--o{ NoteFiles : "thuộc"
+    
+    Notes ||--o{ review_items : "có thẻ ôn tập"
+
+    Notes {
+        int NoteId PK
+        int UserId FK
+        int SubjectId FK
+        int FolderId FK
+        string Title
+        string Content
+    }
+
+    QuickNotes {
+        int QuickNoteId PK
+        int UserId FK
+        string Content
+    }
+
+    FileResources {
+        int FileId PK
+        int UserId FK
+        int FolderId FK
+        int FileTypeId FK
+        string FileName
+        string FilePath
+        bigint SizeBytes
+    }
+
+    FileTypes {
+        int FileTypeId PK
+        string Extension
+        string Description
+    }
+
+    review_items {
+        int id PK
+        int note_id FK
+        string question
+        string answer
+        date next_review_date
+        int repetitions
+    }
+        </div>
+    </div>
+
+    <div class="diagram-container">
+        <h2>3. Phân hệ Quản lý Công việc & Năng suất</h2>
+        <div class="mermaid">
+erDiagram
+    Users ||--o{ Tasks : "thực hiện"
+    Users ||--o{ PomodoroPresets : "định nghĩa"
+    Users ||--o{ FocusSessions : "trải qua"
+    
+    TaskStatuses ||--o{ Tasks : "phân loại trạng thái"
+    TaskPriorities ||--o{ Tasks : "đánh giá mức độ"
+    
+    Tasks ||--o{ TaskNotes : "có"
+    Notes ||--o{ TaskNotes : "đính kèm"
+    
+    Tasks ||--o{ TaskTags : "thuộc"
+    Tags ||--o{ TaskTags : "gắn vào"
+
+    Tasks ||--o{ FocusSessions : "theo dõi"
+    Notes ||--o{ FocusSessions : "liên kết"
+    PomodoroPresets ||--o{ FocusSessions : "sử dụng"
+
+    Tasks {
+        int TaskId PK
+        int UserId FK
+        int StatusId FK
+        int PriorityId FK
+        string Title
+        datetime DueDate
+        int EstimatedMinutes
+    }
+    
+    TaskStatuses {
+        int StatusId PK
+        string StatusName
+    }
+    
+    TaskPriorities {
+        int PriorityId PK
+        string PriorityName
+    }
+
+    PomodoroPresets {
+        int PresetId PK
+        int UserId FK
+        string Name
+        int FocusTimeMinutes
+    }
+
+    FocusSessions {
+        int SessionId PK
+        int UserId FK
+        int TaskId FK
+        int NoteId FK
+        int PresetId FK
+        datetime StartedAt
+        int ActualMinutes
+    }
+        </div>
+    </div>
+
+    <div class="diagram-container">
+        <h2>4. Phân hệ Cộng tác Mạng Nội bộ (LAN)</h2>
+        <div class="mermaid">
+erDiagram
+    Users ||--o{ LanTransferHistory : "thực hiện"
+
+    LanTransferHistory {
+        string TransferId PK
+        int UserId FK
+        string FileName
+        string TargetName
+        bigint SizeBytes
+        string Status
+        datetime CreatedAt
+    }
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,15 +1,14 @@
 package com.focusnode.controller;
 
 import com.focusnode.model.FocusSession;
-import com.focusnode.model.PomodoroSyncState;
 import com.focusnode.model.Task;
 import com.focusnode.service.LanSessionService;
+import com.focusnode.service.PomodoroEngine;
 import com.focusnode.service.ServiceLocator;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.animation.AnimationTimer;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -27,11 +26,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.UUID;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
 
 public class ZenModeController {
 
@@ -51,74 +45,84 @@ public class ZenModeController {
     @FXML private Parent zenTimerPanel;
     @FXML private Parent zenControls;
 
-    private static final int DEFAULT_FOCUS_MINUTES = 25;
-    private static final int DEFAULT_BREAK_MINUTES = 5;
-    private static final long SYNC_INTERVAL_MILLIS = 5_000;
-
     private final LanSessionService lanSessionService = ServiceLocator.getLanSessionService();
-
-    private AnimationTimer loop;
-    private LocalDateTime sessionStartTime;
-    private Task selectedTask;
-    private String sessionId;
-    private String currentPhase = "Focus";
-    private int secondsRemaining = DEFAULT_FOCUS_MINUTES * 60;
-    private boolean isRunning = false;
-    private long deadlineEpochMillis = 0;
-    private long lastSyncEpochMillis = 0;
+    private PomodoroEngine engine;
+    private final com.focusnode.service.AudioService audioService = new com.focusnode.service.AudioService();
 
     @FXML
     public void initialize() {
-        loop = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                if (isRunning) {
-                    updateSecondsFromDeadline();
-                    updateTimerDisplay();
-                    if (secondsRemaining <= 0) {
-                        handleSessionComplete();
-                    }
-                }
-                publishPeriodicPomodoroState();
-            }
-        };
-        loop.start();
+        engine = ServiceLocator.getPomodoroEngine();
 
         bindIncludedNodes();
         setupTaskSelector();
         setupPomodoroControls();
-        setupRemoteTimerSync();
+        
+        // Listeners to engine properties
+        engine.secondsRemainingProperty().addListener((obs, oldVal, newVal) -> updateTimerDisplay());
+        engine.isRunningProperty().addListener((obs, oldVal, newVal) -> updatePlayPauseButton());
+        engine.currentPhaseProperty().addListener((obs, oldVal, newVal) -> {
+            if (phaseComboBox != null) {
+                phaseComboBox.getSelectionModel().select(newVal);
+            }
+            updateTimerDisplay();
+        });
+        engine.selectedTaskProperty().addListener((obs, oldVal, newVal) -> updateTaskLabels(newVal));
+
+        // When countdown reaches 0, show survey dialog (only if transitioning from Focus -> completed)
+        engine.isRunningProperty().addListener((obs, wasRunning, isRunningNow) -> {
+            if (wasRunning && !isRunningNow && engine.secondsRemainingProperty().get() <= 0) {
+                if (!"Break".equals(engine.currentPhaseProperty().get())) {
+                    showSurveyDialog();
+                } else {
+                    if (statusLabel != null) {
+                        statusLabel.setText("Break Complete!");
+                        applyStatusLabelStyle();
+                    }
+                }
+            }
+        });
+
         loadTasks();
         updateTimerDisplay();
+        updatePlayPauseButton();
+        updateTaskLabels(engine.selectedTaskProperty().get());
+        
+        // Setup initial status label based on engine state
+        if (statusLabel != null) {
+            String currentPhase = engine.currentPhaseProperty().get();
+            statusLabel.setText(engine.isRunningProperty().get() ? ("Break".equals(currentPhase) ? "Break" : "Focusing") : "Paused");
+            applyStatusLabelStyle();
+        }
     }
 
     private void setupPomodoroControls() {
         if (phaseComboBox != null) {
             phaseComboBox.setItems(FXCollections.observableArrayList("Focus", "Break"));
-            phaseComboBox.getSelectionModel().select(currentPhase);
+            phaseComboBox.getSelectionModel().select(engine.currentPhaseProperty().get());
             phaseComboBox.valueProperty().addListener((obs, oldValue, newValue) -> {
-                currentPhase = newValue == null ? "Focus" : newValue;
-                resetTimerDuration();
-                updateTimerDisplay();
+                if (newValue != null && !newValue.equals(engine.currentPhaseProperty().get())) {
+                    engine.currentPhaseProperty().set(newValue);
+                    engine.resetTimerDuration();
+                }
             });
         }
 
         if (focusDurationSpinner != null) {
-            focusDurationSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(5, 90, DEFAULT_FOCUS_MINUTES, 5));
+            focusDurationSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(5, 90, engine.focusDurationProperty().get(), 5));
             focusDurationSpinner.valueProperty().addListener((obs, oldValue, newValue) -> {
-                if ("Focus" .equals(currentPhase)) {
-                    resetTimerDuration();
-                    updateTimerDisplay();
+                engine.focusDurationProperty().set(newValue);
+                if ("Focus".equals(engine.currentPhaseProperty().get())) {
+                    engine.resetTimerDuration();
                 }
             });
         }
 
         if (breakDurationSpinner != null) {
-            breakDurationSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 30, DEFAULT_BREAK_MINUTES, 1));
+            breakDurationSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 30, engine.breakDurationProperty().get(), 1));
             breakDurationSpinner.valueProperty().addListener((obs, oldValue, newValue) -> {
-                if ("Break".equals(currentPhase)) {
-                    resetTimerDuration();
-                    updateTimerDisplay();
+                engine.breakDurationProperty().set(newValue);
+                if ("Break".equals(engine.currentPhaseProperty().get())) {
+                    engine.resetTimerDuration();
                 }
             });
         }
@@ -181,19 +185,7 @@ public class ZenModeController {
                 return null;
             }
         });
-        taskComboBox.valueProperty().addListener((obs, oldVal, newVal) -> setSelectedTask(newVal));
-    }
-
-    private void setupRemoteTimerSync() {
-        lanSessionService.pomodoroStateProperty().addListener((obs, oldState, newState) -> {
-            if (!lanSessionService.isHostingRoom()) {
-                applyRemoteTimerState(newState);
-            }
-        });
-
-        if (!lanSessionService.isHostingRoom()) {
-            applyRemoteTimerState(lanSessionService.getPomodoroState());
-        }
+        taskComboBox.valueProperty().addListener((obs, oldVal, newVal) -> engine.selectedTaskProperty().set(newVal));
     }
 
     private void loadTasks() {
@@ -204,87 +196,90 @@ public class ZenModeController {
             Platform.runLater(() -> {
                 if (taskComboBox != null) {
                     taskComboBox.setItems(FXCollections.observableArrayList(tasks));
-                    if (!tasks.isEmpty()) {
+                    if (!tasks.isEmpty() && engine.selectedTaskProperty().get() == null) {
                         taskComboBox.getSelectionModel().selectFirst();
+                    } else if (engine.selectedTaskProperty().get() != null) {
+                        taskComboBox.getSelectionModel().select(engine.selectedTaskProperty().get());
                     }
-                } else if (!tasks.isEmpty()) {
-                    setSelectedTask(tasks.get(0));
+                } else if (!tasks.isEmpty() && engine.selectedTaskProperty().get() == null) {
+                    engine.selectedTaskProperty().set(tasks.get(0));
                 }
             });
         });
     }
 
-    private void setSelectedTask(Task task) {
-        selectedTask = task;
+    private void updateTaskLabels(Task task) {
         if (taskTitleLabel != null) {
             if (task == null) {
-                taskTitleLabel.setText(currentPhase.equals("Break") ? "Ready for a break" : "Choose a focus task");
+                taskTitleLabel.setText("Break".equals(engine.currentPhaseProperty().get()) ? "Ready for a break" : "Choose a focus task");
             } else {
                 taskTitleLabel.setText(task.getTitle());
             }
         }
         if (taskCategoryLabel != null) {
             if (task == null) {
-                taskCategoryLabel.setVisible(!currentPhase.equals("Break"));
+                taskCategoryLabel.setVisible(!"Break".equals(engine.currentPhaseProperty().get()));
                 taskCategoryLabel.setText("Focus");
             } else {
                 taskCategoryLabel.setText(task.getCategory());
                 taskCategoryLabel.setVisible(true);
             }
         }
+        
+        // Make sure remote task is also properly annotated when in remote sync
+        if (!canControlTimer() && taskTitleLabel != null) {
+            taskCategoryLabel.setText("LAN Sync");
+            taskCategoryLabel.setVisible(true);
+        }
     }
 
     @FXML
     private void toggleTimer() {
-        if (!canControlTimer()) {
-            return;
-        }
+        if (!canControlTimer()) return;
 
-        if (isRunning) {
-            pauseTimer();
+        if (engine.isRunningProperty().get()) {
+            engine.pauseTimer();
+            // Pause OS Zen Mode
+            com.focusnode.util.OSManager.disableDoNotDisturb();
+            com.focusnode.util.OSManager.unblockDistractingWebsites();
+            audioService.stopBinauralBeats();
         } else {
-            startTimer();
+            engine.startTimer();
+            // Start OS Zen Mode
+            if ("Focus".equals(engine.currentPhaseProperty().get())) {
+                com.focusnode.util.OSManager.enableDoNotDisturb();
+                com.focusnode.util.OSManager.blockDistractingWebsites();
+                audioService.playBinauralBeats();
+            }
+        }
+        
+        if (statusLabel != null) {
+            String currentPhase = engine.currentPhaseProperty().get();
+            statusLabel.setText(engine.isRunningProperty().get() ? ("Break".equals(currentPhase) ? "Break" : "Focusing") : "Paused");
+            applyStatusLabelStyle();
         }
     }
 
-    private void startTimer() {
-        if (sessionStartTime == null) {
-            sessionStartTime = LocalDateTime.now();
+    private void updatePlayPauseButton() {
+        if (playPauseButton != null) {
+            playPauseButton.setText(engine.isRunningProperty().get() ? "||" : ">");
+            playPauseButton.setDisable(!canControlTimer() && lanSessionService.getActiveRoom() != null);
         }
-        if (sessionId == null) {
-            sessionId = UUID.randomUUID().toString();
-        }
-
-        if (secondsRemaining <= 0) {
-            resetTimerDuration();
-        }
-
-        isRunning = true;
-        deadlineEpochMillis = System.currentTimeMillis() + secondsRemaining * 1_000L;
-        if (playPauseButton != null) playPauseButton.setText("||");
         if (statusLabel != null) {
-            statusLabel.setText(currentPhase.equals("Break") ? "Break" : "Focusing");
+            String phase = engine.currentPhaseProperty().get();
+            if (engine.secondsRemainingProperty().get() <= 0) {
+                 statusLabel.setText("Break".equals(phase) ? "Break Complete!" : "Focus Complete!");
+            } else {
+                 statusLabel.setText(engine.isRunningProperty().get() ? ("Break".equals(phase) ? "Break" : "Focusing") : "Paused");
+            }
             applyStatusLabelStyle();
         }
-        publishPomodoroState();
-        publishLocalMemberStatus();
-    }
-
-    private void pauseTimer() {
-        if (isRunning) {
-            updateSecondsFromDeadline();
-        }
-        isRunning = false;
-        if (playPauseButton != null) playPauseButton.setText(">");
-        if (statusLabel != null) {
-            statusLabel.setText("Paused");
-            applyStatusLabelStyle();
-        }
-        publishPomodoroState();
-        publishLocalMemberStatus();
     }
 
     private void updateTimerDisplay() {
+        int secondsRemaining = engine.secondsRemainingProperty().get();
+        String currentPhase = engine.currentPhaseProperty().get();
+        
         int min = secondsRemaining / 60;
         int sec = secondsRemaining % 60;
         if (timerLabel != null) {
@@ -294,7 +289,7 @@ public class ZenModeController {
             sessionLabel.setText(currentPhase + " Session");
         }
         if (endsAtLabel != null) {
-            if (isRunning) {
+            if (engine.isRunningProperty().get()) {
                 LocalTime endTime = LocalTime.now().plusSeconds(secondsRemaining);
                 endsAtLabel.setText("Ends at " + endTime.format(DateTimeFormatter.ofPattern("hh:mm a")));
             } else {
@@ -303,24 +298,12 @@ public class ZenModeController {
         }
 
         if (progressCircle != null) {
-            int totalSeconds = currentPhase.equals("Break") ? getBreakMinutes() * 60 : getFocusMinutes() * 60;
+            int totalSeconds = "Break".equals(currentPhase) ? engine.breakDurationProperty().get() * 60 : engine.focusDurationProperty().get() * 60;
             double progress = 1.0 - ((double) secondsRemaining / Math.max(1, totalSeconds));
             double circumference = 2 * Math.PI * 112;
             progressCircle.setStrokeDashOffset(circumference * (1.0 - progress));
         }
         applyStatusLabelStyle();
-    }
-
-    private void handleSessionComplete() {
-        pauseTimer();
-        if (statusLabel != null) {
-            statusLabel.setText(currentPhase.equals("Break") ? "Break Complete!" : "Focus Complete!");
-            applyStatusLabelStyle();
-        }
-        publishPomodoroState();
-        if (!"Break".equals(currentPhase)) {
-            showSurveyDialog();
-        }
     }
 
     @FXML
@@ -329,19 +312,27 @@ public class ZenModeController {
             return;
         }
 
-        pauseTimer();
-        publishLocalMemberStatus();
-        int totalSeconds = currentPhase.equals("Break") ? getBreakMinutes() * 60 : getFocusMinutes() * 60;
-        if (secondsRemaining < totalSeconds) {
+        engine.pauseTimer();
+        
+        // Stop OS Zen Mode
+        com.focusnode.util.OSManager.disableDoNotDisturb();
+        com.focusnode.util.OSManager.unblockDistractingWebsites();
+        audioService.stopBinauralBeats();
+
+        int totalSeconds = "Break".equals(engine.currentPhaseProperty().get()) ? engine.breakDurationProperty().get() * 60 : engine.focusDurationProperty().get() * 60;
+        if (engine.secondsRemainingProperty().get() < totalSeconds) {
             showSurveyDialog();
         } else {
-            resetTimer();
+            engine.resetTimer();
         }
     }
 
     @FXML
     private void exitZenMode() {
-        endSession();
+        // Just navigate away; DO NOT END SESSION!
+        // The Pomodoro engine will keep running in the background.
+        // We do NOT disable DND here because they are still in a session,
+        // unless you want exiting the view to break Zen Mode. Let's keep Zen active.
         com.focusnode.navigation.AppNavigator.navigateTo(com.focusnode.navigation.AppView.HOME);
     }
 
@@ -358,7 +349,11 @@ public class ZenModeController {
 
             controller.initData(stage, result -> {
                 saveSessionData();
-                resetTimer();
+                engine.resetTimer();
+                if (statusLabel != null) {
+                    statusLabel.setText("Ready");
+                    applyStatusLabelStyle();
+                }
             });
 
             stage.showAndWait();
@@ -368,11 +363,12 @@ public class ZenModeController {
     }
 
     private void saveSessionData() {
-        Task task = getSelectedTask();
-        int totalSeconds = currentPhase.equals("Break") ? getBreakMinutes() * 60 : getFocusMinutes() * 60;
-        int minutesSpent = (totalSeconds - secondsRemaining) / 60;
+        Task task = engine.selectedTaskProperty().get();
+        String currentPhase = engine.currentPhaseProperty().get();
+        int totalSeconds = "Break".equals(currentPhase) ? engine.breakDurationProperty().get() * 60 : engine.focusDurationProperty().get() * 60;
+        int minutesSpent = (totalSeconds - engine.secondsRemainingProperty().get()) / 60;
 
-        if (sessionStartTime == null || minutesSpent <= 0) {
+        if (engine.getSessionStartTime() == null || minutesSpent <= 0) {
             return;
         }
 
@@ -381,14 +377,14 @@ public class ZenModeController {
             ServiceLocator.getAppDataService().saveTask(task);
         }
 
-        int plannedMinutes = currentPhase.equals("Break") ? getBreakMinutes() : getFocusMinutes();
+        int plannedMinutes = "Break".equals(currentPhase) ? engine.breakDurationProperty().get() : engine.focusDurationProperty().get();
         FocusSession session = new FocusSession(
                 -1,
                 1,
                 task != null ? task.getId() : -1,
                 -1,
                 -1,
-                sessionStartTime,
+                engine.getSessionStartTime(),
                 LocalDateTime.now(),
                 plannedMinutes,
                 minutesSpent,
@@ -401,55 +397,15 @@ public class ZenModeController {
         });
     }
 
-    private void resetTimer() {
-        resetTimerDuration();
-        isRunning = false;
-        deadlineEpochMillis = 0;
-        sessionStartTime = null;
-        sessionId = null;
-        if (statusLabel != null) {
-            statusLabel.setText("Ready");
-            applyStatusLabelStyle();
-        }
-        if (playPauseButton != null) playPauseButton.setText(">");
-        updateTimerDisplay();
-        publishPomodoroState();
-        publishLocalMemberStatus();
-    }
-
-    private void resetTimerDuration() {
-        int minutes = currentPhase.equals("Break") ? getBreakMinutes() : getFocusMinutes();
-        secondsRemaining = Math.max(0, minutes * 60);
-    }
-
-    private int getFocusMinutes() {
-        return focusDurationSpinner != null && focusDurationSpinner.getValue() != null
-                ? focusDurationSpinner.getValue()
-                : DEFAULT_FOCUS_MINUTES;
-    }
-
-    private int getBreakMinutes() {
-        return breakDurationSpinner != null && breakDurationSpinner.getValue() != null
-                ? breakDurationSpinner.getValue()
-                : DEFAULT_BREAK_MINUTES;
-    }
-
-    private Task getSelectedTask() {
-        if (taskComboBox != null) {
-            return taskComboBox.getValue();
-        }
-        return selectedTask;
-    }
-
     private void applyStatusLabelStyle() {
         if (statusLabel == null) {
             return;
         }
         statusLabel.getStyleClass().removeAll("zen-status-focus", "zen-status-break");
         String state = statusLabel.getText();
-        if ("Break".equalsIgnoreCase(state)) {
+        if ("Break".equalsIgnoreCase(state) || "Break Complete!".equalsIgnoreCase(state)) {
             statusLabel.getStyleClass().add("zen-status-break");
-        } else if ("Focusing".equalsIgnoreCase(state)) {
+        } else if ("Focusing".equalsIgnoreCase(state) || "Focus Complete!".equalsIgnoreCase(state)) {
             statusLabel.getStyleClass().add("zen-status-focus");
         }
     }
@@ -457,102 +413,4 @@ public class ZenModeController {
     private boolean canControlTimer() {
         return lanSessionService.getActiveRoom() == null || lanSessionService.isHostingRoom();
     }
-
-    private void updateSecondsFromDeadline() {
-        if (!isRunning || deadlineEpochMillis <= 0) {
-            return;
-        }
-        long millisRemaining = Math.max(0, deadlineEpochMillis - System.currentTimeMillis());
-        secondsRemaining = (int) Math.ceil(millisRemaining / 1_000.0);
-    }
-
-    private void publishPeriodicPomodoroState() {
-        if (!lanSessionService.isHostingRoom()) {
-            return;
-        }
-
-        long now = System.currentTimeMillis();
-        if (now - lastSyncEpochMillis >= SYNC_INTERVAL_MILLIS) {
-            publishPomodoroState();
-        }
-    }
-
-    private void publishPomodoroState() {
-        if (!lanSessionService.isHostingRoom()) {
-            return;
-        }
-
-        Task task = getSelectedTask();
-        int totalSeconds = currentPhase.equals("Break") ? getBreakMinutes() * 60 : getFocusMinutes() * 60;
-        PomodoroSyncState state = new PomodoroSyncState(
-                sessionId,
-                statusLabel == null ? currentPhase : statusLabel.getText(),
-                task == null ? -1 : task.getId(),
-                task == null ? currentPhase + " session" : task.getTitle(),
-                totalSeconds,
-                secondsRemaining,
-                isRunning,
-                isRunning ? deadlineEpochMillis : 0,
-                lanSessionService.nextPomodoroSequence(),
-                System.currentTimeMillis()
-        );
-        lastSyncEpochMillis = state.getCreatedAtEpochMillis();
-        lanSessionService.publishPomodoroState(state);
-    }
-
-    private void publishLocalMemberStatus() {
-        if (lanSessionService.getActiveRoom() == null) {
-            return;
-        }
-
-        String currentStatus = isRunning ? "Focusing" : "Paused";
-        long timeLeftSeconds = Math.max(0, secondsRemaining);
-        lanSessionService.publishLocalStatus(currentStatus, timeLeftSeconds);
-    }
-
-    private void applyRemoteTimerState(PomodoroSyncState state) {
-        if (state == null) {
-            return;
-        }
-
-        sessionId = state.getSessionId();
-        currentPhase = state.getPhase() == null ? currentPhase : state.getPhase();
-        if (phaseComboBox != null) {
-            phaseComboBox.getSelectionModel().select(currentPhase);
-        }
-        long nowOnHostClock = System.currentTimeMillis() + lanSessionService.getHostClockOffsetMillis();
-        isRunning = state.isRunning();
-
-        if (isRunning && state.getDeadlineEpochMillis() > 0) {
-            long remainingMillis = Math.max(0, state.getDeadlineEpochMillis() - nowOnHostClock);
-            secondsRemaining = (int) Math.ceil(remainingMillis / 1_000.0);
-        } else {
-            long elapsedMillis = Math.max(0, nowOnHostClock - state.getCreatedAtEpochMillis());
-            int elapsedSeconds = (int) Math.floor(elapsedMillis / 1_000.0);
-            secondsRemaining = Math.max(0, state.getRemainingSeconds() - elapsedSeconds);
-        }
-
-        deadlineEpochMillis = isRunning ? System.currentTimeMillis() + secondsRemaining * 1_000L : 0;
-
-        if (taskTitleLabel != null) {
-            taskTitleLabel.setText(state.getTaskTitle());
-        }
-        if (taskCategoryLabel != null) {
-            taskCategoryLabel.setText("LAN Sync");
-            taskCategoryLabel.setVisible(true);
-        }
-        if (statusLabel != null) {
-            statusLabel.setText(isRunning ? state.getPhase() : "Paused");
-            applyStatusLabelStyle();
-        }
-        if (playPauseButton != null) {
-            playPauseButton.setText(isRunning ? "||" : ">");
-            playPauseButton.setDisable(true);
-        }
-
-        if (!isRunning) {
-            updateTimerDisplay();
-        }
-    }
-
 }

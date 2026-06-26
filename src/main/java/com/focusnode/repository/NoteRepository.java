@@ -74,6 +74,71 @@ public class NoteRepository {
         return notes;
     }
 
+    public Note getNoteById(int noteId) {
+        String sql = "SELECT n.NoteId, n.UserId, n.SubjectId, n.FolderId, n.Title, n.Content, n.CreatedAt, n.UpdatedAt, n.IsDeleted, " +
+                     "s.Name AS SubjectName, " +
+                     "(SELECT STRING_AGG(t.Name, ',') FROM dbo.NoteTags nt JOIN dbo.Tags t ON nt.TagId = t.TagId WHERE nt.NoteId = n.NoteId) AS TagsList " +
+                     "FROM dbo.Notes n " +
+                     "LEFT JOIN dbo.Subjects s ON n.SubjectId = s.SubjectId " +
+                     "WHERE n.NoteId = ?";
+                     
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+             
+            stmt.setInt(1, noteId);
+             
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    String tagsStr = rs.getString("TagsList");
+                    List<String> tags = (tagsStr == null || tagsStr.trim().isEmpty()) ? List.of() : Arrays.asList(tagsStr.split(","));
+                    
+                    Integer subjectId = rs.getObject("SubjectId") != null ? rs.getInt("SubjectId") : null;
+                    Integer fId = rs.getObject("FolderId") != null ? rs.getInt("FolderId") : null;
+                    String subjectName = rs.getString("SubjectName") != null ? rs.getString("SubjectName") : "";
+                    
+                    Note newNote = new Note(
+                        rs.getInt("NoteId"),
+                        rs.getInt("UserId"),
+                        subjectId,
+                        fId,
+                        rs.getString("Title"),
+                        rs.getString("Content"),
+                        subjectName,
+                        tags,
+                        rs.getTimestamp("CreatedAt") != null ? rs.getTimestamp("CreatedAt").toLocalDateTime() : null,
+                        rs.getTimestamp("UpdatedAt") != null ? rs.getTimestamp("UpdatedAt").toLocalDateTime() : null,
+                        rs.getBoolean("IsDeleted")
+                    );
+                    
+                    // Fetch attached files for this note
+                    try (PreparedStatement fps = conn.prepareStatement(
+                            "SELECT f.* FROM dbo.FileResources f JOIN dbo.NoteFiles nf ON f.FileId = nf.FileId WHERE nf.NoteId = ? AND (f.IsDeleted = 0 OR f.IsDeleted IS NULL)")) {
+                        fps.setInt(1, newNote.getId());
+                        try (ResultSet frs = fps.executeQuery()) {
+                            while (frs.next()) {
+                                newNote.getAttachedFiles().add(new FileResource(
+                                        frs.getInt("FileId"),
+                                        frs.getInt("UserId"),
+                                        frs.getObject("FolderId") != null ? frs.getInt("FolderId") : null,
+                                        frs.getString("FileName"),
+                                        frs.getString("FilePath"),
+                                        frs.getInt("FileTypeId"),
+                                        frs.getLong("SizeBytes"),
+                                        frs.getTimestamp("UploadedAt").toLocalDateTime(),
+                                        frs.getBoolean("IsDeleted")
+                                ));
+                            }
+                        }
+                    }
+                    return newNote;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public List<Note> getNotesByUserIdAndFolder(int userId, Integer folderId) {
         List<Note> notes = new ArrayList<>();
         String sql = "SELECT n.NoteId, n.UserId, n.SubjectId, n.FolderId, n.Title, n.Content, n.CreatedAt, n.UpdatedAt, n.IsDeleted, " +

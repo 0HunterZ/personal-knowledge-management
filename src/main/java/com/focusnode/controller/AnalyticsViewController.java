@@ -24,6 +24,7 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Map;
+import com.focusnode.util.EventBus;
 
 public class AnalyticsViewController {
 
@@ -56,11 +57,14 @@ public class AnalyticsViewController {
     @FXML private Label sidebarFocusDiffLabel;
     @FXML private HBox sidebarMiniBarChart;
 
+    private DashboardMetrics currentMetrics;
+
     @FXML
     public void initialize() {
         // Set date range and month labels immediately
         updateDateLabels();
         loadData();
+        EventBus.subscribe(EventBus.EventType.DATA_CHANGED, e -> loadData());
     }
 
     private void updateDateLabels() {
@@ -82,6 +86,7 @@ public class AnalyticsViewController {
         com.focusnode.util.AsyncExecutor.execute(() -> {
             DashboardMetrics metrics = ServiceLocator.getAppDataService().getDashboardMetrics();
             Platform.runLater(() -> {
+                this.currentMetrics = metrics;
                 updateSummary(metrics);
                 updateBarChart(metrics);
                 updateCategoryBars(metrics);
@@ -432,5 +437,67 @@ public class AnalyticsViewController {
             label.setText("— No change vs last week");
             label.setStyle("-fx-font-size: 10px; -fx-text-fill: #6B7280;");
         }
+    }
+
+    @FXML
+    public void onGenerateAiReport() {
+        if (currentMetrics == null) {
+            javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.WARNING, "Metrics are still loading. Please wait.");
+            alert.show();
+            return;
+        }
+
+        javafx.scene.control.Alert loading = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION, "Generating AI productivity report. Please wait...");
+        loading.setTitle("AI Assistant");
+        loading.setHeaderText(null);
+        loading.show();
+
+        com.focusnode.service.AIAssistantService aiService = new com.focusnode.service.AIAssistantService();
+        aiService.generateProductivityReport(currentMetrics).thenAccept(reportMarkdown -> {
+            Platform.runLater(() -> {
+                loading.close();
+                try {
+                    String dateStr = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    
+                    com.focusnode.repository.UserSettingsRepository repo = new com.focusnode.repository.UserSettingsRepository();
+                    com.focusnode.model.UserSettings settings = repo.findByUserId(1);
+                    String storagePath = (settings != null && settings.getDefaultStoragePath() != null) 
+                            ? settings.getDefaultStoragePath() 
+                            : System.getProperty("user.home") + java.io.File.separator + "Downloads" + java.io.File.separator + "FocusNode";
+                    
+                    java.io.File dir = new java.io.File(storagePath);
+                    if (!dir.exists()) {
+                        dir.mkdirs();
+                    }
+                    
+                    java.io.File file = new java.io.File(dir, "FocusNode_AI_Report_" + dateStr + ".md");
+                    java.nio.file.Files.writeString(file.toPath(), reportMarkdown);
+                    
+                    javafx.scene.control.Alert success = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION, "AI Report saved to:\n" + file.getAbsolutePath());
+                    success.setTitle("AI Assistant");
+                    success.setHeaderText("Success!");
+                    success.show();
+                    
+                    // Try to open it
+                    java.awt.Desktop.getDesktop().open(file);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    javafx.scene.control.Alert error = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR, "Failed to save or open report: " + e.getMessage());
+                    error.show();
+                }
+            });
+        }).exceptionally(ex -> {
+            Platform.runLater(() -> {
+                loading.close();
+                javafx.scene.control.Alert error = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR, "AI Report failed: " + ex.getMessage());
+                error.show();
+            });
+            return null;
+        });
+    }
+
+    @FXML
+    public void onRefreshData() {
+        loadData();
     }
 }

@@ -16,6 +16,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import com.focusnode.navigation.AppNavigator;
 import com.focusnode.navigation.AppView;
+import com.focusnode.util.EventBus;
+import com.focusnode.navigation.AppNavigator;
+import com.focusnode.navigation.AppView;
 
 public class TodaysFocusController {
 
@@ -23,6 +26,11 @@ public class TodaysFocusController {
 
     @FXML
     public void initialize() {
+        loadTasksAsync();
+        EventBus.subscribe(EventBus.EventType.DATA_CHANGED, e -> loadTasksAsync());
+    }
+
+    private void loadTasksAsync() {
         ServiceLocator.getAsyncExecutor().execute(() -> {
             List<Task> allTasks = ServiceLocator.getAppDataService().getTasks();
             LocalDate today = LocalDate.now();

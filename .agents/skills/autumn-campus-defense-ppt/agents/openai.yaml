@@ -1,0 +1,5 @@
+interface:
+  display_name: "秋日校园答辩PPT"
+  short_description: "生成木质边框、秋日枫叶、书本咖啡的校园答辩PPT图"
+  icon_large: "./assets/preview.png"
+  default_prompt: "请使用 $autumn-campus-defense-ppt 把我的内容生成一张 16:9 秋日校园答辩 PPT 风格图片。"

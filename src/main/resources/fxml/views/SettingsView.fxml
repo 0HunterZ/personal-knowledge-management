@@ -84,12 +84,40 @@
                         <Spinner fx:id="longBreakSpinner" min="1" max="120" initialValue="15" styleClass="search-bar" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                     </GridPane>
                 </VBox>
+
+                <!-- AI Integration Card -->
+                <VBox spacing="15" styleClass="card">
+                    <Label text="AI Productivity Integration" styleClass="card-title" />
+                    <VBox spacing="10">
+                        <Label text="Enter your Google Gemini API Key to enable AI-powered study insights and productivity reports." style="-fx-font-size: 12px; -fx-text-fill: #6B7280;" wrapText="true" />
+                        <VBox spacing="5">
+                            <Label text="Gemini API Key:" style="-fx-text-fill: #1F2937; -fx-font-weight: 500;" />
+                            <PasswordField fx:id="geminiApiKeyField" promptText="AIzaSy..." styleClass="search-bar" />
+                        </VBox>
+                        <Label text="Your key is stored locally and only used to generate reports." style="-fx-font-size: 11px; -fx-text-fill: #9CA3AF;" wrapText="true" />
+                    </VBox>
+                </VBox>
                 
                 <!-- System Sync & Backup Card -->
                 <VBox spacing="15" styleClass="card">
-                    <Label text="Data Backup &amp; Synchronisation" styleClass="card-title" />
+                    <Label text="System Sync &amp; Backup" styleClass="card-title" />
                     
-                    <VBox spacing="12">
+                    <VBox spacing="10">
+                        <Label text="Default Storage Path" style="-fx-text-fill: #1F2937; -fx-font-weight: 500;" />
+                        <Label text="Set the default folder for Knowledge downloads, LAN transfers, and AI reports." style="-fx-font-size: 12px; -fx-text-fill: #6B7280;" wrapText="true" />
+                        <HBox spacing="10">
+                            <javafx.scene.control.TextField fx:id="defaultStoragePathField" editable="false" promptText="C:\Users\...\Downloads\FocusNode" styleClass="search-bar" HBox.hgrow="ALWAYS" />
+                            <javafx.scene.control.Button text="Browse..." onAction="#onBrowseStoragePath" styleClass="btn-outline" />
+                        </HBox>
+                    </VBox>
+                    
+                    <VBox spacing="10">
+                        <HBox alignment="CENTER_LEFT" spacing="15">
+                            <Label text="Enable Google Drive Auto-Sync:" style="-fx-text-fill: #6B7280;" HBox.hgrow="ALWAYS" />
+                            <Region HBox.hgrow="ALWAYS" />
+                            <ToggleButton fx:id="googleDriveSyncToggle" text="Enabled" selected="false" styleClass="toggle-btn" />
+                        </HBox>
+
                         <HBox alignment="CENTER_LEFT" spacing="15">
                             <Label text="Auto-sync to cloud servers:" style="-fx-text-fill: #6B7280;" HBox.hgrow="ALWAYS" />
                             <Region HBox.hgrow="ALWAYS" />

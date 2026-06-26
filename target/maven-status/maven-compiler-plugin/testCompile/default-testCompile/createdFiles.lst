@@ -1,0 +1,7 @@
+com\focusnode\service\AuthServiceTest.class
+com\focusnode\FolderTest.class
+com\focusnode\BackupTest.class
+com\focusnode\service\SqliteAppDataServiceTest.class
+com\focusnode\controller\SidebarControllerTest.class
+com\focusnode\DBCheck.class
+com\focusnode\DBSeed.class

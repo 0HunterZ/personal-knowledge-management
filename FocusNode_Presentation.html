@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus Node - JavaFX Presentation</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Fira+Code:wght@400;500&family=Poppins:wght@500;700&display=swap');
+
+        :root {
+            --bg-color: #0d1117;
+            --surface-color: #161b22;
+            --text-main: #c9d1d9;
+            --text-muted: #8b949e;
+            --accent-neon: #58a6ff;
+            --accent-keyword: #ff7b72;
+            --accent-string: #a5d6ff;
+            --accent-func: #d2a8ff;
+            --accent-green: #3fb950;
+            --accent-warning: #d29922;
+            --glass-bg: rgba(22, 27, 34, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(88, 166, 255, 0.05), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(210, 168, 255, 0.05), transparent 25%);
+        }
+
+        #presentation-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: scale(0.95) translateY(20px);
+            pointer-events: none;
+            padding: 4rem 10vw;
+            box-sizing: border-box;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            pointer-events: auto;
+        }
+
+        /* Elements */
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #58a6ff, #d2a8ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0 0 1rem 0;
+            letter-spacing: -1px;
+        }
+
+        h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3rem;
+            color: #ffffff;
+            margin: 0 0 1.5rem 0;
+        }
+
+        p {
+            font-size: 1.25rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            max-width: 800px;
+        }
+
+        /* Developer aesthetics */
+        .bracket { color: var(--accent-keyword); }
+        .string { color: var(--accent-string); }
+        .comment { color: var(--text-muted); font-family: 'Fira Code', monospace; }
+        .label { 
+            display: inline-block;
+            background: var(--surface-color);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            color: var(--accent-neon);
+            border: 1px solid var(--glass-border);
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        /* Layouts */
+        .layout-center { text-align: center; display: flex; flex-direction: column; align-items: center; }
+        .layout-split { display: flex; width: 100%; gap: 4rem; align-items: center; justify-content: space-between; }
+        .layout-top-bottom { display: flex; flex-direction: column; width: 100%; justify-content: center; align-items: flex-start; text-align: left;}
+        
+        .col { flex: 1; display: flex; flex-direction: column; }
+
+        /* Custom Components */
+        .terminal-window {
+            background: var(--surface-color);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            width: 100%;
+            max-width: 900px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            text-align: left;
+        }
+        
+        .terminal-header {
+            background: #010409;
+            padding: 12px 20px;
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .terminal-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+
+        .terminal-body { padding: 3rem; }
+
+        .code-block {
+            font-family: 'Fira Code', monospace;
+            background: #010409;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--glass-border);
+            font-size: 1.1rem;
+            line-height: 1.5;
+            color: #c9d1d9;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+            margin-bottom: 1.5rem;
+        }
+
+        .code-block p { margin: 0; font-size: inherit; color: inherit; max-width: 100%; font-family: inherit;}
+
+        .step-container { display: flex; gap: 2rem; width: 100%; margin-top: 2rem; }
+        .step-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 2rem;
+            border-radius: 12px;
+            flex: 1;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+        .step-card:hover { transform: translateY(-10px); border-color: var(--accent-neon); }
+        .step-card h3 { margin-top: 0; color: #fff; }
+        .step-number { font-family: 'Fira Code', monospace; color: var(--accent-neon); font-size: 0.9rem; margin-bottom: 1rem; }
+
+        .img-showcase {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease;
+        }
+        .img-showcase:hover { transform: scale(1.02); }
+
+        .code-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .code-list li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 1rem;
+            font-size: 1.15rem;
+            color: var(--text-main);
+        }
+        .code-list li::before {
+            content: '>';
+            position: absolute;
+            left: 0;
+            color: var(--accent-keyword);
+            font-family: 'Fira Code', monospace;
+            font-weight: bold;
+        }
+        .code-list li strong { color: var(--accent-neon); }
+
+        /* Navigation Controls */
+        .controls {
+            position: fixed;
+            bottom: 30px;
+            right: 40px;
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+        }
+        .btn-nav {
+            background: var(--surface-color);
+            color: var(--text-main);
+            border: 1px solid var(--glass-border);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .btn-nav:hover { background: var(--accent-neon); color: #000; }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #58a6ff, #d2a8ff);
+            width: 0%;
+            transition: width 0.3s ease;
+            z-index: 100;
+        }
+
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            position: absolute;
+            top: 40px;
+            left: 0;
+            padding: 0 10vw;
+            box-sizing: border-box;
+        }
+        .uni-info { font-family: 'Fira Code', monospace; color: var(--text-muted); font-size: 0.9rem; }
+        .slide-number { font-family: 'Fira Code', monospace; color: var(--accent-neon); font-size: 1.2rem; font-weight: bold;}
+
+        /* Animations */
+        @keyframes typing { from { width: 0 } to { width: 100% } }
+        .typing-text {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid var(--accent-neon);
+            animation: typing 2s steps(40, end), blink-caret .75s step-end infinite;
+        }
+        @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--accent-neon); } }
+
+        .slide.active .label { animation-delay: 0.1s; }
+        .slide.active h2 { animation-delay: 0.15s; }
+        .slide.active p { animation-delay: 0.2s; }
+        .slide.active .step-card:nth-child(1) { animation-delay: 0.25s; }
+        .slide.active .step-card:nth-child(2) { animation-delay: 0.35s; }
+        .slide.active .step-card:nth-child(3) { animation-delay: 0.45s; }
+        .slide.active .col:nth-child(1) { animation-delay: 0.2s; }
+        .slide.active .col:nth-child(2) { animation-delay: 0.3s; }
+        .slide.active .img-showcase { animation-delay: 0.3s; }
+    </style>
+</head>
+<body>
+
+    <div class="progress-bar" id="progress"></div>
+
+    <div id="presentation-container">
+
+        <!-- Slide 1: Cover -->
+        <div class="slide active cover-slide">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-dot dot-red"></div>
+                    <div class="terminal-dot dot-yellow"></div>
+                    <div class="terminal-dot dot-green"></div>
+                </div>
+                <div class="terminal-body">
+                    <p class="comment">/* Faculty of Computer Science - VKU */</p>
+                    <p class="comment">/* Foundation Project 1 Report */</p>
+                    <br>
+                    <h1><span class="bracket">{</span> Focus Node <span class="bracket">}</span></h1>
+                    <p class="string">"Building a Personal Knowledge Management & Learning Support Application"</p>
+                    
+                    <div class="code-block" style="margin-top: 3rem;">
+                        <p><span style="color: var(--accent-keyword);">public class</span> FocusNodeApp {</p>
+                        <p>&nbsp;&nbsp;<span style="color: var(--accent-keyword);">String</span> author = <span class="string">"Đỗ Nguyễn Phước Định"</span>;</p>
+                        <p>&nbsp;&nbsp;<span style="color: var(--accent-keyword);">String</span> studentId = <span class="string">"25GT007"</span>;</p>
+                        <p>&nbsp;&nbsp;<span style="color: var(--accent-keyword);">String</span> clazz = <span class="string">"25GT"</span>;</p>
+                        <p>&nbsp;&nbsp;<span style="color: var(--accent-keyword);">String</span> supervisor = <span class="string">"TS. Nguyễn Văn Bình"</span>;</p>
+                        <p>}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Context -->
+        <div class="slide layout-top-bottom">
+            <div class="slide-header">
+                <div class="uni-info">// focus-node/context</div>
+                <div class="slide-number">01</div>
+            </div>
+            
+            <span class="label">String context = "The Digital Environment Problem";</span>
+            <h2>&lt; Current Challenges /&gt;</h2>
+            <p class="comment">// In the digital era, knowledge management and focus are severely hindered.</p>
+            
+            <div class="step-container">
+                <div class="step-card">
+                    <div class="step-number">Step 01</div>
+                    <h3>Information Overload</h3>
+                    <p>Information Overload makes it difficult for users to organize, retain, and effectively utilize knowledge.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">Step 02</div>
+                    <h3>Constant Distractions</h3>
+                    <p>Dependence on online platforms causes users to be distracted by continuous notifications, reducing learning productivity.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">Step 03</div>
+                    <h3>Privacy Risks (Cloud)</h3>
+                    <p>Storing data on third-party clouds poses risks of data breaches and loss of local control.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Architecture -->
+        <div class="slide layout-top-bottom">
+            <div class="slide-header">
+                <div class="uni-info">// focus-node/architecture</div>
+                <div class="slide-number">02</div>
+            </div>
+            
+            <span class="label">class CoreArchitecture extends Application</span>
+            <h2>3-Tier Architecture & `Multi-DB`</h2>
+            
+            <div class="layout-split" style="margin-top: 1rem;">
+                <div class="col" style="flex: 1.5;">
+                    <div class="code-block">
+                        <p><span style="color: var(--accent-keyword);">import</span> javafx.application.Application;</p>
+                        <p><span style="color: var(--accent-keyword);">import</span> com.focusnode.util.DatabaseManager;</p>
+                        <br>
+                        <p class="comment">// Design Pattern: MVC + Service Locator</p>
+                        <p><span style="color: var(--accent-keyword);">public class</span> CoreSystem {</p>
+                        <p>&nbsp;&nbsp;<span style="color: var(--accent-keyword);">public void</span> initDB() {</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;AppDataService service = isOffline ? <span style="color: var(--accent-keyword);">new</span> SqliteAppDataService() : <span style="color: var(--accent-keyword);">new</span> SqlAppDataService();</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;ServiceLocator.setAppDataService(service);</p>
+                        <p>&nbsp;&nbsp;}</p>
+                        <p>}</p>
+                    </div>
+                    <ul class="code-list">
+                        <li><strong>Polymorphic Architecture (Multi-DB):</strong> Seamlessly swap between SQLite (Local Offline) and SQL Server (LAN) via Service Locator.</li>
+                        <li><strong>Data Integrity:</strong> The <em>CrashHandler</em> system uses `Thread.UncaughtExceptionHandler` to automatically save drafts upon JVM exceptions.</li>
+                        <li><strong>JavaFX 21 + AtlantaFX:</strong> Separation of View (FXML) and Controller, optimizing UI with modern CSS.</li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <img src="Image Template/Home.png" class="img-showcase" alt="Architecture UI">
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: LAN Sync -->
+        <div class="slide layout-top-bottom">
+            <div class="slide-header">
+                <div class="uni-info">// focus-node/features/sync</div>
+                <div class="slide-number">03</div>
+            </div>
+
+            <span class="label">public void syncLAN() throws Exception</span>
+            <h2>LAN `P2P` Synchronization Core</h2>
+            
+            <div class="layout-split" style="margin-top: 1rem;">
+                <div class="col">
+                    <img src="Image Template/LAN Hub.png" class="img-showcase" alt="LAN Hub">
+                </div>
+                <div class="col" style="flex: 1.5;">
+                    <p class="comment">// Cloud-independent group collaboration (5-10 machines) within local networks.</p>
+                    <ul class="code-list" style="margin-top: 1.5rem;">
+                        <li><strong>CRDTs (Conflict-free Replicated Data Type):</strong> Supports concurrent write operations, automatically merging data without conflicts.</li>
+                        <li><strong>Auto Discovery:</strong> `LanDiscoveryService` broadcasts <span class="string">DiscoveryPackets</span> via UDP to automatically discover network nodes.</li>
+                        <li><strong>VaultManager E2EE:</strong> <span class="string">AES-256</span> End-to-End Encryption for all data streams, ensuring absolute security for internal traffic.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Zen Mode -->
+        <div class="slide layout-top-bottom">
+            <div class="slide-header">
+                <div class="uni-info">// focus-node/features/zen</div>
+                <div class="slide-number">04</div>
+            </div>
+
+            <span class="label">@FXML private void startZenMode()</span>
+            <h2>OS-Level Zen Mode { }</h2>
+            
+            <div class="layout-split" style="margin-top: 1rem;">
+                <div class="col" style="flex: 1.5;">
+                    <p class="comment">// Intervention to enforce absolute focus (OS-Level).</p>
+                    <div class="code-block">
+                        <p><span style="color: var(--accent-keyword);">public void</span> startZenMode() {</p>
+                        <p>&nbsp;&nbsp;Platform.runLater(() -> {</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;osManager.setDoNotDisturb(<span style="color: var(--accent-keyword);">true</span>);</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;networkRules.blockDistractingSites();</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;audioService.playBinauralBeats();</p>
+                        <p>&nbsp;&nbsp;});</p>
+                        <p>}</p>
+                    </div>
+                    <p>Breaking beyond standard apps: Calling Native APIs to hide OS notifications, block distracting websites, and play Binaural Beats to stimulate focus (Deep Work).</p>
+                </div>
+                <div class="col">
+                    <img src="Image Template/Zen Mode.png" class="img-showcase" alt="Zen Mode">
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Knowledge Management -->
+        <div class="slide layout-top-bottom">
+            <div class="slide-header">
+                <div class="uni-info">// focus-node/features/knowledge</div>
+                <div class="slide-number">05</div>
+            </div>
+
+            <div class="layout-center">
+                <span class="label">public class KnowledgeGraphNode</span>
+                <h2>Spaced Repetition & Infinite Canvas</h2>
+                
+                <img src="Image Template/Knowledge.png" class="img-showcase" style="margin: 2rem 0; max-height: 40vh; width: 80%;" alt="Knowledge Graph">
+                
+                <div style="display: flex; gap: 4rem; max-width: 1000px; text-align: left;">
+                    <div>
+                        <h3 style="color: var(--accent-func);">Spaced Repetition</h3>
+                        <p>Applying Ebbinghaus's Forgetting Curve to prompt review flashcards (ReviewItem) precisely when they are most likely to be forgotten.</p>
+                    </div>
+                    <div>
+                        <h3 style="color: var(--accent-func);">Infinite Canvas 3D</h3>
+                        <p>Rendering all notes as a knowledge universe. An infinite workspace with Infinite Zoom visualizes semantic connections between Nodes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Analytics -->
+        <div class="slide layout-top-bottom">
+            <div class="slide-header">
+                <div class="uni-info">// focus-node/features/analytics</div>
+                <div class="slide-number">06</div>
+            </div>
+
+            <span class="label">private void analyzeProductivity()</span>
+            <h2>Analytics & Data Insights `[Data]`</h2>
+            
+            <div class="layout-split" style="margin-top: 1rem;">
+                <div class="col">
+                    <img src="Image Template/Analytics.png" class="img-showcase" alt="Analytics">
+                </div>
+                <div class="col" style="flex: 1.5;">
+                    <div class="step-card">
+                        <div class="step-number">Behavioral Analytics</div>
+                        <p><strong>Golden Hour Detection:</strong> Analyzing FocusSessions to identify the "Golden Hour" when individual cognitive performance peaks.</p>
+                        <p><strong>Burnout Prevention:</strong> Upon detecting overwork, the UI automatically shifts to warm tones, plays Lo-fi music, and rejects new Tasks (Forced Rest).</p>
+                        <p><strong>Daily Streak:</strong> Tracking consecutive active days to provide psychological motivation for studying.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Achievements -->
+        <div class="slide layout-top-bottom">
+            <div class="slide-header">
+                <div class="uni-info">// focus-node/achievements</div>
+                <div class="slide-number">07</div>
+            </div>
+
+            <span class="label">List&lt;Result&gt; achievements;</span>
+            <h2>Key Achievements</h2>
+            
+            <div class="layout-split" style="margin-top: 1rem;">
+                <div class="col" style="flex: 1.5;">
+                    <ul class="code-list">
+                        <li><strong>Independent Super-app:</strong> A complete productivity and knowledge management ecosystem, Offline-First, independent of external servers.</li>
+                        <li><strong>Local Profile Isolation:</strong> User data is absolutely isolated and locally encrypted via VaultManager.</li>
+                        <li><strong>Smooth Concurrency Handling:</strong> Excellent Multi-threading management, decoupling heavy I/O logic from the UI Thread to keep JavaFX running smoothly without UI Freezes.</li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <img src="Image Template/Settings.png" class="img-showcase" alt="Settings and Management">
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Future Roadmap -->
+        <div class="slide layout-top-bottom">
+            <div class="slide-header">
+                <div class="uni-info">// focus-node/future</div>
+                <div class="slide-number">08</div>
+            </div>
+
+            <span class="label">public void futureRoadmap()</span>
+            <h2>Limitations & Future Roadmap</h2>
+            
+            <div class="step-container" style="flex-direction: column; gap: 2rem;">
+                <div class="code-block" style="margin-bottom: 0;">
+                    <h3 style="color: #ff5f56;">Technical Barriers (Current)</h3>
+                    <p class="comment">// 1. FPS drops when zooming in/out of thousands of 3D Nodes on low-end machines.</p>
+                    <p class="comment">// 2. Sandbox/Permissions on macOS & Linux present challenges for OS API injections.</p>
+                </div>
+                
+                <div class="code-block" style="border-left-color: var(--accent-neon);">
+                    <h3 style="color: var(--accent-neon);">Architecture Upgrades (Future)</h3>
+                    <p><span style="color: var(--accent-keyword);">List</span>&lt;String&gt; roadmap = Arrays.asList(</p>
+                    <p>&nbsp;&nbsp;<span class="string">"Optimize Garbage Collector & Graphic Rendering for Infinite Canvas"</span>,</p>
+                    <p>&nbsp;&nbsp;<span class="string">"Perfect the cross-platform OS Permission system"</span></p>
+                    <p>);</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Thank You -->
+        <div class="slide layout-top-bottom">
+            <div class="layout-center">
+                <img src="Image Template/Home.png" alt="Focus Node Logo" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 2rem; border: 4px solid var(--accent-neon);">
+                <h1>Thank You!}</h1>
+                <p class="string" style="font-size: 1.5rem; margin-bottom: 2rem;">"Thank you for your attention"</p>
+                
+                <div class="code-block" style="text-align: left; max-width: 600px; width: 100%; font-size: 1.2rem;">
+                    <p><span style="color: var(--accent-keyword);">try</span> {</p>
+                    <p>&nbsp;&nbsp;presentation.finish();</p>
+                    <p>&nbsp;&nbsp;demoApp.startLiveDemo();</p>
+                    <p>} <span style="color: var(--accent-keyword);">catch</span> (QuestionException q) {</p>
+                    <p>&nbsp;&nbsp;student.answer(q);</p>
+                    <p>}</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+        <button class="btn-nav" id="prevBtn">&lt;</button>
+        <button class="btn-nav" id="nextBtn">&gt;</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const progressBar = document.getElementById('progress');
+
+        function updateSlides() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                }
+            });
+            progressBar.style.width = ((currentSlide) / (slides.length - 1)) * 100 + '%';
+        }
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            if (currentSlide < slides.length - 1) { currentSlide++; updateSlides(); }
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            if (currentSlide > 0) { currentSlide--; updateSlides(); }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space') {
+                e.preventDefault();
+                if (currentSlide < slides.length - 1) { currentSlide++; updateSlides(); }
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                if (currentSlide > 0) { currentSlide--; updateSlides(); }
+            }
+        });
+    </script>
+</body>
+</html>

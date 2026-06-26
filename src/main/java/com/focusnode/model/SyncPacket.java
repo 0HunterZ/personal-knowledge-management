@@ -14,6 +14,8 @@ public class SyncPacket {
     private long fileSize;
     private int fileServerPort;
 
+    private CrdtNote crdtNote; // Payload for CRDT_SYNC
+
     public SyncPacket() {}
 
     public SyncPacket(String type, LanMember member) {
@@ -67,4 +69,7 @@ public class SyncPacket {
 
     public int getFileServerPort() { return fileServerPort; }
     public void setFileServerPort(int fileServerPort) { this.fileServerPort = fileServerPort; }
+
+    public CrdtNote getCrdtNote() { return crdtNote; }
+    public void setCrdtNote(CrdtNote crdtNote) { this.crdtNote = crdtNote; }
 }

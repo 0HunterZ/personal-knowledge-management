@@ -11,6 +11,7 @@ public class ServiceLocator {
     private static LanDiscoveryService lanDiscoveryService;
     private static LanFileTransferService lanFileTransferService;
     private static LocalProfileManager localProfileManager;
+    private static PomodoroEngine pomodoroEngine;
     private static final ExecutorService asyncExecutor = Executors.newVirtualThreadPerTaskExecutor();
     private static boolean initialized = false;
 
@@ -23,6 +24,7 @@ public class ServiceLocator {
         appDataService = appDataService == null ? new SqlAppDataService() : appDataService;
         lanSessionService = lanSessionService == null ? new LanSessionService() : lanSessionService;
         localProfileManager = localProfileManager == null ? new LocalProfileManager() : localProfileManager;
+        pomodoroEngine = pomodoroEngine == null ? new PomodoroEngine(lanSessionService) : pomodoroEngine;
         lanDiscoveryService = lanDiscoveryService == null ? new LanDiscoveryService(lanSessionService, asyncExecutor) : lanDiscoveryService;
         lanFileTransferService = lanFileTransferService == null ? new LanFileTransferService(lanSessionService, asyncExecutor) : lanFileTransferService;
 
@@ -73,6 +75,11 @@ public class ServiceLocator {
     public static LanFileTransferService getLanFileTransferService() {
         ensureInitialized();
         return lanFileTransferService;
+    }
+
+    public static PomodoroEngine getPomodoroEngine() {
+        ensureInitialized();
+        return pomodoroEngine;
     }
 
     public static ExecutorService getAsyncExecutor() {

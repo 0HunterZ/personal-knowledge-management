@@ -1,0 +1,2327 @@
+TRƯỜNG ĐẠI HỌC 
+CÔNG NGHỆ THÔNG TIN VÀ TRUYỀN THÔNG VIỆT HÀN
+KHOA 
+KHOA HỌC MÁY TÍNH
+_______________
+BÁO CÁO ĐỒ ÁN CƠ SỞ 1
+ĐỀ
+ TÀI
+: 
+XÂY DỰNG ỨNG DỤNG DESKTOP QUẢN LÝ 
+KHO
+ HÀNG ĐIỆN THOẠI
+Sinh viên thực hiện: 
+Nguyễn
+ Kỳ Vỹ 
+ 
+24IT319
+                                 
+Võ
+ Quốc Đạt  24IT333
+Lớp: 
+   
+24IT1
+Giảng viên hướng dẫn: 
+T
+h.
+S 
+Trịnh
+ Thị Ngọc Linh
+Đà Nẵng
+,
+ 
+tháng 
+05
+ năm 
+2025
+TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN VÀ TRUYỀN THÔNG VIỆT HÀN
+KHOA KHOA HỌC MÁY TÍNH
+_______________
+BÁO CÁO ĐỒ ÁN CƠ SỞ 1
+ĐỀ
+ TÀI
+: 
+XÂY DỰNG ỨNG DỤNG DESKTOP QUẢN LÝ KHO
+ HÀNG ĐIỆN THOẠI
+Sinh viên thực hiện: 
+Nguyễn
+ Kỳ Vỹ  
+24IT319
+                                 
+Võ
+ Quốc Đạt  24IT333
+Lớp: 
+   
+24IT1
+Giảng viên hướng dẫn: 
+Th.S Trịnh
+ Thị Ngọc Linh
+Đà Nẵng, tháng 
+05
+ năm 2025
+LỜI MỞ ĐẦU
+Với sự phát triển không ngừng của công nghệ thông tin, tin học đã trở thành một thành phần cốt lõi trong các hệ thống quản lý. Từ những tập đoàn doanh nghiệp lớn đến các cửa hàng kinh doanh nhỏ lẻ, việc tin học hóa hệ thống quản lý đã đóng góp một phần không nhỏ trong việc giảm tải lượng dữ liệu phải xử lý thủ công và chi phí nhân công, nâng cao hiệu quả vận hành. Trong thực tế, nhiều cửa hàng vẫn đang gặp khó khăn khi theo dõi số lượng sản phẩm, phân loại theo thương hiệu, cấu hình, màu sắc, dung lượng hoặc quản lý hóa đơn, phiếu nhập – xuất. Điều này dẫn đến dễ xảy ra sai sót, thất thoát hàng hóa, ảnh hưởng đến hoạt động kinh doanh.
+Chính vì vậy, bằng cách áp dụng những kiến thức đã được tích lũy trong hai kỳ học vừa qua, nhóm đã chọn đề tài “
+Xây dựng ứng dụng Desktop quản lý kho hàng điện thoại
+” như một cách để tổng hợp và trau dồi những kiến thức đã được tích lũy, áp dụng và nâng cao kỹ năng lập trình và xử lí dữ liệu. Mục tiêu là xây dựng một hệ thống quản lý kho nhanh chóng, tiện lợi, giúp loại bỏ các thao tác đếm, tính tiền, thống kê thủ công, từ đó nâng cao hiệu quả quản lý và kinh 
+doanh
+.
+LỜI CẢM ƠN
+Đầu tiên, 
+chúng em
+ xin gửi lời cảm ơn chân thành nhất đến Trường Đại học Công nghệ Thông tin và Truyền thông Việt - Hàn đã đưa đồ án 
+“Đồ án cơ sở 1
+” vào chương trình
+ học tập
+. Và đặc biệt, em xin gửi lời cảm ơn sâu sắc đến giảng viên 
+hướng
+ dẫn
+ 
+TS. Trịnh
+ Thị Ngọc Linh
+ 
+đã hướng dẫn tận tình cho 
+nhóm tụi em
+ trong quá trình nghiên cứu, phân tích. 
+Tuy nhiên, 
+trong quá trình hoàn thiện đồ án
+, 
+với vốn kiến thức cũng như kinh nghiệm còn rất khiêm tốn và là bước đầu làm quen với công việc nghiên cứu mang tính thực nghiệm
+ nên chúng em sẽ cố gắng hết sức nhưng chắc chắn sẽ không tránh khỏi những thiếu sót, hạn chế trong việc tìm hiểu và xây dựng đồ án về này. Chúng em rất mong nhận được những lời nhận xét, đóng góp ý kiến, phê bình của các giảng viên để bài báo cáo của mình được hoàn thiện. Cuối cùng, nhóm xin chúc những điều tốt đẹp nhất sẽ luôn đồng hành cùng 
+cô
+ và trường Đại học Công nghệ thông tin và Truyền thông Việt - Hàn.
+Chúng
+ e
+m xin chân thành cảm ơn!
+NHẬN XÉT CỦA GIẢNG VIÊN
+…………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………
+……………………
+                                                                           Đà 
+N
+ẵng, ngày …
+.
+ tháng …
+.
+ năm 
+2025
+                                                                       
+Chữ kí giảng viên
+                                                                                                
+TS. Trịnh
+ Thị Ngọc Linh
+MỤC LỤC
+LỜI MỞ ĐẦU
+i
+LỜI CẢM ƠN
+ii
+NHẬN XÉT CỦA GIẢNG VIÊN
+iii
+MỤC LỤC
+iv
+DANH MỤC HÌNH
+vii
+DANH MỤC BẢNG
+ix
+DANH MỤC CÁC TỪ VIẾT TẮC
+x
+DANH MỤC THUẬT NGỮ ANH-VIỆT
+xi
+CHƯƠNG  1:
+ GIỚI
+ THIỆU CHUNG VỀ DỰ ÁN
+1
+1.1.
+Tên dự án
+1
+1.2.
+Người thực hiện
+1
+1.3.
+Lý do chọn đề tài
+1
+1.4.
+Đặc tả đề tài
+1
+1.5.
+Mục tiêu
+2
+CHƯƠNG  2:
+ NGHIÊN
+ CỨU TỔNG QUAN
+2
+2.1.
+Khảo sát hiện trạng
+2
+2.1.1. Phương thức khảo sát
+2
+2.1.2. Kết quả khảo sát
+3
+2.1.3. Hướng giải quyết
+4
+2.2.
+Công nghệ sử dụng
+4
+2.3.
+Mô hình sử dụng
+5
+2.4.
+Chức năng của hệ thống
+8
+2.5.
+Kết luận
+9
+CHƯƠNG  3: PHÂN TÍCH VÀ THIẾT KẾ HỆ THỐNG
+9
+3.1.
+Mô hình dữ liệu quan hệ
+9
+3.2.
+Các đối tượng có trong hệ thống
+10
+3.3.
+Phân tích các bảng
+11
+3.4.
+Danh sách Usecase
+24
+3.5.
+Phân tích phương thức
+25
+3.5.1. SQL
+25
+3.5.2. Kiến trúc ba lớp của lập trình
+26
+CHƯƠNG  4: PHÂN TÍCH GIAO DIỆN
+29
+4.1.
+Giao diện
+29
+4.1.1. Giao diện đăng nhập
+29
+4.1.2. Giao diện quên mật khẩu
+29
+4.1.3. Giao diện trang chủ
+30
+4.1.4. Giao diện quản lý sản phẩm
+30
+4.1.5. Giao diện thêm sản phẩm
+31
+4.1.6. Giao diện thêm cấu hình
+31
+4.1.7. Giao diện sửa sản phẩm
+32
+4.1.8. Giao diện sửa cấu hình
+32
+4.1.9.
+ Giao
+ diện xem chi tiết sản phẩm
+33
+4.1.10.
+ Giao
+ diện xuất Excel
+33
+4.1.11.
+ Giao
+ diện kết quả xuất Excel
+34
+4.1.12.
+ Giao
+ diện khu vực kho
+34
+4.1.13. Giao diện thêm khu vực kho
+35
+4.1.14. Giao diện sửa khu vực kho
+35
+4.1.15. Giao diện phiếu nhập
+36
+4.1.16.
+ Giao
+ diện thêm phiếu nhập
+36
+4.1.17.
+ Giao
+ diện chi tiết phiếu nhập
+37
+4.1.18. Giao diện phiếu xuất
+37
+4.1.19. Giao diện khách hàng
+38
+4.1.20. Giao diện thêm khách hàng
+38
+4.1.21. Giao diện sửa khách hàng
+39
+4.1.22.
+ Giao diện chi tiết khách hàng
+39
+4.1.23. Giao diện 
+nhà
+ cung cấp
+40
+4.1.24. Giao diện thêm nhà cung cấp
+40
+4.1.25. Giao diện sửa nhà cung cấp
+41
+4.1.26. Giao diện chi tiết nhà cung cấp
+41
+4.1.27. Giao diện quản lý nhân viên
+42
+4.1.28. Giao diện chi tiết nhân viên
+42
+4.1.29. Giao diện quản lý tài khoản
+43
+4.1.30. Giao diện thêm tài khoản
+43
+4.1.31. Giao diện sửa tài khoản
+44
+4.1.32. Giao diện chi tiết tài khoản
+44
+4.1.33. Giao diện thống kê tổng quan
+45
+4.1.34. Giao diện thống kê doanh thu
+45
+4.1.35. Giao diện thống kê khách hàng
+46
+4.1.36. Giao diện phân quyền
+46
+4.1.37. Giao diện thêm nhóm quyền
+47
+4.1.38. Giao diện tin nhắn nội bộ
+47
+CHƯƠNG  5: KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN
+48
+5.1.
+Đánh giá
+48
+5.1.1. Ưu điểm
+48
+5.1.2. Nhược điểm
+48
+5.2.
+Hướng phát triển và giải pháp
+48
+5.3.
+Kết luận
+49
+TÀI LIỆU THAM KHẢO
+49
+DANH MỤC HÌNH
+Hình  2.1 - Mô hình 3
+ Lớp
+6
+Hình  2.2
+ 
+- Mô hình 3
+ Lớp
+7
+Hình  3.1 - Mô hình cơ sở dữ liệu
+10
+Hình  4.1 - Giao diện đăng nhập
+29
+Hình  4.2 - Giao diện quên mật khẩu
+29
+Hình  4.3 - Giao diện trang chủ
+30
+Hình  4.4
+ 
+-
+ Giao diện quản lý sản phẩm
+30
+Hình  4.5
+ 
+- Giao diện thêm sản phẩm
+31
+Hình  4.6
+ 
+- Giao diện thêm cấu hình
+31
+Hình  4.7
+ 
+- Giao diện sửa sản phẩm
+32
+Hình  4.8 - Giao diện sửa cấu hình
+32
+Hình  4.9 - Giao diện chi tiết sản phẩm
+33
+Hình  4.10 - Giao diện xuất Excel
+33
+Hình  4.11 - Giao diện kết quả xuất Excel
+34
+Hình  4.12 - Giao diện khu vực kho
+34
+Hình  4.13 - Giao diện thêm khu vực kho
+35
+Hình  4.14 - Giao diện sửa khu vực kho
+35
+Hình 
+ 
+4.15 - Giao diện phiếu nhập
+36
+Hình 
+ 
+4.16 - Giao diện thêm phiếu nhập
+36
+Hình
+ 
+ 4.17 - Giao diện chi tiết phiếu nhập
+37
+Hình
+ 
+ 4.18 - Giao diện phiếu xuất
+37
+Hình
+ 
+ 4.19
+ 
+- 
+Giao diện khách hàng
+38
+Hình
+ 
+ 4.20
+ 
+- 
+Giao diện thêm khách hàng
+38
+Hình
+ 
+ 4.21 - Giao diện sửa khách hàng
+39
+Hình
+ 
+ 4.22 - Giao diện chi tiết khách hàng
+39
+Hình
+ 
+ 4.23
+ 
+- 
+Giao diện nhà cung cấp
+40
+Hình 
+ 
+4.24 - Giao diện thêm nhà cung cấp
+40
+Hình 
+ 
+4.25
+ 
+- 
+Giao diện sửa nhà cung cấp
+41
+Hình 
+ 
+4.26 - Giao diện chi tiết nhà cung cấp
+41
+Hình
+ 
+ 4.27
+ 
+- 
+Giao diện quản lý nhân viên
+42
+Hình 
+ 
+4.28
+ 
+- 
+Giao diện chi tiết nhân viên
+42
+Hình 
+ 
+4.29
+ 
+- 
+Giao diện quản lý tài khoản
+43
+Hình
+ 
+ 4.30
+ 
+- 
+Giao diện thêm tài khoản
+43
+Hình
+ 
+ 4.31 - Giao diện cập nhật tài khoản
+44
+Hình 
+ 
+4.32
+ 
+- 
+Giao diện chi tiết tài khoản
+44
+Hình 
+ 
+4.33 - Giao diện thống kê tổng
+ quan
+45
+Hình
+ 
+ 4.34
+ 
+- 
+Giao diện thống kê doanh thu
+45
+Hình 
+ 
+4.35
+ - Giao diện thống kê khách hàng
+46
+Hình
+ 
+ 4.36
+ - Giao diện phân quyền
+46
+Hình 
+ 
+4.37
+ 
+- 
+Giao diện thêm nhóm quyền
+47
+Hình
+ 
+ 4.38 - Giao diện tin nhắn nội bộ
+47
+DANH MỤC BẢNG
+Bảng  3.1
+ 
+- Mô tả các thực thể trong cơ sở dữ liệu
+11
+Bảng  3.2
+ 
+- Mô tả thực thể sanpham
+14
+Bảng  3.3
+ 
+- Mô tả thực thể phienbansanpham
+15
+Bảng  3.4
+ 
+- Mô tả thực thể ctsanpham
+15
+Bảng  3.5
+ 
+- Mô tả thực thể phieunhap
+15
+Bảng  3.6
+ 
+- Mô tả thực thể phieuxuat
+16
+Bảng  3.7
+ 
+- Mô tả thực thể ctphieunhap
+16
+Bảng  3.8
+ 
+- Mô tả thực thể 
+phieukiemke
+17
+Bảng  3.9
+ 
+- Mô tả thực thể 
+ctphieuxuat
+17
+Bảng  3.10
+ 
+- Mô tả thực thể 
+ctkiemke
+17
+Bảng  3.11
+ 
+- Mô tả thực thể phieubaohanh
+18
+Bảng  3.12
+ 
+- Mô tả thực thể 
+phieudoi
+18
+Bảng  3.13
+ 
+- Mô tả thực thể 
+phieutra
+19
+Bảng  3.14
+ 
+- Mô tả thực thể 
+taikhoan
+19
+Bảng  3.15
+ 
+- Mô tả thực thể 
+nhanvien
+19
+Bảng  3.16
+ 
+- Mô tả thực thể 
+nhomquyen
+20
+Bảng  3.17
+ 
+- Mô tả thực thể 
+ctquyen
+20
+Bảng  3.18
+ 
+- Mô tả thực thể 
+danhmucchucnang
+20
+Bảng  3.19
+ 
+- Mô tả thực thể 
+khachhang
+21
+Bảng  3.20
+ 
+- Mô tả thực thể 
+nhacungcap
+21
+Bảng  3.21
+ 
+- Mô tả thực thể 
+khuvuckho
+21
+Bảng  3.22 - Mô tả thực thể thuonghieu
+22
+Bảng  3.23 - Mô tả thực thể xuatxu
+22
+Bảng  3.24
+ 
+- Mô tả thực thể 
+dungluongram
+22
+Bảng  3.25
+ 
+- Mô tả thực thể 
+dungluongrom
+23
+Bảng  3.26
+ 
+- Mô tả thực thể mausac
+23
+Bảng  3.27
+ 
+- Mô tả thực thể 
+hedieuhanh
+23
+Bảng  3.28
+ 
+- 
+Bảng phân tích phương thức
+25
+Bảng  3.29
+ - 
+Database Access Object
+26
+Bảng  3.30
+ - 
+ Business Logic Object
+27
+Bảng  3.31 - Application Object
+28
+STT
+Viết tắt
+Cụm từ
+1
+DAO
+Data
+ Access Object
+2
+BUS
+Business
+ Logic Layer
+3
+GUI
+Graphical
+ User Interface
+4
+SQL
+Structured Query Language
+DANH MỤC CÁC TỪ VIẾT TẮC
+DANH MỤC 
+THUẬT
+ NGỮ ANH-VIỆT
+Data
+ Access Object
+Đối tượng truy cập dữ liệu
+Business
+ Logic Layer
+Lớp xử lý nghiệp vụ
+Graphical
+ User Interface
+Giao diện người dùng đồ họa
+Structured Query Language
+Ngôn ngữ truy vấn có cấu trúc
+Application 
+Object
+Đối tượng ứng dụng
+GIỚI
+ THIỆU CHUNG VỀ DỰ ÁN
+Tên dự án
+ 
+Xây dựng ứng dụng Desktop Quản
+ Lý Kho Hàng Điện Thoại
+Người thực hiện
+Tên thành viên 1: 
+Võ
+ Quốc Đạt
+Mã sinh viên: 
+24IT333
+Lớp: 24IT1 
+Tên thành viên 2: 
+Nguyễn
+ Kỳ Vỹ
+Mã sinh viên: 
+24IT319
+Lớp: 24IT1
+Lý do chọn đề tài
+Thị trường điện thoại di động ngày càng sôi động và phát triển với hàng loạt các sản phẩm đa dạng, mang lại cho người dùng nhiều lựa chọn phù hợp với nhu cầu và sở thích của từng cá nhân. Để đáp ứng nhu cầu quản lý hiệu quả các hoạt động nhập, xuất, tồn kho, đổi trả và bảo hành của sản phẩm điện thoại, việc xây dựng một hệ thống quản lý kho hàng điện thoại thông minh và chuyên nghiệp trở thành điều không thể thiếu đối với các công ty và cửa hàng kinh doanh.
+Việc chọn đề tài này còn xuất phát từ nhu cầu thực tế của doanh nghiệp, đặc biệt là các cửa hàng bán lẻ, khi việc quản lý kho hàng chưa được tự động hóa đầy đủ, dẫn đến các vấn đề như sai sót trong quá trình nhập, xuất hàng, gian lận, hoặc khó khăn trong việc theo dõi lịch sử giao dịch. Hệ thống quản lý kho hàng điện thoại sẽ hỗ trợ doanh nghiệp giải quyết những khó khăn này một cách hiệu quả, đồng thời giúp nâng cao năng suất kinh doanh và chất lượng dịch vụ đối với khách hàng.
+Đặc tả đề tài
+Thiết kế hệ thống phần mềm quản lý nhằm hỗ trợ
+ cho cửa hàng
+ những nghiệp vụ sau:
+Hỗ trợ cho bộ phận quản lý nhập liệu, lưu trữ thông tin của từng sản
+ phẩm
+, nhân viên
+ khách hàng
+ của quán.
+Hỗ trợ tra cứu
+ thông tin
+ nhanh chóng
+, 
+các thông tin của quán, tìm
+ kiếm sản phẩm theo tên, mã hàng, 
+giá.
+Hỗ trợ xem các biểu
+ đồ
+ thống kê một cách rõ ràng như doanh thu của quán và tổng số tiền quán thu được trong một khoảng thời gian xác định
+, biểu đồ thống kê tổng quan.
+Hỗ trợ chức năng phân quyền người sử dụng hệ thống để xác định rõ quyền hạn của từng người sử dụng.
+Hỗ trợ xem và chỉnh sửa
+ và xuất
+ file để báo cáo, lưu trữ ngay khi sử dụng app.
+Hỗ
+ trợ chức năng nhắn tin nội bộ giữa các tài khoản trong hệ thống, giúp quản lý và nhân viên trao đổi công việc nhanh chóng hiệu quả.
+Mục tiêu
+Xây dựng một chương trình quản lý kho điện thoại thân thiện với người dùng, đảm bảo chất lượng cao, giao diện dễ sử dụng, giúp tối ưu hóa các chức năng như nhập, xuất kho, kiểm tra tồn kho, quản lý sản phẩm và hỗ trợ người quản lý đưa ra quyết định nhanh chóng, chính xác trong chiến lược vận hành kho.
+Đảm bảo chương trình hoạt động ổn định, hiệu quả, giúp tiết kiệm thời gian và công sức trong quá trình theo dõi hàng hóa, xử lý phiếu nhập/xuất, cập nhật sản phẩm và tra cứu thông tin theo thời gian thực.
+Giúp sinh viên hiểu rõ và thực hành các kiến thức nền tảng trong phát triển ứng dụng quản lý theo mô hình MVC sử dụng Java Swing trên IntelliJ IDEA, kết nối cơ sở dữ liệu
+ My
+SQL, từ đó nâng cao kỹ năng lập trình và tư duy hệ thống trong quá trình làm việc thực tế.
+NGHIÊN
+ CỨU TỔNG QUAN
+Khảo sát hiện trạng
+Phương thức khảo sát
+Chúng em đã tìm hiểu thực trạng quản lý kho hàng điện thoại tại một số cửa hàng nhỏ bằng cách khảo sát qua 
+các
+ tài liệu có sẵn.
+Đầu tiên, chúng em tìm hiểu các thông tin liên quan đến quản lý kho hàng như: cách nhập xuất hàng, tính năng hỗ trợ thống kê và báo 
+cáo,
+ theo dõi số lượng sản phẩm, danh mục điện thoại, hóa đơn bán hàng, v.v.
+Tiếp theo, chúng em xác định những chức năng cơ bản cần có trong một hệ thống quản lý kho, chẳng hạn như: thêm sản phẩm, sửa, xóa, tìm kiếm, thống kê tồn kho.
+ 
+Sau đó, chúng em tổng hợp và phân tích các tài liệu đã thu thập, từ đó đưa ra một số ý tưởng cải tiến để giúp việc quản lý kho dễ dàng và chính xác hơn.
+Cuối cùng, từ các thông tin trên, chúng em xây dựng hệ thống quản lý kho hàng điện thoại để hỗ trợ việc quản lý sản phẩm và theo dõi xuất nhập hàng hiệu quả hơn.
+Do điều kiện hạn chế, chúng em chưa thể khảo sát trực tiếp tại cửa hàng,
+ 
+doanh nghiệp
+ mà chủ yếu dựa vào tài liệu và kinh nghiệm tổng hợp.
+ Trong tương lai, nếu có điều kiện thực hiện khảo sát thực tiễn, việc này sẽ giúp hệ thống được đánh giá toàn diện và sát với nhu cầu sử dụng thực tế hơn.
+Kết quả khảo sát
+Qua quá trình tìm hiểu tài liệu và tổng hợp thông tin, chúng em nhận thấy rằng việc quản lý kho hàng điện thoại tại các cửa hàng nhỏ lẻ hiện nay vẫn còn tồn tại nhiều bất cập, cụ thể như sau:
+Quản lý thủ công
+: Nhiều cửa hàng vẫn sử dụng sổ sách hoặc phần mềm đơn giản như Excel để ghi chép thông tin, dẫn đến việc thất thoát dữ liệu hoặc nhầm lẫn trong tính toán hàng tồn.
+Thiếu hệ thống thống nhất
+: Các hoạt động như nhập hàng, xuất hàng, và theo dõi tồn kho thường được xử lý rời rạc, không có sự liên kết, khiến việc kiểm kê trở nên khó khăn và tốn thời gian.
+Không có phân quyền người dùng
+: Phần lớn các cửa hàng không có chức năng phân quyền trong hệ thống, dẫn đến nguy cơ thao tác nhầm lẫn hoặc mất dữ liệu do người dùng không được kiểm soát quyền hạn.
+Thiếu chức năng tìm kiếm và thống kê
+: Việc tìm kiếm thông tin sản phẩm hoặc xem báo cáo tồn kho, doanh thu thường không được hỗ trợ, gây khó khăn trong việc ra quyết định.
+Giao diện khó sử dụng
+: Một số phần mềm hiện có không thân thiện hoặc không phù hợp với người dùng phổ thông, đặc biệt là nhân viên không chuyên về CNTT.
+Hướng giải quyết
+Từ những vấn đề đã được tổng hợp qua quá trình khảo sát, nhóm chúng em đề xuất xây dựng một 
+“
+H
+ệ thống quản lý kho hàng điện 
+thoại
+”
+ với các giải pháp cụ thể như sau:
+Xây dựng phần mềm quản lý kho bằng Java kết hợp 
+My
+ 
+SQL
+: Sử dụng ngôn ngữ lập trình Java (với giao diện Java Swing) và cơ sở dữ liệu 
+My
+ 
+SQL
+ 
+giúp lưu trữ và xử lý dữ liệu hiệu quả, phù hợp với yêu cầu thực tế.
+Giao diện thân thiện, dễ sử dụng
+: Thiết kế phần mềm đơn giản, dễ hiểu, giúp người dùng dễ thao tác ngay cả khi không có kiến thức chuyên sâu về máy tính.
+Tích hợp các chức năng cơ bản và cần thiết
+: Bao gồm thêm, sửa, xóa sản 
+phẩm
+,
+ nhập/xuất 
+kho
+,
+ quản lý danh mục điện 
+thoại
+,
+ tạo hóa đơn và xem lịch sử giao dịch.
+Hỗ trợ tìm kiếm và thống kê
+: Cho phép người dùng tìm kiếm nhanh chóng theo tên sản phẩm, nhà cung cấp, hoặc ngày nhập – đồng thời có khả năng thống kê tồn kho, doanh thu theo ngày, tháng, quý.
+Tính năng phân quyền người dùng
+: Đảm bảo an toàn cho hệ thống khi có nhiều người sử dụng – ví dụ: chỉ quản lý mới được sửa dữ liệu, còn nhân viên chỉ có quyền xem và thêm hóa đơn.
+Lưu trữ dữ liệu tập trung
+: Dữ liệu sẽ được lưu vào cơ sở dữ liệu tập trung, giúp dễ dàng sao lưu và bảo mật, tránh rơi vào tình trạng mất dữ liệu do lỗi thủ công.
+Tích hợp chức năng xuất báo cáo
+: Cho phép xuất hóa đơn hoặc bảng thống kê ra file Excel/PDF để lưu trữ hoặc in ấn khi cần.
+Việc xây dựng hệ thống này không chỉ giúp các cửa hàng điện thoại nhỏ tiết kiệm thời gian, chi phí, mà còn giảm thiểu sai sót trong quá trình quản lý – từ đó nâng cao hiệu quả vận hành và tạo nền tảng phát triển lâu dài.
+Công nghệ sử dụng
+Java
+ 
+: Ngôn ngữ chính được sử dụng để phát triển ứng dụng và xử lý dữ liệu
+.
+Java swing
+ 
+: 
+Thư
+ viện GUI được sử dụng để xây dựng giao diện ứng dụng. Toàn bộ các thành phần giao diện đều được lập trình thủ công.
+JCalendar (jcalendar-1.4.jar)
+ 
+: Cung cấp thành phần giao diện người dùng để chọn ngày 
+MigLayout : Thư viện layout quản lý bố cục giao diện linh hoạt. 
+Mysql-connector-j-8.3.0.jar
+/sqljdbc42.jar : Thư viện kết nối với 
+mysql
+.
+ 
+JFreeChart (jfreechart-demo-1.5.2.jar)
+ : Thư viện hỗ trợ vẽ biểu đồ thống kê.
+Javax.activation.jar
+, Javax.mail-1.6.2.jar : Thư viện hỗ trợ làm việc với gmail.
+Poi-3.17.jar,
+c
+poi-ooxml-schemas-3.17.jar,xmlbeans-2.6.0.jar,
+common
+scollections4-4.4.jar : Thư viện hỗ trợ thao tác file 
+e
+xcel .
+J
+xmapviewer2-2.8
+ : 
+Hiển thị bản đồ 
+giúp các doanh nghiệp xác định được vị trí 
+kho
+.
+IntelliJ
+ IDEA (IJ) 
+: IDE 
+(Môi trường phát triển tích hợp) chính được sử dụng trong đồ án, hỗ trợ, quản lý project và debug hiệu quả
+.
+SQL Server/ My 
+SQL
+/ Heidi SQL
+ : Hệ thống quản lý cơ sở dữ liệu quan hệ hiệu 
+nân
+g cao.
+Xampp: phần mềm hỗ trợ cài đặt localhost trên máy tính.
+Mô hình sử 
+dụng
+Chúng em sử dụng 
+mô hình 
+ba lớp (three-
+layer
+) để tương tác với giao diện người dùng
+, thực hiện các query, thao tác trên các dữ liệu (truy cập, thay đổi,
+ .
+..). Kiến trúc ba lớp là một kiến trúc phần mềm khá phổ biến và được sử dụng rộng rãi.
+ Gồm có DAO, BUS, GUI. 
+Hình
+ 
+ 
+2
+.
+1
+ -
+ Mô hình 3
+ Lớp
+Những lợi ích khi sử dụng 
+mô hình
+ ba lớp:
+Việc phân chia thành từng lớp giúp cho code được tường minh hơn: Nhờ vào việc chia ra từng lớp đảm nhận các chức năng khác nhau và riêng biệt như giao diện, xử lý nghiệp vụ và truy vấn cơ sở dữ liệu, thay vì để tất cả lại một chỗ, giúp giảm sự phụ thuộc giữa các phần, đồng thời dễ theo dõi, kiểm tra và nâng cấp hệ thống khi cần thiết.
+Dễ bảo trì: Khi hệ thống được phân chia rõ ràng, việc thay đổi một thành phần nào đó sẽ không ảnh hưởng đến toàn bộ hệ thống. Các thay đổi có thể được thực hiện cục bộ trong một lớp hoặc giới hạn ảnh hưởng ở lớp gần nhất, từ đó giảm thiểu lỗi phát sinh và tiết kiệm công sức bảo trì.
+Dễ phát triển, tái sử dụng: Khi muốn bổ sung một chức năng mới, việc lập trình theo mô hình ba lớp giúp dễ dàng xác định vị trí cần sửa đổi hoặc thêm mới. Ngoài ra, các lớp xử lý và truy vấn có thể tái sử dụng ở nhiều thành phần khác nhau của hệ thống.
+Dễ phân phối khối lượng công việc: Mỗi nhóm hoặc cá nhân trong nhóm phát triển có thể đảm nhận một lớp cụ thể. Ví dụ: nhóm A phát triển giao diện, nhóm B xử lý nghiệp vụ, nhóm C làm việc với cơ sở dữ liệu. Việc phân chia như vậy giúp kiểm soát tốt tiến độ và chất lượng từng phần.
+Dễ bàn giao: Khi các thành phần được xây dựng theo quy chuẩn chung, việc chuyển giao giữa các thành viên trong nhóm hoặc giữa các giai đoạn phát triển trở nên rõ ràng, dễ hiểu, tiết kiệm thời gian trao đổi và tránh hiểu nhầm.
+Dễ phát hiện và sửa lỗi: Hệ thống được phân tách rõ ràng giúp lập trình viên dễ dàng khoanh vùng lỗi ở lớp cụ thể, từ đó xử lý nhanh chóng và hiệu quả mà không làm ảnh hưởng đến toàn bộ ứng dụng.
+Dễ đọc lại và quản lý mã nguồn: Các lớp được tổ chức rõ ràng, mỗi lớp có vai trò và nhiệm vụ riêng biệt giúp cho việc đọc lại mã, bảo trì, kiểm
+ thử hay nâng cấp sau này được thực hiện một cách có hệ thống và dễ dàg hơn.
+Hình
+ 
+ 
+2
+.
+2
+ 
+- 
+Mô 
+hình
+ 3
+ Lớp
+Chức năng của ba lớp:
+GUI
+: 
+Lớp xử lý nghiệp 
+vụ
+, 
+l
+ớp này là lớp hiển thị giao diện 
+, nơi mà người dùng thao tác với các chức năng 
+gửi yêu cầu cho lớp BUS và nhận kết quả để hiển thị lên giao diện.
+BUS: 
+Là cầu nối giữa GUI và DAO. Lớp này chịu trách nhiệm xử lý các logic nghiệp vụ, xác thực dữ liệu, kiểm tra điều kiện trước khi truy vấn hoặc cập nhật vào cơ sở dữ liệu. BUS giúp đảm bảo dữ liệu được xử lý đúng trước khi lưu vào database.
+DAO
+: 
+Là lớp là
+m việc trực tiếp với cơ sở dữ liệu. DAO thực hiện các thao tác như thêm, sửa, xóa, truy vấn dữ liệu thông qua các câu lệnh SQL. Lớp này được thiết kế tách biệt để bảo mật dữ liệu và dễ bảo trì hệ thống.
+Chức năng của hệ thống
+Quản lý sản phẩm:
+ 
+Lưu trữ và cập nhật thông tin chi tiết về từng sản phẩm điện thoại, bao gồm mã sản phẩm, tên, xuất xứ, hệ điều hành, thương hiệu, thời gian bảo hành, thông số kỹ thuật (màn hình, camera, chip, pin,...), phiên bản màu sắc – cấu hình, giá bán và số lượng tồn kho.
+Tài khoản người dùng:
+ 
+Hệ thống hỗ trợ đăng nhập, đăng xuất và khôi phục mật khẩu, đảm bảo quyền truy cập hợp
+ lệ cho từng người dùng theo vai trò được phân công.
+Nhập kho (Phiếu nhập):
+ 
+Ghi nhận các lô hàng nhập kho từ nhà cung cấp, bao gồm thông tin sản phẩm, số lượng, giá nhập và nguồn hàng.
+Xuất kho (Phiếu xuất):
+ 
+Quản lý hoạt động xuất hàng, tạo phiếu bán hàng cho khách, theo dõi số lượng, đơn giá và nhân viên thực hiện giao dịch.
+Quản lý kho theo khu vực:
+ 
+Hỗ trợ theo dõi vị trí lưu trữ hàng hóa trong kho, giúp dễ dàng tìm kiếm, sắp xếp và kiểm soát lượng hàng tồn tại các khu vực khác nhau.
+Quản lý nhà cung cấp:
+ 
+Lưu trữ thông tin về đối tác cung ứng, bao gồm tên công ty, địa chỉ, số điện thoại và lịch sử giao dịch.
+Quản lý nhân sự:
+ 
+Theo dõi thông tin cá nhân, vai trò và lịch sử làm việc của từng nhân viên. Có thể gán nhiệm vụ, quản lý hiệu suất hoặc kiểm tra hoạt động.
+Tài khoản & phân quyền:
+ 
+Cho phép tạo và chỉnh sửa tài khoản nhân viên. Hệ thống hỗ trợ phân quyền theo chức vụ (quản lý, nhân viên kho, nhân viên bán hàng...), nhằm đảm bảo mỗi người chỉ truy cập vào đúng chức năng của mình.
+Quản lý khách hàng: Lưu trữ dữ liệu khách hàng như họ tên, số điện thoại, địa chỉ và lịch sử mua hàng để phục vụ chăm sóc khách hàng hoặc tra cứu đơn 
+cũ.
+Thống kê và báo cáo:
+ 
+Cung cấp các biểu đồ hoặc bảng thống kê về lượng hàng nhập xuất theo thời gian, doanh thu bán hàng, số lượng sản phẩm còn tồn, giúp ban quản lý nắm bắt nhanh tình hình kinh doanh.
+Nhắn tin nội bộ: Hệ thống tích hợp tính năng gửi và nhận tin nhắn giữa các nhân viên, giúp trao đổi công việc nhanh chóng. Nhân viên có thể nhắn theo nhóm (chức vụ) hoặc cá nhân, phục vụ mục đích thông báo nội bộ, điều phối kho và trao đổi bán hàng.
+Kết luận
+Hệ thống “
+H
+ệ thống quản lý kho hàng điện 
+thoại
+” được xây dựng bằng ngôn ngữ lập trình Java, kết hợp với cơ sở dữ liệu 
+My
+ 
+SQL, phù hợp với yêu cầu của một ứng dụng quản lý đơn giản nhưng đầy đủ các chức năng cơ bản. Giao diện được thiết kế bằng Java Swing thân thiện, dễ sử dụng, giúp người dùng thực hiện các thao tác như quản lý sản phẩm điện thoại, tạo hóa đơn bán hàng, tra cứu thông tin khách hàng và thống kê doanh thu một cách thuận tiện.
+Dữ liệu được lưu trữ và truy vấn hiệu quả thông qua JDBC, với các câu lệnh SQL được xử lý trực tiếp, đảm bảo tốc độ và độ chính xác. Một số thư viện hỗ trợ như java.util.Calendar, Apache POI, iText cũng được tích hợp để xử lý ngày tháng và xuất báo cáo. Hệ thống cũng có tính năng phân quyền người dùng và mã hóa mật khẩu đơn giản để tăng tính bảo mật.
+Mặc dù vẫn còn hạn chế về quy mô và chức năng, nhưng hệ thống đã thể hiện rõ tư duy lập trình hướng đối tượng, khả năng xây dựng giao diện và làm việc với cơ sở dữ liệu thực tế. Đây là bước khởi đầu quan trọng để nhóm tiếp tục phát triển các ứng dụng quản lý quy mô lớn và chuyên nghiệp hơn trong những học kỳ tiếp theo.
+PHÂN TÍCH VÀ THIẾT KẾ HỆ THỐNG
+ 
+Mô hình
+ dữ liệu
+ quan hệ
+Hình
+  
+3
+.
+1
+ 
+- 
+Mô hình cơ sở dữ liệu
+Các đối tượng có trong hệ thống
+Sản phẩm: Mỗi sản phẩm điện thoại trong hệ thống được xác định bởi mã sản phẩm, tên sản phẩm, kích thước màn, camera trước, camera sau, dung lượng pin, chip xử lý, thời gian bảo hành và các thuộc tính khác như màu sắc, xuất xứ, thương hiệu, ram, rom, hệ điều hành, giá nhập vào, giá xuất ra.
+Phiếu nhập: Đối tượng này lưu trữ thông tin về việc nhập hàng vào kho, bao gồm số lượng sản phẩm, mã IMEI, nhà cung cấp, ngày nhập hàng, và nhân viên nhập hàng.
+Phiếu xuất: Đối tượng này lưu trữ thông tin về việc xuất hàng từ kho, bao gồm số lượng sản phẩm, mã IMEI, khách hàng, ngày xuất hàng, và nhân viên xuất hàng.
+Khách hàng: Lưu trữ thông tin của khách hàng, bao gồm tên, địa chỉ, số điện thoại và lịch sử giao dịch.
+Nhà cung cấp: Lưu trữ thông tin của nhà cung cấp, bao gồm tên, địa chỉ, số điện thoại, email và lịch sử giao dịch nhập hàng.
+Nhân viên: Bao gồm thông tin cá nhân của nhân viên, chức vụ, thông tin liên lạc và thông tin đăng nhập hệ thống.
+Khu vực kho: Đại diện cho các vùng lưu trữ hàng hóa trong kho, giúp tổ chức và quản lý sản phẩm một cách hiệu quả. Đối tượng này lưu trữ các thông tin như mã khu vực kho, tên khu vực kho, ghi chú cho khu vực kho đó.
+Phiếu Bảo hành/Đổi trả: Lưu trữ thông tin về các yêu cầu bảo hành và đổi trả sản phẩm của khách hàng, bao gồm mã IMEI, thông tin khách hàng, lý do đổi trả, trạng thái, và ngày hoàn thành.
+Phiếu kiểm kê: Đối tượng này lưu trữ thông tin về việc kiểm kê hàng hóa trong kho, bao gồm ngày kiểm kê, kết quả, nhân viên kiểm kê, và bất kỳ sai sót hoặc vấn đề nào được phát hiện.
+Tài khoản và phân quyền: Lưu trữ thông tin về tài khoản đăng nhập của nhân viên, vai trò trong hệ thống và quyền truy cập vào các chức năng tương ứng.
+Phân tích các bảng
+Bảng  
+3
+.
+1
+ 
+- Mô tả các thực thể trong cơ sở dữ liệu
+TT
+Tên bảng
+Mục đích của bảng trong chương trình
+1
+dbo.
+ sanpham
+Lưu danh sách sản phẩm (điện thoại, phụ kiện) với thông tin như mã sản phẩm, tên, xuất xứ, thương hiệu, hệ điều hành, khu vực kho
+2
+dbo.
+ phienbansanpham
+Lưu các phiên bản của sản phẩm (ví dụ: iPhone 13 128GB Đen) với mã phiên bản, mã sản phẩm, ROM, RAM, màu sắc
+3
+d
+bo.
+ ctsanpham
+Lưu chi tiết từng sản phẩm cụ thể (theo mã IMEI) với thông tin phiên bản, phiếu nhập, phiếu xuất
+4
+d
+bo.
+ phieunhap
+Ghi lại mọi phiếu nhập hàng, từ nhà cung cấp nào, nhân viên nào tạo, nhập ngày bao giờ
+5
+d
+bo.
+ phieuxuat
+Lưu thông tin phiếu xuất hàng (mã phiếu, khách hàng, nhân viên tạo, ngày xuất)
+6
+dbo.
+ ctphieunhap
+Lưu chi tiết phiếu nhập (phiếu nhập nào nhập phiên bản sản phẩm nào, số lượng, giá nhập)
+7
+dbo. ctphieuxuat
+Lưu chi tiết phiếu xuất (phiếu xuất nào xuất phiên bản sản phẩm nào, số lượng, giá xuất)
+8
+dbo. phieukiemke
+Lưu thông tin phiếu kiểm kê kho (mã phiếu, nhân viên tạo, ngày kiểm kê)
+9
+dbo. ctkiemke
+Lưu phiếu kiểm kê kho, giúp kiểm tra xem kho còn đúng số lượng hàng hay không
+10
+dbo. phieubaohanh
+Lưu thông tin phiếu bảo hành (mã phiếu, mã IMEI, ngày bảo hành)
+11
+dbo. phieudoi
+Lưu thông tin phiếu đổi sản phẩm (mã phiếu, mã IMEI, nhân viên tạo)
+12
+dbo. phieutra
+Theo dõi phiếu trả hàng, lưu thông tin sản phẩm (IMEI) trả lại và nhân viên phụ trách
+13
+dbo. 
+Taikhoan
+Lưu thông tin tài khoản nhân viên (mã nhân viên, tên đăng nhập, mật khẩu, nhóm quyền)
+14
+dbo. nhanvien
+Quản lý thông tin nhân viên, như tên, chức vụ, giúp phân biệt ai là ai trong hệ thống
+15
+dbo. 
+nhomquyen
+Định nghĩa các nhóm quyền, như "Quản lý" hay "Nhân viên bán hàng", để phân quyền hợp lý
+16
+dbo. 
+ctquyen
+Chi tiết quyền, cho biết nhóm quyền nào được làm gì (xem, sửa) trên chức năng nào
+17
+dbo.
+danhmucchucnang
+Lưu danh sách chức năng của hệ thống (mã chức năng, tên chức năng)
+18
+dbo. 
+khachhang
+Lưu thông tin khách hàng (mã khách hàng, tên, thông tin liên hệ)
+19
+dbo. 
+nhacungcap
+Lưu thông tin nhà cung cấp (mã nhà cung cấp, tên, thông tin liên hệ)
+20
+dbo. 
+khuvuckho
+Lưu thông tin khu vực kho (mã khu vực, tên khu vực)
+21
+dbo. 
+thuonghieu
+Lưu danh sách thương hiệu (mã thương hiệu, tên thương hiệu)
+22
+dbo. 
+xuatxu
+Lưu danh sách xuất xứ (mã xuất xứ, tên xuất xứ)
+23
+dbo.
+dungluongram
+Lưu danh sách dung lượng RAM (mã RAM, giá trị RAM)
+24
+dbo.
+dungluongrom
+Lưu danh sách dung lượng ROM (mã ROM, giá trị ROM)
+25
+dbo. 
+mausac
+Lưu danh sách màu sắc (mã màu, tên màu)
+26
+dbo. 
+hedieuhanh
+Ghi nhận hệ điều hành, như iOS, Android, để phân loại sản phẩm theo phần mềm
+Bảng  
+3
+.
+2
+ 
+- Mô tả thực thể sanpham
+TT
+Tên 
+trường
+Mục đích của 
+trường
+ trong chương trình
+1
+masp
+Định danh duy nhất mỗi sản phẩm 
+2
+tensp
+Tên sản phẩm (ví dụ: iPhone 13, Samsung S21)
+3
+xuatxu
+Mã xuất xứ, liên kết với bảng xuatxu (ví dụ: Mỹ, Trung Quốc)
+4
+hedieuhanh
+Mã hệ điều hành, liên kết với bảng hedieuhanh (ví dụ: iOS, Android)
+5
+thuonghieu
+Mã thương hiệu, liên kết với bảng thuonghieu (ví dụ: Apple, Samsung)
+6
+khuvuckho
+Mã khu vực kho, liên kết với bảng khuvuckho (ví dụ: Kho A, Kho B)
+Bảng  
+3
+.
+3
+ 
+- Mô tả thực thể phienbansanpham
+TT
+Tên trường
+Mục đích của trường trong chương trình
+1
+maphienbansp
+Định danh duy nhất mỗi phiên bản sản phẩm
+2
+masp
+Mã sản phẩm, liên kết với bảng sanpham
+3
+rom
+Mã dung lượng ROM, liên kết với bảng dungluongrom
+4
+ram
+Mã dung lượng RAM, liên kết với bảng dungluongram
+5
+mausac
+Mã màu sắc, liên kết với bảng mausac
+Bảng  
+3
+.
+4
+ 
+- Mô tả thực thể ctsanpham
+TT
+Tên trường
+Mục đích của trường trong chương trình
+1
+maimei
+Cho biết mã 
+IMEI
+2
+maphienbansp
+Cho biết 
+m
+ã phiên bản
+3
+maphieunhap
+Cho biết 
+m
+ã phiếu nhập
+4
+maphieuxuat
+Mã phiếu 
+xuất
+Bảng  
+3
+.
+5
+ 
+- Mô tả thực thể phieunhap
+TT
+Tên trường
+Mục đích của trường trong chương trình
+1
+maphieunhap
+Mã phiếu nhập
+2
+manhacungcap
+Mã nhà cung cấp
+3
+nguoitao
+Mã nhân viên tạo
+4
+ngaynhap
+Ngày nhập hàng
+Bảng  
+3
+.
+6
+ 
+- Mô tả thực thể phieuxuat
+TT
+Tên trường
+Mục đích của trường trong chương trình
+1
+maphieuxuat
+Mã phiếu 
+xuất
+, 
+định danh phiếu xuất hàng
+2
+makh
+Mã khách hàng
+ 
+,
+ để
+ biết bán cho 
+người
+ nào
+3
+nguoitaophieuxuat
+Mã nhân viên 
+để
+ biết ai tạo phiếu
+4
+Ngayxuat
+Ngày xuất hàng
+Bảng  
+3
+.
+7
+ 
+- Mô tả thực thể ctphieunhap
+TT
+Tên trường
+Mục đích của trường trong chương trình
+1
+maphieunhap
+Mã phiếu nhập
+, xác định phiếu nhập
+2
+maphienbansp
+Mã
+ phiên bản
+3
+soluong
+Số lượng nhập
+4
+gianhap
+Giá nhập mỗi chiếc
+Bảng  
+3
+.
+8
+ 
+- Mô tả thực thể
+ 
+phieukiemke
+TT
+Tên trường
+Mục đích của trường trong chương trình
+1
+maphieu
+Mã phiếu kiểm kê
+2
+nguoitaophieukiemke
+Mã nhân viên
+3
+ngaykiemke
+Ngày kiểm kê, như "2025-05-28".
+Bảng  
+3
+.
+9
+ 
+- Mô tả thực thể
+ 
+ctphieuxuat
+TT
+Tên trường
+Mục đích của trường trong chương trình
+1
+maphieuxuat
+Mã phiếu xuất (PX001), xác định phiếu xuất.
+2
+maphienbansp
+Mã phiên bản (PB001), biết xuất phiên bản nào.
+3
+soluong
+Số lượng xuất
+4
+giaxuat
+Giá xuất mỗi chiếc
+Bảng  
+3
+.
+10
+ 
+- Mô tả thực thể
+ 
+ctkiemke
+TT
+Tên trường
+Mục đích của trường trong chương trình
+1
+maphieukiemmke
+Mã phiếu kiểm kê
+2
+masanpham
+Mã sản phẩm
+3
+soluongthucte
+Số lượng thực tế trong kho.
+Bảng  
+3
+.
+11
+ 
+- Mô 
+tả thực thể phieubaohanh
+TT
+Tên trường
+Mục đích của trường trong chương trình
+1
+maphieubaohanh
+Mã phiếu bảo hành
+2
+maimei
+Mã IMEI, biết bảo hành chiếc nào.
+3
+ngaybaohanh
+Ngày bảo hành, như "2025-05-28".
+Bảng  
+3
+.
+12
+ 
+- Mô tả thực thể
+ 
+phieudoi
+TT
+Tên trường
+Mục đích của trường trong chương trình
+1
+maphieudoi
+Mã phiếu đổi 
+2
+maimei
+Mã IMEI, biết đổi chiếc nào
+3
+nguoitao
+Mã nhân viên (NV001), biết ai xử lý
+4
+ngaydoi
+Ngày đổi, như "2025-05-28"
+Bảng  
+3
+.
+13
+ 
+- Mô tả thực thể
+ 
+phieutra
+TT
+Tên trường
+Mục đích của trường trong chương trình
+1
+maphieutra
+Mã phiếu trả
+2
+maimei
+Mã IMEI, biết trả chiếc nào
+3
+nguoitao
+Mã nhân viên, biết ai xử lý
+4
+ngaytra
+Ngày trả, như "2025-05-28"
+Bảng  
+3
+.
+14
+ 
+- Mô tả thực thể
+ 
+taikhoan
+TT
+Tên trường
+Mục đích của trường trong chương trình
+1
+manv
+Mã nhân 
+viên
+, định danh tài khoản.
+2
+tendangnhap
+Cho biết tên tài khoản cần đăng nhập
+3
+matkhau
+Mật khẩu từng tài khoản
+4
+manhomquyen
+Mã nhóm quyền, xác định quyền hạn
+Bảng  
+3
+.
+15
+ 
+- Mô tả thực thể
+ 
+nhanvien
+TT
+Tên trường
+Mục đích của trường trong chương trình
+1
+manv
+Cho 
+biết
+ mã 
+nhân
+ viên
+ 
+2
+ten
+Cho biết tên 
+nhân
+ viên
+3
+chucvu
+Chức vụ, như "Nhân viên bán hàng"
+Bảng  
+3
+.
+16
+ 
+- Mô tả thực thể
+ 
+nhomquyen
+TT
+Tên trường
+Mục đích của trường trong chương trình
+1
+manhomquyen
+Tên
+ nhóm quyền
+2
+tennhomquyen
+Tên nhóm quyền, như "Quản lý"
+Bảng  
+3
+.
+17
+ 
+- Mô tả thực thể
+ 
+ctquyen
+TT
+Tên trường
+Mục đích của trường trong chương trình
+1
+manhomquyen
+Mã
+ nhóm quyền 
+2
+machucnang
+Mã
+ chức năng
+3
+hanhdong
+Hành động, như "Xem" hay "Sửa"
+Bảng  
+3
+.
+18
+ 
+- Mô tả thực thể
+ 
+danhmucchucnang
+TT
+Tên trường
+Mục đích của trường trong chương trình
+1
+machucnang
+Mã
+ chức năng
+2
+tenchucnang
+Tên chức năng, như "Quản lý kho"
+Bảng  
+3
+.
+19
+ 
+- Mô tả thực thể
+ 
+khachhang
+TT
+Tên trường
+Mục đích của trường trong chương trình
+1
+makh
+Mã
+ khách hàng
+2
+ten
+Tên
+ khách hàng
+3
+sdt
+Số
+ điện thoại
+Bảng  
+3
+.
+20
+ 
+- Mô tả thực
+ thể
+ 
+nhacungcap
+TT
+Tên trường
+Mục đích của trường trong chương trình
+1
+manhacungcap
+Cho biết mã 
+nhà
+ cung cấp
+2
+ten
+Tên nhà cung cấp
+3
+diachi
+Địa
+ chỉ nhà cung cấp
+Bảng  
+3
+.
+21
+ 
+- Mô tả thực thể
+ 
+khuvuckho
+TT
+Tên trường
+Mục đích của trường trong chương trình
+1
+makhuvuc
+Mã
+ khu vực
+2
+tenkhuvuc
+Cho
+ biết tên khu vực
+3
+ghichu
+Ghi
+ chú
+4
+toado
+Vị
+ trí khu vực kho trên bản đồ
+Bảng  
+3
+.
+22
+ - Mô tả thực thể thuonghieu
+TT
+Tên trường
+Mục đích của trường trong chương trình
+1
+Mathuonghieu
+Mã
+ thương hiệu
+2
+tenthuonghieu
+Tên thương hiệu
+Bảng  
+3
+.
+23
+ - Mô tả thực thể xuatxu
+TT
+Tên trường
+Mục đích của trường trong chương trình
+1
+maxuatxu
+Mã
+ xuất xứ 
+2
+tenxuatxu
+Tên
+ xuất xứ
+Bảng  
+3
+.
+24
+ 
+- Mô tả thực thể
+ 
+dungluongram
+TT
+Tên trường
+Mục đích của trường trong chương trình
+1
+madlram
+Mã RAM
+2
+giatri
+Giá trị RAM
+Bảng  
+3
+.
+25
+ 
+- Mô tả thực thể
+ 
+dungluongrom
+TT
+Tên trường
+Mục đích của trường trong chương trình
+1
+madlrom
+Mã ROM
+2
+giatri
+Giá trị ROM
+Bảng  
+3
+.
+26
+ 
+- Mô tả thực thể
+ 
+mausac
+TT
+Tên trường
+Mục đích của trường trong chương trình
+1
+mamau
+Mã màu
+2
+tenmau
+Tên màu
+Bảng  
+3
+.
+27
+ 
+- Mô tả thực thể
+ 
+hedieuhanh
+TT
+Tên trường
+Mục đích của trường trong chương trình
+1
+mahedieuhanh
+Mã hệ điều hành
+2
+tenhedieuhanh
+Tên hệ điều hành
+Danh sách Usecase
+Đăng
+ nhập
+:
+Người dùng (quản lý kho, nhân viên kho, nhân viên tư vấn) mở phần mềm, nhập tên đăng nhập và mật khẩu. Hệ thống kiểm tra thông tin và cho phép truy cập theo quyền tương ứng. Nếu quên mật khẩu, người dùng có thể chọn chức năng khôi phục.
+Đăng kí
+:
+Người dùng chọn chức năng đăng xuất, hệ thống đăng xuất và trả về màn hình đăng nhập.
+Quên mật khẩu
+:
+Người dùng nhập email đã đăng ký, hệ thống gửi mã OTP qua email. Người dùng nhập mã OTP, xác nhận hợp lệ rồi đặt mật khẩu mới. Hệ thống lưu mật khẩu mới và cho phép đăng nhập lại.
+Quản lý sản 
+phẩm:
+Người dùng có thể thêm, sửa, xóa và tìm kiếm sản phẩm theo tên sản phẩm. Thông tin sản phẩm gồm mã IMEI, tên, giá, số lượng, nhà sản xuất và mô tả.
+Quản lý thuộc tính sản phẩ
+m
+:
+Người dùng quản lý các thuộc tính như dung lượng RAM, ROM, thương hiệu, màu sắc, hệ điều hành, xuất xứ,... cho từng sản phẩm, có thể thêm, sửa hoặc xóa.
+Quản lý khu vực kho
+:
+Người dùng thêm, chỉnh sửa hoặc xóa khu vực kho với thông tin bao gồm tên khu vực và ghi chú. Hệ thống kiểm tra tính hợp lệ và cập nhật dữ liệu.
+Quản lý khách hàng
+:
+Quản lý kho, nhân viên kho và chăm sóc khách hàng thêm, sửa, xóa hoặc xem thông tin khách hàng như tên, điện thoại, địa chỉ. Hệ thống kiểm tra và lưu thông tin hợp lệ.
+Quản lý nhập hàng
+:
+Quản lý kho và nhân viên kho thêm mới, sửa, xóa hoặc xem phiếu nhập hàng gồm sản phẩm, số lượng, giá và ngày nhập.
+Quản lý xuất hàng
+:
+Quản lý kho và nhân viên kho quản lý phiếu xuất hàng với các thao tác thêm, sửa, xóa, xem thông tin sản phẩm, số lượng, giá và ngày 
+xuất
+.
+Quản lý tài khoản:
+Quản lý kho quản lý tài khoản và mật khẩu nhân viên. Thực hiện thêm, sửa, xóa tài khoản khi đã đăng nhập với quyền phù hợp. Hệ thống kiểm tra thông tin và cập nhật khi hợp lệ.
+Quản lý doanh thu:
+Quản lý kho giám sát, phân tích doanh thu sản phẩm trong kho. Xem danh sách sản phẩm, tổng doanh thu, chi tiết theo thời gian và so sánh hiệu quả các chiến dịch bán hàng. Lưu báo cáo doanh thu để quản lý.
+Quản lý phân quyền:
+Quản lý kho thiết lập và quản lý quyền truy cập cho từng nhóm người dùng dựa trên vai trò. Người dùng có quyền phù hợp có thể thêm, sửa hoặc xóa quyền truy cập cho các nhóm. Sau khi thiết lập, hệ thống lưu lại phân quyền để đảm bảo từng nhóm người dùng chỉ được truy 
+cập
+ đúng chức năng phù hợp với vai trò của mình.
+Phân tích phương thức
+ 
+SQL
+Bảng  
+3
+.
+28
+ 
+- 
+Bảng phân tích phương thức
+STT
+Tên phương thức
+Mô tả
+1
+Create database
+Tạo database
+2
+Create table
+Tạo bảng mới trong database
+3
+Insert into table(…) values (?, ?)
+Thêm dữ liệu
+4
+Update table set …..
+Cập nhật lại dữ liệu
+5
+Select * from table
+Hiển thị toàn bộ dữ liệu trong bảng
+6
+Alter table …..
+Chỉnh sửa lại bảng trong database
+7
+Select * from where [where dieukien]
+Kiểm tra điều kiện đúng khóa chính mới hiển thị dữ liệu
+8
+Delete from table [where dieukien]
+Xóa dữ liệu
+9
+AUTO INCREMENT for table
+Tăng tự động cho bảng
+Kiến trúc ba lớp của lập trình
+ 
+STT
+Phương thức
+Mục đích
+Tên class/ số dòng
+1
+private Database()
+Khởi tạo kết nối đến SQL Server
+Database.java
+(14
+ 26)
+2
+public static List<SanPham> getAllSanPham() {
+    List<SanPham> list = new ArrayList<>();
+ ..}
+Hỗ trợ lấy
+ tất cả dữ liệu trong DataBase
+SanPhamDAO
+.java
+(101
+ 144)
+3
+public static int themSanPham(SanPham sp) {
+...}
+Phương
+ thức thêm sản phẩm 
+SanPhamDAO
+.java
+(19
+ 51)
+4
+public static int suaSanPham(SanPham sp, int ID) {
+    int rows = 0;
+..}
+Phương
+ thức sửa sản phẩm 
+SanPhamDAO
+.java
+(53
+ 82)
+5
+public static int  xoaSanPham(int id) {
+.}
+Phương
+ thức xóa sản phẩm 
+SanPhamDAO
+.java
+(84
+98
+)
+ 
+Bảng  
+3
+.
+29
+ - 
+Database
+ 
+Access
+ 
+Object
+Ở lớp Business Logic Layer, do có nhiều phương thức tương đồng về cách thức và chức năng nên nhóm chỉ liệt kê một vài phương thức tiêu biểu.
+Bảng  
+3
+.
+30
+ - 
+ Business Logic 
+Object
+STT
+Tên phương thức
+Mục đích
+Tên file, số dòng
+1
+public int getIndexByMaDV(int makhachhang) {
+..}
+Hàm gọi dữ liệu từ bảng dbo.thucdon để lấy danh sách các món .
+KhachHangBus
+.java
+(
+26
+->
+37
+)
+2
+public ArrayList<KhachHang> search(String keyword, String type) {
+..}|
+Tìm kiếm khách hàng trong danh sách hiện tại dựa trên từ khóa và loại tìm
+KhachHangBus 
+.java
+(
+63
+->
+100
+)
+3
+public Boolean update(KhachHang kh)
+{..}
+Cập nhật thông tin khách hàng trong DB và list nếu cập nhật thành công
+KhachHangBus 
+.java
+(
+55
+->
+61
+)
+4
+public Boolean delete(KhachHang kh) {
+..}
+Xóa khách hàng khỏi DB và list nếu xóa thành công
+KhachHangBus 
+.java
+(
+47
+->
+53
+)
+5
+reloadFromDB()
+Làm mới toàn bộ danh sách từ DataBase
+KhachHangBus .java
+(103->116)
+6
+getArrTenKhachHang()
+Trả về mảng tên khách hàng dạng String[] dùng cho ComboBox
+KhachHangBus 
+.java
+(
+118
+->
+131
+)
+7
+KhachHangBUS()
+Constructor: Load toàn bộ danh sách khách hàng từ DB vào list trong RAM
+KhachHangBus 
+.java
+(
+14
+->
+16
+)
+Tương tự như Business Logic Layer, lớp giao diện người dùng (Applicate Object) có nhiều phương thức tương đương về hình thức và chức năng nên nhóm chỉ liệt kê một vài phương thức tiêu biểu.
+Bảng  
+3
+.
+31
+ - 
+Application 
+Object
+STT
+Tên phương thức
+Mục đích
+Tên file, số dòng
+1
+public class Main {
+    public static void main(String[] args) {
+        try {
+UIManager.
+setLookAndFeel
+(new FlatIntelliJLaf());
+          new AppController();
+       } catch (Exception ex) {
+          ex.printStackTrace();
+       }
+    }
+}
+Bắt đầu thao tác với phần mềm
+Main.java
+2
+private void initEventHandlers() {
+..}
+Thay thế Jpanel khi click vào từng Label/Button 
+AppController.java
+(386->443)
+3
+public void sanPhamEdit(SanPham sp) {
+Lấy dữ liệu đổ vào các ô Jtext Fields
+EditProductForm.java
+(262->298)
+4
+form.getBtnSave().addActionListener(e -> saveProduct(form));
+Click vào button sẽ thực hiện kiểm tra thông tin và thêm dữ liệu vào database
+ProductController
+.java
+(
+52
+->
+56
+)
+PHÂN TÍCH 
+GIAO DIỆN
+Giao diện
+ 
+Giao diện người dùng được xây dựng bằng Java Swing, hướng đến trải nghiệm trực quan, hiện đại, dễ thao tác. Các phần chính của giao diện:
+Giao diện đăng nhập
+ 
+Hình  
+4
+.
+1
+ 
+- 
+Giao diện đăng nhập
+Giao diện quên mật khẩu
+Hình  
+4
+.
+2
+ 
+- 
+Giao diện quên mật khẩu
+Giao diện trang chủ
+Hình  
+4
+.
+3
+ 
+- 
+Giao diện trang chủ
+Giao diện quản lý sản phẩm
+Hình  
+4
+.
+4
+ 
+-
+ Giao diện quản lý sản phẩm
+Giao diện thêm sản phẩm
+Hình  
+4
+.
+5
+ 
+- 
+Giao diện thêm sản phẩm
+Giao diện thêm cấu hình
+ 
+Hình  
+4
+.
+6
+ 
+- 
+Giao diện thêm cấu hình
+Giao diện sửa sản phẩm
+Hình  
+4
+.
+7
+ 
+- 
+Giao diện sửa sản phẩm
+Giao diện sửa cấu hình
+Hình  
+4
+.
+8
+ 
+- 
+Giao diện sửa cấu hình
+Giao
+ diện xem chi tiết sản phẩm
+Hình  
+4
+.
+9
+ 
+- 
+Giao diện chi tiết sản phẩm
+Giao
+ diện xuất Excel
+Hình  
+4
+.
+10
+ 
+- 
+Giao diện xuất 
+E
+xcel
+Giao
+ diện kết quả xuất Excel
+Hình  
+4
+.
+11
+ 
+- 
+Giao diện kết quả xuất Excel
+Giao
+ diện 
+khu vực kho
+Hình  
+4
+.
+12
+ 
+- 
+Giao diện khu vực kho
+Giao
+ diện thêm khu vực kho
+ 
+Hình  
+4
+.
+13
+ 
+- 
+Giao diện thêm khu vực kho
+Giao diện sửa khu 
+vực
+ kho
+Hình  
+4
+.
+14
+ 
+- 
+Giao diện 
+sửa 
+khu vực kho
+Giao diện phiếu nhập
+Hình 
+ 
+4
+.
+1
+5 
+- 
+Giao diện phiếu nhập
+Giao
+ diện thêm phiếu nhập
+Hình 
+ 
+4
+.16 
+- 
+Giao diện thêm phiếu nhập
+Giao
+ diện chi tiết phiếu nhập
+Hình
+ 
+ 
+4
+.17 
+- 
+Giao diện chi tiết phiếu nhập
+  
+Giao diện phiếu xuất
+Hình
+ 
+ 
+4
+.
+18
+ 
+- 
+Giao diện phiếu 
+xuất
+Giao diện khách hàng
+Hình
+ 
+ 
+4
+.19
+ 
+- 
+Giao diện khách hàng
+Giao diện thêm khách hàng
+Hình
+ 
+ 
+4
+.20
+ 
+- 
+Giao diện thêm khách hàng
+ 
+Giao diện sửa khách hàng
+Hình
+ 
+ 
+4
+.
+2
+1 
+- 
+Giao diện sửa khách hàng
+Giao diện chi tiết khách hàng
+Hình
+ 
+ 
+4
+.22 
+- 
+Giao diện chi tiết khách hàng
+ 
+Giao diện 
+nhà
+ cung cấp
+Hình
+ 
+ 
+4
+.23
+ 
+- 
+Giao diện nhà cung cấp
+ 
+Giao diện thêm
+ 
+nhà cung cấp
+Hình 
+ 
+4
+.
+24
+ 
+-
+ Giao diện thêm nhà cung cấp
+Giao diện sửa nhà cung cấp
+Hình 
+ 
+4
+.25
+ 
+- 
+Giao diện sửa nhà cung cấp
+ 
+Giao diện chi tiết nhà cung cấp
+Hình 
+ 
+4
+.26 
+- 
+Giao diện chi tiết nhà cung cấp
+ 
+Giao diện
+ quản lý
+ nhân viên
+Hình
+ 
+ 
+4
+.27
+ 
+- 
+Giao diện quản lý nhân viên
+ 
+Giao diện chi tiết nhân viên
+Hình 
+ 
+4
+.
+28
+ 
+- 
+Giao diện chi tiết nhân viên
+ 
+Giao diện quản lý tài khoản
+Hình 
+ 
+4
+.29
+ 
+- 
+Giao diện quản lý tài khoản
+ 
+Giao diện thêm tài khoản
+ 
+Hình
+ 
+ 
+4
+.
+3
+0
+ 
+- 
+Giao diện thêm tài khoản
+ 
+Giao diện sửa tài khoản
+Hình
+ 
+ 
+4
+.31
+ 
+-
+ 
+Giao diện cập nhật tài khoản
+ 
+Giao diện chi tiết tài khoản
+Hình 
+ 
+4
+.32
+ 
+- 
+Giao diện chi tiết tài khoản
+ 
+Giao diện thống kê
+ tổng quan
+Hình 
+ 
+4
+.33 
+- 
+Giao diện thống kê 
+tổng
+ quan
+Giao diện thống kê doanh thu
+Hình
+ 
+ 
+4
+.34
+ 
+- 
+Giao diện thống kê doanh thu
+ 
+Giao diện thống kê khách hàng
+Hình 
+ 
+4
+.35
+ - 
+Giao diện thống kê khách hàng
+Giao diện phân quyền
+Hình
+ 
+ 
+4
+.36
+ - Giao diện phân quyền
+ 
+ 
+Giao diện thêm nhóm quyền
+Hình 
+ 
+4
+.37
+ 
+- 
+Giao diện thêm nhóm quyền
+ 
+Giao diện tin nhắn nội bộ
+Hình
+ 
+ 
+4
+.38
+ 
+- 
+Giao diện tin nhắn nội bộ
+ 
+KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN
+Đánh giá
+Ưu điểm
+Giao diện người dùng thân thiện, dễ sử dụng.
+Truy cập
+ cơ sở
+ dữ liệu một cách dễ dàng, không ảnh hưởng đến các cơ sở dữ liệu khác.
+Tận dụng ưu điểm của kiến trúc ba lớp để phát triển phần mềm tối đa.
+Có tiềm năng phát triển cao.
+Nhược điểm
+Phần mềm vẫn còn
+ khá
+ sơ sài, chưa có những chức năng mà 
+chúng em
+ 
+mong muốn đạt được.
+Có thể còn tồn tại những lỗi kỹ thuật mà 
+chúng em
+ vẫn chưa phát hiện.
+Tiến trình làm còn khá chậm.
+Hướng phát triển và giải pháp
+Tích hợp công nghệ trí tuệ nhân tạo (AI) vào hệ thống để phân tích dữ liệu tồn kho, lịch sử xuất nhập và xu hướng tiêu thụ điện thoại. Các thuật toán học máy có thể nhận diện mô hình tiêu thụ theo mùa vụ, loại sản phẩm bán chạy, hoặc phát hiện bất thường trong quy trình nhập xuất kho. Từ đó, hệ thống có thể đưa ra dự đoán về nhu cầu tồn kho, hỗ trợ đề xuất kế hoạch nhập hàng, giảm thiểu tồn kho dư thừa và tối ưu hóa quản lý kho.
+ 
+Xây dựng ứng dụng quản lý kho trên nền tảng di động (Android, iOS) giúp người dùng dễ dàng kiểm tra tồn kho, cập nhật tình trạng sản phẩm, và theo dõi đơn hàng ngay trên điện thoại cá nhân. Ứng dụng sẽ tích hợp công nghệ xác thực sinh trắc học như vân tay hoặc nhận diện khuôn mặt nhằm đảm bảo an toàn thông tin cho người dùng.
+Phát triển hệ thống có thể vận hành hiệu quả trên nhiều loại thiết bị di động và máy tính bảng, hỗ trợ đa nền tảng như Windows, macOS, Android và iOS. Đồng thời, 
+tích hợp tính năng đồng bộ dữ liệu theo thời gian thực giữa các thiết bị khác nhau, giúp người dùng dễ dàng làm việc liên tục và liền mạch trên nhiều thiết bị.
+Nâng cao mức độ bảo mật hệ thống bằng cách triển khai cơ chế xác thực người dùng đa lớp, mã hóa dữ liệu quan trọng, phân quyền truy cập rõ ràng theo từng chức năng (quản lý, nhân viên kho, kế toán,...), và tích hợp tính năng giám sát truy cập để kịp thời phát hiện các hành vi bất thường. Điều này giúp bảo vệ dữ liệu kho hàng khỏi rủi ro rò rỉ và xâm nhập trái phép.
+ 
+Kết luận
+Phần mềm 
+đã đạt đạt những yêu cầu cơ bản của hệ thống quản lý
+ kho hàng điện thoại
+, tối ưu hóa kiến trúc ba lớp và đem đến sự tiện lợi trong quá trình sử dụng cho người dùng, cho phép quản lý lượng lớn dữ liệu một cách thuận tiện. Ngoài ra, phần mềm có tiềm năng để phát triển, nâng cấp, trở thành một phần mềm quản lý chính thức.
+Tuy nhiên, phần mềm vẫn còn những nhược điểm nhất định do hạn chế về kỹ thuật (code, cơ sở dữ liệu) và kiến thức.
+TÀI LIỆU THAM KHẢO
+Các bài giảng về mô hình kiến trúc 3 lớp từ nền tảng học trực tuyến CodeLearn.
+Các trang blog kỹ thuật, forum lập trình, cộng đồng chia sẻ kiến thức thực tiễn liên quan đến phát triển phần mềm.
+Các video hướng dẫn từ YouTube về thiết kế giao diện Java, kết nối MySQL và quản lý dữ liệu.
+GeeksforGeeks – Hướng dẫn tích hợp Java Swing với MySQL thông qua JDBC.
+Giáo trình các môn học có liên quan: Lập trình hướng đối tượng, Cơ sở dữ liệu quan hệ, Phân tích hệ thống.
+Kho lưu trữ mã nguồn tham khảo trên GitHub: 
+https://github.com/kyvy12az/DACS1
+Kinh nghiệm thực tế thu được trong quá trình tìm hiểu xây dựng phần mềm quản lý cửa hàng điện thoại.
+Những góp ý quý báu từ giảng viên hướng dẫn và bạn bè trong suốt quá trình làm đồ án.
+Oracle – Tài liệu chính thức Java SE 8. Truy cập tại: 
+https://docs.oracle.com/javase/8/docs/
+Ramakrishnan – "Database Management Systems" (Phiên bản thứ 3), tài liệu chuyên sâu về hệ quản trị cơ sở dữ liệu.
+Stack Overflow – Diễn đàn trao đổi, hỏi đáp và xử lý lỗi lập trình Java – MySQL.
+Trang tài liệu của MySQL – Hướng dẫn sử dụng và quản trị cơ sở dữ liệu MySQL. Truy cập tại: 
+https://dev.mysql.com/doc/
+Viblo – Hướng dẫn thao tác với file Excel bằng thư viện Apache POI trong Java.
+VietTuts – Nền tảng học lập trình Java từ cơ bản đến nâng cao. Truy cập tại: 
+https://www.viettuts.vn/java

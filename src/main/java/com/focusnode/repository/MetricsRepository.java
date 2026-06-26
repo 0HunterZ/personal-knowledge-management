@@ -124,7 +124,7 @@ public class MetricsRepository {
                     SUM(CASE WHEN StartedAt >= DATEADD(day, -7, GETDATE()) THEN 1 ELSE 0 END) as SessionsThisWeek,
                     SUM(CASE WHEN StartedAt >= DATEADD(day, -14, GETDATE()) AND StartedAt < DATEADD(day, -7, GETDATE()) THEN 1 ELSE 0 END) as SessionsLastWeek
                 FROM dbo.FocusSessions
-                WHERE UserId = ? AND IsCompleted = 1 AND StartedAt >= DATEADD(day, -14, GETDATE())
+                WHERE UserId = ? AND ActualMinutes > 0 AND StartedAt >= DATEADD(day, -14, GETDATE())
             """;
             try (PreparedStatement pstmt = conn.prepareStatement(sqlFocus)) {
                 pstmt.setInt(1, userId);
@@ -143,7 +143,7 @@ public class MetricsRepository {
                 SELECT 
                     CAST(SUM(CASE WHEN StatusId = 3 THEN 1 ELSE 0 END) AS FLOAT) / NULLIF(COUNT(*), 0) as RateThisWeek
                 FROM dbo.Tasks
-                WHERE UserId = ?
+                WHERE UserId = ? AND IsDeleted = 0 AND CreatedAt >= DATEADD(day, -7, GETDATE())
             """;
             try (PreparedStatement pstmt = conn.prepareStatement(sqlTasks)) {
                 pstmt.setInt(1, userId);
@@ -176,7 +176,7 @@ public class MetricsRepository {
                 SELECT 
                     CAST(SUM(ActualMinutes) AS FLOAT) / NULLIF(SUM(PlannedMinutes), 0) * 5.0 as Score
                 FROM dbo.FocusSessions
-                WHERE UserId = ? AND StartedAt >= DATEADD(day, -7, GETDATE())
+                WHERE UserId = ? AND ActualMinutes > 0 AND StartedAt >= DATEADD(day, -7, GETDATE())
             """;
             try (PreparedStatement pstmt = conn.prepareStatement(sqlScore)) {
                 pstmt.setInt(1, userId);
@@ -211,13 +211,17 @@ public class MetricsRepository {
             // 6. Category Focus Minutes This Week (via Notes -> Subjects)
             String sqlCategory = """
                 SELECT 
-                    COALESCE(sub.Name, 'Uncategorized') as CategoryName,
+                    COALESCE(t.Name, sub.Name, 'Uncategorized') as CategoryName,
                     SUM(s.ActualMinutes) as TotalMinutes
                 FROM dbo.FocusSessions s
                 LEFT JOIN dbo.Notes n ON s.NoteId = n.NoteId
                 LEFT JOIN dbo.Subjects sub ON n.SubjectId = sub.SubjectId
-                WHERE s.UserId = ? AND s.StartedAt >= DATEADD(day, -7, GETDATE())
-                GROUP BY COALESCE(sub.Name, 'Uncategorized')
+                LEFT JOIN (
+                    SELECT TaskId, MIN(TagId) as TagId FROM dbo.TaskTags GROUP BY TaskId
+                ) tt ON s.TaskId = tt.TaskId
+                LEFT JOIN dbo.Tags t ON tt.TagId = t.TagId
+                WHERE s.UserId = ? AND s.ActualMinutes > 0 AND s.StartedAt >= DATEADD(day, -7, GETDATE())
+                GROUP BY COALESCE(t.Name, sub.Name, 'Uncategorized')
             """;
             try (PreparedStatement pstmt = conn.prepareStatement(sqlCategory)) {
                 pstmt.setInt(1, userId);

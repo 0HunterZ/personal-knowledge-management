@@ -17,6 +17,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import com.focusnode.navigation.AppNavigator;
 import com.focusnode.navigation.AppView;
+import com.focusnode.util.EventBus;
 
 public class RecentNotesController {
 
@@ -25,6 +26,7 @@ public class RecentNotesController {
     @FXML
     public void initialize() {
         loadRecentNotes();
+        EventBus.subscribe(EventBus.EventType.DATA_CHANGED, e -> loadRecentNotes());
     }
 
     public void loadRecentNotes() {

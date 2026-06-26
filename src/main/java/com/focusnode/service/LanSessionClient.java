@@ -145,6 +145,21 @@ public class LanSessionClient {
                             packet.getTransferId()
                     );
                     break;
+                case "CRDT_SYNC":
+                    com.focusnode.model.CrdtNote crdtNote = packet.getCrdtNote();
+                    if (crdtNote != null) {
+                        com.focusnode.repository.NoteRepository noteRepo = new com.focusnode.repository.NoteRepository();
+                        com.focusnode.model.Note localNote = noteRepo.getNoteById(crdtNote.getNoteId());
+                        if (localNote != null) {
+                            localNote.setContent(crdtNote.getContent());
+                            localNote.setUpdatedAt(java.time.LocalDateTime.now());
+                            noteRepo.update(localNote);
+                            
+                            // Re-fetch in UI if NoteEditor is open
+                            // To keep it simple, we just update the DB. The UI would poll or use a bus.
+                        }
+                    }
+                    break;
             }
         });
     }

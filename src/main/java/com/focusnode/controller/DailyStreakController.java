@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
+import com.focusnode.util.EventBus;
 
 public class DailyStreakController {
 
@@ -22,6 +23,11 @@ public class DailyStreakController {
 
     @FXML
     public void initialize() {
+        loadDataAsync();
+        EventBus.subscribe(EventBus.EventType.DATA_CHANGED, e -> loadDataAsync());
+    }
+
+    private void loadDataAsync() {
         ServiceLocator.getAsyncExecutor().execute(() -> {
             List<FocusSession> sessions = ServiceLocator.getAppDataService().getFocusSessions();
             

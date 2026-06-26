@@ -39,6 +39,7 @@ public class SettingsViewController {
     @FXML private Spinner<Integer> longBreakSpinner;
     
     // Sync
+    @FXML private ToggleButton googleDriveSyncToggle;
     @FXML private ToggleButton autoSyncToggle;
     @FXML private Slider syncFrequencySlider;
     
@@ -49,6 +50,12 @@ public class SettingsViewController {
     @FXML private CheckBox soundCheck;
     @FXML private CheckBox notificationsCheck;
     @FXML private CheckBox discoveriesCheck;
+    
+    // AI Integration
+    @FXML private PasswordField geminiApiKeyField;
+    
+    // Storage Path
+    @FXML private javafx.scene.control.TextField defaultStoragePathField;
     
     // Targets
     @FXML private Slider dailyTargetSlider;
@@ -110,6 +117,22 @@ public class SettingsViewController {
             double hours = settings.getDailyFocusGoalMinutes() / 60.0;
             dailyTargetSlider.setValue(hours);
             dailyTargetLabel.setText(String.format("%.1f hrs", hours));
+            
+            if (settings.getGeminiApiKey() != null) {
+                geminiApiKeyField.setText(settings.getGeminiApiKey());
+            }
+            
+            if (settings.getDefaultStoragePath() != null) {
+                defaultStoragePathField.setText(settings.getDefaultStoragePath());
+            } else {
+                defaultStoragePathField.setText(System.getProperty("user.home") + java.io.File.separator + "Downloads" + java.io.File.separator + "FocusNode");
+            }
+            
+            if (settings.getGoogleDriveSyncEnabled() != null) {
+                googleDriveSyncToggle.setSelected(settings.getGoogleDriveSyncEnabled());
+            } else {
+                googleDriveSyncToggle.setSelected(false);
+            }
         }
     }
 
@@ -167,6 +190,9 @@ public class SettingsViewController {
         settings.setTheme(darkModeToggle.isSelected() ? "DARK" : "LIGHT");
         settings.setDailyFocusGoalMinutes((int)(dailyTargetSlider.getValue() * 60));
         settings.setLanguage("VI");
+        settings.setGeminiApiKey(geminiApiKeyField.getText());
+        settings.setDefaultStoragePath(defaultStoragePathField.getText());
+        settings.setGoogleDriveSyncEnabled(googleDriveSyncToggle.isSelected());
         userSettingsRepository.upsert(settings);
         
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "Settings have been saved successfully.");
@@ -185,7 +211,21 @@ public class SettingsViewController {
         startupCheck.setSelected(true);
         soundCheck.setSelected(true);
         notificationsCheck.setSelected(true);
+        geminiApiKeyField.setText("");
+        defaultStoragePathField.setText(System.getProperty("user.home") + java.io.File.separator + "Downloads" + java.io.File.separator + "FocusNode");
+        googleDriveSyncToggle.setSelected(false);
         onSaveSettings();
+    }
+    
+    @FXML
+    public void onBrowseStoragePath() {
+        javafx.stage.DirectoryChooser directoryChooser = new javafx.stage.DirectoryChooser();
+        directoryChooser.setTitle("Select Default Storage Folder");
+        java.io.File selectedDirectory = directoryChooser.showDialog(defaultStoragePathField.getScene().getWindow());
+
+        if (selectedDirectory != null) {
+            defaultStoragePathField.setText(selectedDirectory.getAbsolutePath());
+        }
     }
 
     @FXML

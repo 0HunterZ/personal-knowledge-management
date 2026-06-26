@@ -92,8 +92,13 @@ public class LanFileTransferService {
 
         executor.submit(() -> {
             try (Socket socket = new Socket(hostIp, port)) {
-                // Determine a safe downloads folder (e.g. user home / Downloads / FocusNode)
-                File downloadsDir = new File(System.getProperty("user.home"), "Downloads" + File.separator + "FocusNode");
+                com.focusnode.repository.UserSettingsRepository repo = new com.focusnode.repository.UserSettingsRepository();
+                com.focusnode.model.UserSettings settings = repo.findByUserId(1);
+                String storagePath = (settings != null && settings.getDefaultStoragePath() != null) 
+                        ? settings.getDefaultStoragePath() 
+                        : System.getProperty("user.home") + File.separator + "Downloads" + File.separator + "FocusNode";
+
+                File downloadsDir = new File(storagePath);
                 if (!downloadsDir.exists()) {
                     downloadsDir.mkdirs();
                 }

@@ -12,6 +12,7 @@ import com.focusnode.repository.*;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Collections;
+import com.focusnode.util.EventBus;
 
 public class SqlAppDataService implements AppDataService {
 
@@ -51,16 +52,19 @@ public class SqlAppDataService implements AppDataService {
         } else {
             taskRepo.update(task);
         }
+        EventBus.publish(EventBus.EventType.DATA_CHANGED);
     }
 
     @Override
     public void updateTask(Task task) {
         taskRepo.update(task);
+        EventBus.publish(EventBus.EventType.DATA_CHANGED);
     }
 
     @Override
     public void deleteTask(Task task) {
         taskRepo.delete(task.getId());
+        EventBus.publish(EventBus.EventType.DATA_CHANGED);
     }
 
     @Override
@@ -75,16 +79,19 @@ public class SqlAppDataService implements AppDataService {
         } else {
             noteRepo.update(note);
         }
+        EventBus.publish(EventBus.EventType.DATA_CHANGED);
     }
 
     @Override
     public void updateNote(Note note) {
         noteRepo.update(note);
+        EventBus.publish(EventBus.EventType.DATA_CHANGED);
     }
 
     @Override
     public void deleteNote(Note note) {
         noteRepo.delete(note.getId());
+        EventBus.publish(EventBus.EventType.DATA_CHANGED);
     }
 
     @Override
@@ -110,6 +117,7 @@ public class SqlAppDataService implements AppDataService {
     @Override
     public void saveFocusSession(FocusSession session) {
         focusSessionRepo.add(session);
+        EventBus.publish(EventBus.EventType.DATA_CHANGED);
     }
 
     @Override
@@ -124,6 +132,7 @@ public class SqlAppDataService implements AppDataService {
         } else {
             reviewRepo.update(item);
         }
+        EventBus.publish(EventBus.EventType.DATA_CHANGED);
     }
 
     @Override

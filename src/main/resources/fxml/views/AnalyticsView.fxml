@@ -29,6 +29,7 @@
 
                 <HBox spacing="15" alignment="CENTER_LEFT">
                     <Label fx:id="dateRangeLabel" styleClass="btn-outline" text="..." />
+                    <javafx.scene.control.Button text="↻ Refresh" onAction="#onRefreshData" styleClass="btn-outline" style="-fx-cursor: hand;" />
                     <Label styleClass="btn-new-note" text="Export Report" />
                 </HBox>
             </HBox>
@@ -128,6 +129,8 @@
                     <HBox alignment="CENTER_LEFT" spacing="8">
                         <Label styleClass="card-title" text="Productivity Insights" />
                         <Label text="BETA" style="-fx-background-color: #D1FAE5; -fx-text-fill: #22C55E; -fx-padding: 2 8; -fx-background-radius: 10; -fx-font-size: 10px; -fx-font-weight: bold;" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <javafx.scene.control.Button text="✨ AI Report" onAction="#onGenerateAiReport" styleClass="btn-primary" style="-fx-font-size: 11px; -fx-padding: 4 10; -fx-background-color: #8B5CF6;" />
                     </HBox>
 
                     <VBox fx:id="insightsVBox" spacing="10">

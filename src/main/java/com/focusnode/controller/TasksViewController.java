@@ -18,6 +18,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
+import com.focusnode.util.EventBus;
 
 public class TasksViewController {
 
@@ -60,6 +61,9 @@ public class TasksViewController {
 
         loadEditor();
         loadTasksAsync("");
+        EventBus.subscribe(EventBus.EventType.DATA_CHANGED, e -> 
+            loadTasksAsync(searchField != null ? searchField.getText() : "")
+        );
     }
 
     private void loadEditor() {

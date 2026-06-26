@@ -47,6 +47,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import com.focusnode.model.KnowledgeNode;
+import com.focusnode.util.EventBus;
 
 public class KnowledgeViewController {
 
@@ -65,7 +66,12 @@ public class KnowledgeViewController {
     @FXML private HBox breadcrumbContainer;
     @FXML private Label gridViewBtn;
     @FXML private Label listViewBtn;
+    @FXML private Label graphViewBtn;
     @FXML private StackPane editorContainer;
+    
+    @FXML private VBox graphViewContainer;
+    @FXML private javafx.scene.canvas.Canvas infiniteCanvas;
+    private GraphCanvasController graphController;
     
     @FXML private QuickNoteController quickNoteCardController;
     @FXML private TagsCloudController tagsCloudCardController;
@@ -92,7 +98,7 @@ public class KnowledgeViewController {
     private List<FileResource> currentFiles = new ArrayList<>();
     
     private Folder currentFolder = null; // null means root "My Drive"
-    private boolean isGridView = true;
+    private int viewMode = 0; // 0=Grid, 1=List, 2=Graph
     private boolean isTrashMode = false;
     private int currentFilterType = 0; // 0=All, 1=Folders, 2=Notes & Files
 
@@ -105,9 +111,14 @@ public class KnowledgeViewController {
         setupQuickFilters();
         
         showDashboard();
+        EventBus.subscribe(EventBus.EventType.DATA_CHANGED, e -> loadCurrentFolderData());
         
         if (searchInput != null) {
             searchInput.textProperty().addListener((obs, oldVal, newVal) -> filterContent(newVal));
+        }
+
+        if (infiniteCanvas != null) {
+            graphController = new GraphCanvasController(infiniteCanvas);
         }
 
         if (quickNoteCardController != null) {
@@ -120,13 +131,17 @@ public class KnowledgeViewController {
     }
     
     private void setupViewToggles() {
-        if (gridViewBtn != null && listViewBtn != null) {
+        if (gridViewBtn != null && listViewBtn != null && graphViewBtn != null) {
             gridViewBtn.setOnMouseClicked(e -> {
-                isGridView = true;
+                viewMode = 0;
                 updateViewMode();
             });
             listViewBtn.setOnMouseClicked(e -> {
-                isGridView = false;
+                viewMode = 1;
+                updateViewMode();
+            });
+            graphViewBtn.setOnMouseClicked(e -> {
+                viewMode = 2;
                 updateViewMode();
             });
             updateViewMode();
@@ -168,22 +183,34 @@ public class KnowledgeViewController {
     }
     
     private void updateViewMode() {
-        if (gridViewBtn == null || listViewBtn == null) return;
+        if (gridViewBtn == null || listViewBtn == null || graphViewBtn == null) return;
         
-        if (isGridView) {
+        gridViewBtn.getStyleClass().remove("toggle-btn-active");
+        listViewBtn.getStyleClass().remove("toggle-btn-active");
+        graphViewBtn.getStyleClass().remove("toggle-btn-active");
+        
+        gridContainer.setVisible(false);
+        gridContainer.setManaged(false);
+        listViewContainer.setVisible(false);
+        listViewContainer.setManaged(false);
+        graphViewContainer.setVisible(false);
+        graphViewContainer.setManaged(false);
+
+        if (viewMode == 0) {
             gridViewBtn.getStyleClass().add("toggle-btn-active");
-            listViewBtn.getStyleClass().remove("toggle-btn-active");
             gridContainer.setVisible(true);
             gridContainer.setManaged(true);
-            listViewContainer.setVisible(false);
-            listViewContainer.setManaged(false);
-        } else {
+        } else if (viewMode == 1) {
             listViewBtn.getStyleClass().add("toggle-btn-active");
-            gridViewBtn.getStyleClass().remove("toggle-btn-active");
             listViewContainer.setVisible(true);
             listViewContainer.setManaged(true);
-            gridContainer.setVisible(false);
-            gridContainer.setManaged(false);
+        } else if (viewMode == 2) {
+            graphViewBtn.getStyleClass().add("toggle-btn-active");
+            graphViewContainer.setVisible(true);
+            graphViewContainer.setManaged(true);
+            if (graphController != null) {
+                graphController.setData(allNotes, currentFolders);
+            }
         }
     }
     
@@ -212,7 +239,13 @@ public class KnowledgeViewController {
     }
     
     private String getPhysicalFolderPath(Folder folder) {
-        if (folder == null) return "C:/FocusNode_Vault/";
+        com.focusnode.repository.UserSettingsRepository repo = new com.focusnode.repository.UserSettingsRepository();
+        com.focusnode.model.UserSettings settings = repo.findByUserId(1);
+        String base = (settings != null && settings.getDefaultStoragePath() != null) 
+                ? settings.getDefaultStoragePath() + "/Vault/"
+                : System.getProperty("user.home") + "/FocusNode_Vault/";
+
+        if (folder == null) return base;
         String path = "";
         Folder current = folder;
         while (current != null) {
@@ -223,7 +256,7 @@ public class KnowledgeViewController {
                 current = null;
             }
         }
-        return "C:/FocusNode_Vault/" + path;
+        return base + path;
     }
 
     private void handleDroppedFile(File file) {
@@ -255,6 +288,26 @@ public class KnowledgeViewController {
                 // Add to DB
                 fileRepo.addFile(newFile);
                 
+                // Check if Google Drive Sync is enabled
+                com.focusnode.repository.UserSettingsRepository sRepo = new com.focusnode.repository.UserSettingsRepository();
+                com.focusnode.model.UserSettings settings = sRepo.findByUserId(1);
+                if (settings != null && Boolean.TRUE.equals(settings.getGoogleDriveSyncEnabled())) {
+                    System.out.println("Uploading to Google Drive...");
+                    com.focusnode.service.GoogleDriveService driveService = new com.focusnode.service.GoogleDriveService();
+                    boolean success = driveService.uploadFileToDrive(destPath.toFile());
+                    if (success) {
+                        Platform.runLater(() -> {
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION, "File uploaded to Google Drive successfully!");
+                            alert.show();
+                        });
+                    } else {
+                        Platform.runLater(() -> {
+                            Alert alert = new Alert(Alert.AlertType.ERROR, "Failed to upload to Google Drive.");
+                            alert.show();
+                        });
+                    }
+                }
+
                 // Refresh
                 Platform.runLater(this::loadCurrentFolderData);
                 
@@ -315,6 +368,9 @@ public class KnowledgeViewController {
                     } else {
                         updateBreadcrumbs(path);
                         filterContent(searchInput != null ? searchInput.getText() : "");
+                        if (viewMode == 2 && graphController != null) {
+                            graphController.setData(allNotes, currentFolders);
+                        }
                     }
                 });
             } catch (Exception e) {
@@ -1038,7 +1094,11 @@ public class KnowledgeViewController {
                 java.util.List<com.focusnode.model.LanTransferHistory> history = repo.getHistoryByUserId(1);
                 
                 java.util.List<com.focusnode.model.FileResource> sharedFiles = new java.util.ArrayList<>();
-                String downloadsPath = System.getProperty("user.home") + java.io.File.separator + "Downloads" + java.io.File.separator + "FocusNode";
+                com.focusnode.repository.UserSettingsRepository sRepo = new com.focusnode.repository.UserSettingsRepository();
+                com.focusnode.model.UserSettings settings = sRepo.findByUserId(1);
+                String downloadsPath = (settings != null && settings.getDefaultStoragePath() != null) 
+                        ? settings.getDefaultStoragePath() 
+                        : System.getProperty("user.home") + java.io.File.separator + "Downloads" + java.io.File.separator + "FocusNode";
                 
                 int pseudoId = -1000;
                 for (com.focusnode.model.LanTransferHistory h : history) {
@@ -1068,7 +1128,7 @@ public class KnowledgeViewController {
                     } else {
                         filesSection.setVisible(true);
                         filesSection.setManaged(true);
-                        if (isGridView) {
+                        if (viewMode == 0) {
                             for (com.focusnode.model.FileResource file : sharedFiles) {
                                 filesFlowPane.getChildren().add(createFileCard(file));
                             }
