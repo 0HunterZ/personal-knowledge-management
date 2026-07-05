@@ -85,6 +85,7 @@ public class AnalyticsViewController {
     private void loadData() {
         com.focusnode.util.AsyncExecutor.execute(() -> {
             DashboardMetrics metrics = ServiceLocator.getAppDataService().getDashboardMetrics();
+            injectRealTimeMetrics(metrics);
             Platform.runLater(() -> {
                 this.currentMetrics = metrics;
                 updateSummary(metrics);
@@ -95,6 +96,20 @@ public class AnalyticsViewController {
                 updateSidebarFocusCard(metrics);
             });
         });
+    }
+
+    private void injectRealTimeMetrics(DashboardMetrics metrics) {
+        com.focusnode.service.PomodoroEngine engine = ServiceLocator.getPomodoroEngine();
+        if (engine != null && engine.getSessionStartTime() != null && "Focus".equals(engine.currentPhaseProperty().get())) {
+            int elapsedSeconds = (engine.focusDurationProperty().get() * 60) - engine.secondsRemainingProperty().get();
+            int elapsedMinutes = elapsedSeconds / 60;
+            if (elapsedMinutes > 0) {
+                String todayName = java.time.LocalDate.now().getDayOfWeek().getDisplayName(java.time.format.TextStyle.FULL, java.util.Locale.ENGLISH);
+                java.util.Map<String, Integer> daily = metrics.getDailyFocusMinutesThisWeek();
+                daily.put(todayName, daily.getOrDefault(todayName, 0) + elapsedMinutes);
+                metrics.setTotalFocusMinutesThisWeek(metrics.getTotalFocusMinutesThisWeek() + elapsedMinutes);
+            }
+        }
     }
 
     private void updateSummary(DashboardMetrics metrics) {
@@ -497,7 +512,16 @@ public class AnalyticsViewController {
     }
 
     @FXML
-    public void onRefreshData() {
-        loadData();
+    public void onRefreshDailyChart() {
+        com.focusnode.util.AsyncExecutor.execute(() -> {
+            DashboardMetrics metrics = ServiceLocator.getAppDataService().getDashboardMetrics();
+            injectRealTimeMetrics(metrics);
+            Platform.runLater(() -> {
+                this.currentMetrics = metrics;
+                updateSummary(metrics);
+                updateBarChart(metrics);
+                updateSidebarFocusCard(metrics);
+            });
+        });
     }
 }

@@ -29,7 +29,6 @@
 
                 <HBox spacing="15" alignment="CENTER_LEFT">
                     <Label fx:id="dateRangeLabel" styleClass="btn-outline" text="..." />
-                    <javafx.scene.control.Button text="↻ Refresh" onAction="#onRefreshData" styleClass="btn-outline" style="-fx-cursor: hand;" />
                     <Label styleClass="btn-new-note" text="Export Report" />
                 </HBox>
             </HBox>
@@ -96,7 +95,7 @@
                     <HBox alignment="CENTER_LEFT">
                         <Label styleClass="card-title" text="Focus Time Over Time" />
                         <Region HBox.hgrow="ALWAYS" />
-                        <Label styleClass="btn-outline" style="-fx-padding: 4 10;" text="Daily" />
+                        <Label styleClass="btn-outline" style="-fx-padding: 4 10; -fx-cursor: hand;" text="Daily" onMouseClicked="#onRefreshDailyChart" />
                     </HBox>
 
                     <HBox fx:id="barChartHBox" alignment="BOTTOM_CENTER" spacing="24" style="-fx-padding: 10 10 0 10; -fx-min-height: 190;">

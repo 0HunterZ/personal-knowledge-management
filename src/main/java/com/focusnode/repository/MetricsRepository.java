@@ -115,19 +115,32 @@ public class MetricsRepository {
     public com.focusnode.model.DashboardMetrics getDashboardMetrics(int userId) {
         com.focusnode.model.DashboardMetrics metrics = new com.focusnode.model.DashboardMetrics();
         
+        java.time.LocalDate today = java.time.LocalDate.now();
+        java.time.LocalDate mondayThisWeek = today.with(java.time.temporal.TemporalAdjusters.previousOrSame(java.time.DayOfWeek.MONDAY));
+        java.time.LocalDate mondayLastWeek = mondayThisWeek.minusDays(7);
+        java.sql.Date thisWeekStart = java.sql.Date.valueOf(mondayThisWeek);
+        java.sql.Date lastWeekStart = java.sql.Date.valueOf(mondayLastWeek);
+
         try (Connection conn = DatabaseManager.getConnection()) {
             // 1. Total Focus Time and Sessions (Current Week vs Last Week)
             String sqlFocus = """
                 SELECT 
-                    SUM(CASE WHEN StartedAt >= DATEADD(day, -7, GETDATE()) THEN ActualMinutes ELSE 0 END) as FocusThisWeek,
-                    SUM(CASE WHEN StartedAt >= DATEADD(day, -14, GETDATE()) AND StartedAt < DATEADD(day, -7, GETDATE()) THEN ActualMinutes ELSE 0 END) as FocusLastWeek,
-                    SUM(CASE WHEN StartedAt >= DATEADD(day, -7, GETDATE()) THEN 1 ELSE 0 END) as SessionsThisWeek,
-                    SUM(CASE WHEN StartedAt >= DATEADD(day, -14, GETDATE()) AND StartedAt < DATEADD(day, -7, GETDATE()) THEN 1 ELSE 0 END) as SessionsLastWeek
+                    SUM(CASE WHEN StartedAt >= ? THEN ActualMinutes ELSE 0 END) as FocusThisWeek,
+                    SUM(CASE WHEN StartedAt >= ? AND StartedAt < ? THEN ActualMinutes ELSE 0 END) as FocusLastWeek,
+                    SUM(CASE WHEN StartedAt >= ? THEN 1 ELSE 0 END) as SessionsThisWeek,
+                    SUM(CASE WHEN StartedAt >= ? AND StartedAt < ? THEN 1 ELSE 0 END) as SessionsLastWeek
                 FROM dbo.FocusSessions
-                WHERE UserId = ? AND ActualMinutes > 0 AND StartedAt >= DATEADD(day, -14, GETDATE())
+                WHERE UserId = ? AND ActualMinutes > 0 AND StartedAt >= ?
             """;
             try (PreparedStatement pstmt = conn.prepareStatement(sqlFocus)) {
-                pstmt.setInt(1, userId);
+                pstmt.setDate(1, thisWeekStart);
+                pstmt.setDate(2, lastWeekStart);
+                pstmt.setDate(3, thisWeekStart);
+                pstmt.setDate(4, thisWeekStart);
+                pstmt.setDate(5, lastWeekStart);
+                pstmt.setDate(6, thisWeekStart);
+                pstmt.setInt(7, userId);
+                pstmt.setDate(8, lastWeekStart);
                 try (ResultSet rs = pstmt.executeQuery()) {
                     if (rs.next()) {
                         metrics.setTotalFocusMinutesThisWeek(rs.getInt("FocusThisWeek"));
@@ -143,10 +156,11 @@ public class MetricsRepository {
                 SELECT 
                     CAST(SUM(CASE WHEN StatusId = 3 THEN 1 ELSE 0 END) AS FLOAT) / NULLIF(COUNT(*), 0) as RateThisWeek
                 FROM dbo.Tasks
-                WHERE UserId = ? AND IsDeleted = 0 AND CreatedAt >= DATEADD(day, -7, GETDATE())
+                WHERE UserId = ? AND IsDeleted = 0 AND CreatedAt >= ?
             """;
             try (PreparedStatement pstmt = conn.prepareStatement(sqlTasks)) {
                 pstmt.setInt(1, userId);
+                pstmt.setDate(2, thisWeekStart);
                 try (ResultSet rs = pstmt.executeQuery()) {
                     if (rs.next()) {
                         metrics.setTaskCompletionRateThisWeek(rs.getDouble("RateThisWeek"));
@@ -176,10 +190,11 @@ public class MetricsRepository {
                 SELECT 
                     CAST(SUM(ActualMinutes) AS FLOAT) / NULLIF(SUM(PlannedMinutes), 0) * 5.0 as Score
                 FROM dbo.FocusSessions
-                WHERE UserId = ? AND ActualMinutes > 0 AND StartedAt >= DATEADD(day, -7, GETDATE())
+                WHERE UserId = ? AND ActualMinutes > 0 AND StartedAt >= ?
             """;
             try (PreparedStatement pstmt = conn.prepareStatement(sqlScore)) {
                 pstmt.setInt(1, userId);
+                pstmt.setDate(2, thisWeekStart);
                 try (ResultSet rs = pstmt.executeQuery()) {
                     if (rs.next()) {
                         double score = rs.getDouble("Score");
@@ -196,11 +211,12 @@ public class MetricsRepository {
                     DATENAME(weekday, StartedAt) as DayName,
                     SUM(ActualMinutes) as TotalMinutes
                 FROM dbo.FocusSessions
-                WHERE UserId = ? AND StartedAt >= DATEADD(day, -7, GETDATE())
+                WHERE UserId = ? AND StartedAt >= ?
                 GROUP BY DATENAME(weekday, StartedAt)
             """;
             try (PreparedStatement pstmt = conn.prepareStatement(sqlDaily)) {
                 pstmt.setInt(1, userId);
+                pstmt.setDate(2, thisWeekStart);
                 try (ResultSet rs = pstmt.executeQuery()) {
                     while (rs.next()) {
                         metrics.getDailyFocusMinutesThisWeek().put(rs.getString("DayName"), rs.getInt("TotalMinutes"));
@@ -220,11 +236,12 @@ public class MetricsRepository {
                     SELECT TaskId, MIN(TagId) as TagId FROM dbo.TaskTags GROUP BY TaskId
                 ) tt ON s.TaskId = tt.TaskId
                 LEFT JOIN dbo.Tags t ON tt.TagId = t.TagId
-                WHERE s.UserId = ? AND s.ActualMinutes > 0 AND s.StartedAt >= DATEADD(day, -7, GETDATE())
+                WHERE s.UserId = ? AND s.ActualMinutes > 0 AND s.StartedAt >= ?
                 GROUP BY COALESCE(t.Name, sub.Name, 'Uncategorized')
             """;
             try (PreparedStatement pstmt = conn.prepareStatement(sqlCategory)) {
                 pstmt.setInt(1, userId);
+                pstmt.setDate(2, thisWeekStart);
                 try (ResultSet rs = pstmt.executeQuery()) {
                     while (rs.next()) {
                         metrics.getCategoryFocusMinutesThisWeek().put(rs.getString("CategoryName"), rs.getInt("TotalMinutes"));

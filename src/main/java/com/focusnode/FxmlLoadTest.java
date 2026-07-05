@@ -1,5 +1,4 @@
 package com.focusnode;
-
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
